@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<device>
+    <group id="1" permission="RR">
+        <name>Garage door</name>
+        <room>Outside</room>
+    </group>
+    <group id="2" permission="WR">
+        <gui_element id="1">
+            <type>toggle</type>
+            <label>Open/Close</label>
+            <value>1</value>
+        </gui_element>
+        <gui_element id="2">
+            <type>progress</type>
+            <label>Position</label>
+            <value>2</value>
+        </gui_element>
+        <gui_element id="3">
+            <type>toggle</type>
+            <label>Lock/Unlock</label>
+            <value>3</value>
+        </gui_element>
+    </group>
+    <group id="3" permisison="WN">
+        <gui_element id="4">
+            <type>Spinner</type>
+            <label>move door</label>
+            <value>1</value>
+        </gui_element>
+    </group>
+</device>
