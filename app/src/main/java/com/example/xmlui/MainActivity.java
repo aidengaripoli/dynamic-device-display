@@ -83,29 +83,19 @@ public class MainActivity extends AppCompatActivity {
         // use the label string as the key, which will return the view ID
         int lockButtonId = elements.get("Lock/Unlock");
         Button lockButton = findViewById(lockButtonId);
-        lockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        "Lock/Unlock button clicked.",
-                        Toast.LENGTH_SHORT
-                ).show();
-            }
-        });
+        lockButton.setOnClickListener(v -> Toast.makeText(
+                getApplicationContext(),
+                "Lock/Unlock button clicked.",
+                Toast.LENGTH_SHORT
+        ).show());
 
         int openButtonId = elements.get("Open/Close");
         Button openButton = findViewById(openButtonId);
-        openButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        "Open/Close button clicked.",
-                        Toast.LENGTH_SHORT
-                ).show();
-            }
-        });
+        openButton.setOnClickListener(v -> Toast.makeText(
+                getApplicationContext(),
+                "Open/Close button clicked.",
+                Toast.LENGTH_SHORT
+        ).show());
     }
 
     private ViewGroup generateGroupLayout(Element element) {
