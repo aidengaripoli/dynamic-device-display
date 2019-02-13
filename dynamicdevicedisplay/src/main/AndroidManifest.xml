@@ -3,7 +3,7 @@
     package="me.aidengaripoli.dynamicdevicedisplay">
 
     <application>
-        <activity android:name=".DeviceActivity"></activity>
+        <activity android:name=".DeviceActivity" />
     </application>
 
 </manifest>

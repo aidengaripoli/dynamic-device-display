@@ -1,12 +1,13 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
 
@@ -20,14 +21,13 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class ToggleFragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
+    private static final String ARG_LABEL = "label";
+    private static final String ARG_STATE = "state";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mLabel;
+    private boolean mState;
 
     private OnFragmentInteractionListener mListener;
 
@@ -39,16 +39,15 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param label Parameter 1.
      * @return A new instance of fragment ToggleFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ToggleFragment newInstance(String param1, String param2) {
+    public static ToggleFragment newInstance(String label, boolean state) {
         ToggleFragment fragment = new ToggleFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_LABEL, label);
+        args.putBoolean(ARG_STATE, state);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,8 +56,8 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mLabel = getArguments().getString(ARG_LABEL);
+            mState = getArguments().getBoolean(ARG_STATE);
         }
     }
 
@@ -68,7 +67,12 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_toggle, container, false);
 
-        view.findViewById(R.id.toggle_button).setOnClickListener(this);
+        TextView label = view.findViewById(R.id.toggle_label);
+        label.setText(mLabel);
+
+        Button toggleButton = view.findViewById(R.id.toggle_button);
+        toggleButton.setText(mState ? "OFF" : "ON"); // TODO: change this
+        toggleButton.setOnClickListener(this);
 
         return view;
     }
@@ -76,7 +80,7 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed() {
         if (mListener != null) {
-            mListener.onFragmentInteraction();
+            mListener.onFragmentInteraction(new ToggleFragmentState(mState, mLabel));
         }
     }
 
@@ -99,7 +103,10 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        mListener.onFragmentInteraction();
+        mState = !mState;
+        ((Button) v).setText(mState ? "OFF" : "ON");
+
+        onButtonPressed();
     }
 
     /**
@@ -114,6 +121,6 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction();
+        void onFragmentInteraction(ToggleFragmentState state);
     }
 }
