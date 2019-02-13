@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.w3c.dom.Document;
@@ -20,20 +17,18 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
-import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragmentState;
 
-public class DeviceActivity extends FragmentActivity
-        implements ToggleFragment.OnFragmentInteractionListener {
+public class DeviceActivity extends FragmentActivity implements
+        ToggleFragment.OnFragmentInteractionListener,
+        ProgressFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "DeviceActivity";
-
-    private HashMap<String, Integer> elements = new HashMap<>();
 
     private FragmentManager fragmentManager;
 
@@ -132,7 +127,7 @@ public class DeviceActivity extends FragmentActivity
         // get the elements label value
         NodeList nodeList = element.getElementsByTagName("label").item(0).getChildNodes();
         Node node = nodeList.item(0);
-        String labelValue = node.getNodeValue();
+        String label = node.getNodeValue();
 
         // get the element type
         Node typeNode = element.getElementsByTagName("type").item(0)
@@ -142,7 +137,11 @@ public class DeviceActivity extends FragmentActivity
         // return an android widget based on element type
         switch (type) {
             case "toggle": {
-                return ToggleFragment.newInstance(labelValue, false);
+                return ToggleFragment.newInstance(label, false);
+            }
+
+            case "progress": {
+                return ProgressFragment.newInstance(label, 30);
             }
 
             default: {
@@ -153,10 +152,19 @@ public class DeviceActivity extends FragmentActivity
     }
 
     @Override
-    public void onFragmentInteraction(ToggleFragmentState state) {
+    public void onFragmentInteraction(String label, boolean state) {
         Toast.makeText(
                 getApplicationContext(),
-                state.getLabel() + " state is now: " + state.getState(),
+                label + " state is now: " + state,
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+
+    @Override
+    public void onFragmentInteraction(String label, int value) {
+        Toast.makeText(
+                getApplicationContext(),
+                label + " progress is now: " + value,
                 Toast.LENGTH_SHORT
         ).show();
     }

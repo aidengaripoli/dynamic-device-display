@@ -7,32 +7,32 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ToggleFragment.OnFragmentInteractionListener} interface
+ * {@link ProgressFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ToggleFragment#newInstance} factory method to
+ * Use the {@link ProgressFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ToggleFragment extends Fragment implements View.OnClickListener {
-
+public class ProgressFragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_LABEL = "label";
-    private static final String ARG_STATE = "state";
+    private static final String ARG_VALUE = "value";
 
     // TODO: Rename and change types of parameters
     private String mLabel;
-    private boolean mState;
+    private int mValue;
 
     private OnFragmentInteractionListener mListener;
 
-    public ToggleFragment() {
+    public ProgressFragment() {
         // Required empty public constructor
     }
 
@@ -41,14 +41,15 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
      * this fragment using the provided parameters.
      *
      * @param label Parameter 1.
-     * @return A new instance of fragment ToggleFragment.
+     * @param value Parameter 2.
+     * @return A new instance of fragment ProgressFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ToggleFragment newInstance(String label, boolean state) {
-        ToggleFragment fragment = new ToggleFragment();
+    public static ProgressFragment newInstance(String label, int value) {
+        ProgressFragment fragment = new ProgressFragment();
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, label);
-        args.putBoolean(ARG_STATE, state);
+        args.putInt(ARG_VALUE, value);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,7 +59,7 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mLabel = getArguments().getString(ARG_LABEL);
-            mState = getArguments().getBoolean(ARG_STATE);
+            mValue = getArguments().getInt(ARG_VALUE);
         }
     }
 
@@ -66,22 +67,21 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_toggle, container, false);
+        View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
-        TextView label = view.findViewById(R.id.toggle_label);
+        TextView label = view.findViewById(R.id.progress_label);
         label.setText(mLabel);
 
-        Button toggleButton = view.findViewById(R.id.toggle_button);
-        toggleButton.setText(mState ? "ON" : "OFF"); // TODO: change this
-        toggleButton.setOnClickListener(this);
+        ProgressBar progressValue = view.findViewById(R.id.progress_value);
+        progressValue.setProgress(mValue);
 
         return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed() {
+    public void onProgressChanged() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(mLabel, mState);
+            mListener.onFragmentInteraction(mLabel, mValue);
         }
     }
 
@@ -102,14 +102,6 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
         mListener = null;
     }
 
-    @Override
-    public void onClick(View v) {
-        mState = !mState;
-        ((Button) v).setText(mState ? "ON" : "OFF");
-
-        onButtonPressed();
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -122,6 +114,6 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(String label, boolean state);
+        void onFragmentInteraction(String label, int value);
     }
 }
