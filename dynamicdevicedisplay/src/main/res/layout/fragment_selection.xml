@@ -5,18 +5,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".elements.ProgressFragment"
+    tools:context=".elements.SelectionFragment"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/progress_label"
+        android:id="@+id/selection_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="--" />
 
-    <ProgressBar
-        android:id="@+id/progress_value"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    <Spinner
+        android:id="@+id/selection_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

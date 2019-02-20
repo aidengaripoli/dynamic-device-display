@@ -26,9 +26,11 @@ public class ProgressFragment extends Fragment {
     private static final String ARG_LABEL = "label";
     private static final String ARG_VALUE = "value";
 
-    // TODO: Rename and change types of parameters
     private String mLabel;
     private int mValue;
+
+    private ProgressBar progressValue;
+    private TextView label;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,10 +71,10 @@ public class ProgressFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
-        TextView label = view.findViewById(R.id.progress_label);
+        label = view.findViewById(R.id.progress_label);
         label.setText(mLabel);
 
-        ProgressBar progressValue = view.findViewById(R.id.progress_value);
+        progressValue = view.findViewById(R.id.progress_value);
         progressValue.setProgress(mValue);
 
         return view;

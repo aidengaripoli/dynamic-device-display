@@ -23,7 +23,7 @@
     </group>
     <group id="3" permisison="WN">
         <gui_element id="4">
-            <type>spinner</type>
+            <type>selection</type>
             <label>move door</label>
             <value>1</value>
         </gui_element>
