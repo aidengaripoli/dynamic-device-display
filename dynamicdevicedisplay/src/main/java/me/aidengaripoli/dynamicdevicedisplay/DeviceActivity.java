@@ -1,5 +1,6 @@
 package me.aidengaripoli.dynamicdevicedisplay;
 
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -22,13 +23,19 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragment;
 
 public class DeviceActivity extends FragmentActivity implements
         ToggleFragment.OnFragmentInteractionListener,
-        ProgressFragment.OnFragmentInteractionListener {
+        ProgressFragment.OnFragmentInteractionListener,
+        SelectionFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "DeviceActivity";
+
+    private static final String TOGGLE = "toggle";
+    private static final String PROGRESS = "progress";
+    private static final String SELECTION = "selection";
 
     private FragmentManager fragmentManager;
 
@@ -134,14 +141,18 @@ public class DeviceActivity extends FragmentActivity implements
                 .getChildNodes().item(0);
         String type = typeNode.getNodeValue().toLowerCase().trim();
 
-        // return an android widget based on element type
+        // return an element based on xml element type
         switch (type) {
-            case "toggle": {
+            case TOGGLE: {
                 return ToggleFragment.newInstance(label, false);
             }
 
-            case "progress": {
+            case PROGRESS: {
                 return ProgressFragment.newInstance(label, 30);
+            }
+
+            case SELECTION: {
+                return SelectionFragment.newInstance(label, "memes", new String[] { "one", "two", "three" });
             }
 
             default: {
@@ -165,6 +176,15 @@ public class DeviceActivity extends FragmentActivity implements
         Toast.makeText(
                 getApplicationContext(),
                 label + " progress is now: " + value,
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+
+    @Override
+    public void onFragmentInteraction(String label, String value) {
+        Toast.makeText(
+                getApplicationContext(),
+                label + " spinner is now: " + value,
                 Toast.LENGTH_SHORT
         ).show();
     }

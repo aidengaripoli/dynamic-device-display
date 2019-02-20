@@ -7,34 +7,36 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ToggleFragment.OnFragmentInteractionListener} interface
+ * {@link SelectionFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ToggleFragment#newInstance} factory method to
+ * Use the {@link SelectionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ToggleFragment extends Fragment implements View.OnClickListener {
-
+public class SelectionFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private static final String ARG_LABEL = "label";
-    private static final String ARG_STATE = "state";
+    private static final String ARG_VALUE = "value";
+    private static final String ARG_ITEMS = "items";
 
     private String mLabel;
-    private boolean mState;
+    private String mValue;
+    private String[] mItems;
 
-    private Button toggleButton;
+    private Spinner selection;
     private TextView label;
 
     private OnFragmentInteractionListener mListener;
 
-    public ToggleFragment() {
+    public SelectionFragment() {
         // Required empty public constructor
     }
 
@@ -43,14 +45,16 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
      * this fragment using the provided parameters.
      *
      * @param label Parameter 1.
-     * @return A new instance of fragment ToggleFragment.
+     * @param value Parameter 2.
+     * @return A new instance of fragment SelectionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ToggleFragment newInstance(String label, boolean state) {
-        ToggleFragment fragment = new ToggleFragment();
+    public static SelectionFragment newInstance(String label, String value, String[] items) {
+        SelectionFragment fragment = new SelectionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, label);
-        args.putBoolean(ARG_STATE, state);
+        args.putString(ARG_VALUE, value);
+        args.putStringArray(ARG_ITEMS, items);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,7 +64,8 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mLabel = getArguments().getString(ARG_LABEL);
-            mState = getArguments().getBoolean(ARG_STATE);
+            mValue = getArguments().getString(ARG_VALUE);
+            mItems = getArguments().getStringArray(ARG_ITEMS);
         }
     }
 
@@ -68,22 +73,26 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_toggle, container, false);
+        View view = inflater.inflate(R.layout.fragment_selection, container, false);
 
-        label = view.findViewById(R.id.toggle_label);
+        label = view.findViewById(R.id.selection_label);
         label.setText(mLabel);
 
-        toggleButton = view.findViewById(R.id.toggle_button);
-        toggleButton.setText(mState ? "ON" : "OFF"); // TODO: change this
-        toggleButton.setOnClickListener(this);
+        selection = view.findViewById(R.id.selection_value);
+        selection.setOnItemSelectedListener(this);
+        selection.setAdapter(new ArrayAdapter<>(
+                getActivity(),
+                android.R.layout.simple_dropdown_item_1line,
+                mItems
+        ));
 
         return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed() {
+    public void onItemSelected() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(mLabel, mState);
+            mListener.onFragmentInteraction(mLabel, mValue);
         }
     }
 
@@ -105,11 +114,15 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        mState = !mState;
-        toggleButton.setText(mState ? "ON" : "OFF");
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        mValue = (String) parent.getItemAtPosition(position);
 
-        onButtonPressed();
+        onItemSelected();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     /**
@@ -123,7 +136,6 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(String label, boolean state);
+        void onFragmentInteraction(String label, String value);
     }
 }

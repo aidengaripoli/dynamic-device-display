@@ -1,7 +1,3 @@
 <resources>
     <string name="app_name">DynamicDeviceDisplay</string>
-
-    <!-- this text will be dynamic -->
-    <string name="fragment_toggle_text">--</string>
-    <string name="fragment_toggle_button">OFF</string>
 </resources>
