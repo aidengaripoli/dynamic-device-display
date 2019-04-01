@@ -4,13 +4,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.SeekBar;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Element;
@@ -21,12 +18,12 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SliderFragment.OnFragmentInteractionListener} interface
+ * {@link PlusMinusFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SliderFragment#newInstance} factory method to
+ * Use the {@link PlusMinusFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SliderFragment extends Fragment {
+public class PlusMinusFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "label";
@@ -34,19 +31,16 @@ public class SliderFragment extends Fragment {
     private static final String ARG_PARAM3 = "max";
     private static final String ARG_PARAM4 = "min";
 
+    private TextView value;
+
     private String label;
-    private int value;
+    private int currentValue;
     private int max;
     private int min;
-    private int range;
-
-    private TextView labelView;
-    private EditText valueView;
-    private SeekBar seekBarView;
 
     private OnFragmentInteractionListener mListener;
 
-    public SliderFragment() {
+    public PlusMinusFragment() {
         // Required empty public constructor
     }
 
@@ -55,11 +49,11 @@ public class SliderFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param element Parameter 1.
-     * @return A new instance of fragment SliderFragment.
+     * @return A new instance of fragment PlusMinusFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SliderFragment newInstance(Element element) {
-        SliderFragment fragment = new SliderFragment();
+    public static PlusMinusFragment newInstance(Element element) {
+        PlusMinusFragment fragment = new PlusMinusFragment();
 
         Node node = element.getElementsByTagName(ARG_PARAM1).item(0).getChildNodes().item(0);
         String label = node.getNodeValue().toLowerCase().trim();
@@ -83,8 +77,8 @@ public class SliderFragment extends Fragment {
         args.putInt(ARG_PARAM2, valInt);
         args.putInt(ARG_PARAM3, maxInt);
         args.putInt(ARG_PARAM4, minInt);
-        fragment.setArguments(args);
 
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -93,79 +87,34 @@ public class SliderFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             label = getArguments().getString(ARG_PARAM1);
-            value = getArguments().getInt(ARG_PARAM2);
+            currentValue = getArguments().getInt(ARG_PARAM2);
             max = getArguments().getInt(ARG_PARAM3);
             min = getArguments().getInt(ARG_PARAM4);
-
-            range = max - min;
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_slider, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_plus_minus, container, false);
 
-        labelView = view.findViewById(R.id.slider_label);
+        value = view.findViewById(R.id.plusMinusValue);
+        Button plusButton = view.findViewById(R.id.plus);
+        Button minusButton = view.findViewById(R.id.minus);
+        TextView labelView = view.findViewById(R.id.plusMinusLabel);
+
+        value.setText(String.valueOf(currentValue));
         labelView.setText(label);
 
-        valueView = view.findViewById(R.id.slider_value);
-        seekBarView = view.findViewById(R.id.slider);
-
-        valueView.setText(String.valueOf(value));
-
-        float progress = (float) (value - min) / range * 100;
-        seekBarView.setProgress((int) progress);
-
-        valueView.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String value = valueView.getText().toString();
-                int numValue;
-
-                if (value.isEmpty()) {
-                    numValue = min;
-                } else {
-                    numValue = Integer.parseInt(value);
-
-                    if (numValue < min) {
-                        numValue = min;
-                    } else if (numValue > max) {
-                        numValue = max;
-                    }
-                }
-                valueView.setText(String.valueOf(numValue));
-
-                final float sliderProgress = (float) (numValue - min) / range * 100;
-                seekBarView.setProgress((int) sliderProgress);
-            }
-            return true;
-        });
-
-        seekBarView.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int value = (int) (range * ((float) progress / 100) + min);
-                valueView.setText(String.valueOf(value));
-            }
-        });
+        plusButton.setOnClickListener(this);
+        minusButton.setOnClickListener(this);
 
         return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
-        Log.d("slider", "slider moved");
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
@@ -187,6 +136,19 @@ public class SliderFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.plus){
+            if(currentValue < max)
+                currentValue++;
+        }else if(v.getId() == R.id.minus){
+            if(currentValue > min)
+                currentValue--;
+        }
+        value.setText(String.valueOf(currentValue));
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
