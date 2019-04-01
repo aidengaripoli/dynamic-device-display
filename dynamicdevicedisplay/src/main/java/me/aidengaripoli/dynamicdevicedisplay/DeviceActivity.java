@@ -22,6 +22,7 @@ import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SliderFragment;
@@ -31,7 +32,8 @@ public class DeviceActivity extends FragmentActivity implements
         ToggleFragment.OnFragmentInteractionListener,
         ProgressFragment.OnFragmentInteractionListener,
         SelectionFragment.OnFragmentInteractionListener,
-        SliderFragment.OnFragmentInteractionListener{
+        SliderFragment.OnFragmentInteractionListener,
+        PlusMinusFragment.OnFragmentInteractionListener{
 
     private static final String TAG = "DeviceActivity";
 
@@ -39,6 +41,7 @@ public class DeviceActivity extends FragmentActivity implements
     private static final String PROGRESS = "progress";
     private static final String SELECTION = "selection";
     private static final String SLIDER = "slider";
+    private static final String PLUS_MINUS = "plusminus";
 
     private FragmentManager fragmentManager;
 
@@ -144,6 +147,7 @@ public class DeviceActivity extends FragmentActivity implements
                 .getChildNodes().item(0);
         String type = typeNode.getNodeValue().toLowerCase().trim();
 
+        Log.d(TAG, "generateGuiElement: " + type);
         // return an element based on xml element type
         switch (type) {
             case TOGGLE: {
@@ -160,6 +164,10 @@ public class DeviceActivity extends FragmentActivity implements
 
             case SLIDER: {
                 return SliderFragment.newInstance(element);
+            }
+
+            case PLUS_MINUS: {
+                return PlusMinusFragment.newInstance(element);
             }
 
             default: {
