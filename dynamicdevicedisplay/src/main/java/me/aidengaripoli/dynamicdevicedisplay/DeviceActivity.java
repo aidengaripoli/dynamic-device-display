@@ -1,11 +1,11 @@
 package me.aidengaripoli.dynamicdevicedisplay;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,18 +24,21 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.SliderFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragment;
 
 public class DeviceActivity extends FragmentActivity implements
         ToggleFragment.OnFragmentInteractionListener,
         ProgressFragment.OnFragmentInteractionListener,
-        SelectionFragment.OnFragmentInteractionListener {
+        SelectionFragment.OnFragmentInteractionListener,
+        SliderFragment.OnFragmentInteractionListener{
 
     private static final String TAG = "DeviceActivity";
 
     private static final String TOGGLE = "toggle";
     private static final String PROGRESS = "progress";
     private static final String SELECTION = "selection";
+    private static final String SLIDER = "slider";
 
     private FragmentManager fragmentManager;
 
@@ -155,6 +158,10 @@ public class DeviceActivity extends FragmentActivity implements
                 return SelectionFragment.newInstance(label, "memes", new String[] { "one", "two", "three" });
             }
 
+            case SLIDER: {
+                return SliderFragment.newInstance(element);
+            }
+
             default: {
                 // TODO: handle invalid element type
                 return null;
@@ -185,6 +192,16 @@ public class DeviceActivity extends FragmentActivity implements
         Toast.makeText(
                 getApplicationContext(),
                 label + " spinner is now: " + value,
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Toast.makeText(
+                getApplicationContext(),
+                " slider is now: ",
                 Toast.LENGTH_SHORT
         ).show();
     }
