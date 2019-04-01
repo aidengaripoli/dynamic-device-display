@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".elements.DirectionalArrowsFragment">
+
+    <Button
+        android:id="@+id/direcButtonN"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:layout_weight="1"
+        android:text="@string/n"
+        app:layout_constraintBottom_toTopOf="@+id/direcButtonS"
+        app:layout_constraintEnd_toStartOf="@+id/direcButtonE"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toEndOf="@+id/direcButtonW" />
+
+    <Button
+        android:id="@+id/direcButtonE"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:text="@string/e"
+        app:layout_constraintBottom_toTopOf="@+id/direcButtonS"
+        app:layout_constraintStart_toEndOf="@+id/direcButtonW"
+        app:layout_constraintTop_toBottomOf="@+id/direcButtonN" />
+
+    <Button
+        android:id="@+id/direcButtonS"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:text="@string/s"
+        app:layout_constraintEnd_toStartOf="@+id/direcButtonE"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toEndOf="@+id/direcButtonW"
+        app:layout_constraintTop_toBottomOf="@+id/direcButtonN" />
+
+    <Button
+        android:id="@+id/direcButtonW"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:text="@string/w"
+        app:layout_constraintBottom_toTopOf="@+id/direcButtonS"
+        app:layout_constraintEnd_toStartOf="@+id/direcButtonE"
+        app:layout_constraintTop_toBottomOf="@+id/direcButtonN" />
+</android.support.constraint.ConstraintLayout>

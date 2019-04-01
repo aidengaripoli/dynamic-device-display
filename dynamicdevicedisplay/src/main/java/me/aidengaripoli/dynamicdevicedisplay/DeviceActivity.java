@@ -22,6 +22,7 @@ import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalArrowsFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
@@ -33,7 +34,8 @@ public class DeviceActivity extends FragmentActivity implements
         ProgressFragment.OnFragmentInteractionListener,
         SelectionFragment.OnFragmentInteractionListener,
         SliderFragment.OnFragmentInteractionListener,
-        PlusMinusFragment.OnFragmentInteractionListener{
+        PlusMinusFragment.OnFragmentInteractionListener,
+        DirectionalArrowsFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "DeviceActivity";
 
@@ -42,6 +44,7 @@ public class DeviceActivity extends FragmentActivity implements
     private static final String SELECTION = "selection";
     private static final String SLIDER = "slider";
     private static final String PLUS_MINUS = "plusminus";
+    private static final String DIRECTIONAL_ARROWS = "directionalarrows";
 
     private FragmentManager fragmentManager;
 
@@ -170,6 +173,10 @@ public class DeviceActivity extends FragmentActivity implements
                 return PlusMinusFragment.newInstance(element);
             }
 
+            case DIRECTIONAL_ARROWS: {
+                return DirectionalArrowsFragment.newInstance();
+            }
+
             default: {
                 // TODO: handle invalid element type
                 return null;
@@ -210,6 +217,15 @@ public class DeviceActivity extends FragmentActivity implements
         Toast.makeText(
                 getApplicationContext(),
                 " slider is now: ",
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+
+    @Override
+    public void onFragmentInteraction(String buttonPressed) {
+        Toast.makeText(
+                getApplicationContext(),
+                buttonPressed + " pressed",
                 Toast.LENGTH_SHORT
         ).show();
     }
