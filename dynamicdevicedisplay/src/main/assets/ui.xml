@@ -46,4 +46,10 @@
             <value>1677</value>
         </gui_element>
     </group>
+    <group id="55" permisison="WR">
+        <gui_element id="4">
+            <type>directionalarrows</type>
+            <label>movement</label>
+        </gui_element>
+    </group>
 </device>
