@@ -10,7 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Element;
+
+import java.util.ArrayList;
+
 import me.aidengaripoli.dynamicdevicedisplay.R;
+import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
 
 
 /**
@@ -25,6 +30,9 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_LABEL = "label";
     private static final String ARG_STATE = "state";
+
+    private static final int ARG_LABEL_INDEX = 0;
+    private static final int ARG_STATE_INDEX = 1;
 
     private String mLabel;
     private boolean mState;
@@ -42,15 +50,19 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label Parameter 1.
+     * @param element Parameter 1.
      * @return A new instance of fragment ToggleFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ToggleFragment newInstance(String label, boolean state) {
+    public static ToggleFragment newInstance(Element element) {
         ToggleFragment fragment = new ToggleFragment();
+
+        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+
+        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
-        args.putBoolean(ARG_STATE, state);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putBoolean(ARG_STATE, Boolean.parseBoolean(displaySettings.get(ARG_STATE_INDEX)));
         fragment.setArguments(args);
         return fragment;
     }

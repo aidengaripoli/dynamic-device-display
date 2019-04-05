@@ -140,29 +140,21 @@ public class DeviceActivity extends FragmentActivity implements
     }
 
     private Fragment generateGuiElement(Element element) {
-        // get the elements label value
-        NodeList nodeList = element.getElementsByTagName("label").item(0).getChildNodes();
-        Node node = nodeList.item(0);
-        String label = node.getNodeValue();
+        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+        String type = xmlDataExtractor.getElementType(element);
 
-        // get the element type
-        Node typeNode = element.getElementsByTagName("type").item(0)
-                .getChildNodes().item(0);
-        String type = typeNode.getNodeValue().toLowerCase().trim();
-
-        Log.d(TAG, "generateGuiElement: " + type);
         // return an element based on xml element type
         switch (type) {
             case TOGGLE: {
-                return ToggleFragment.newInstance(label, false);
+                return ToggleFragment.newInstance(element);
             }
 
             case PROGRESS: {
-                return ProgressFragment.newInstance(label, 30);
+                return ProgressFragment.newInstance(element);
             }
 
             case SELECTION: {
-                return SelectionFragment.newInstance(label, "memes", new String[] { "one", "two", "three" });
+                return SelectionFragment.newInstance(element);
             }
 
             case SLIDER: {
@@ -174,7 +166,7 @@ public class DeviceActivity extends FragmentActivity implements
             }
 
             case DIRECTIONAL_ARROWS: {
-                return DirectionalArrowsFragment.newInstance();
+                return DirectionalArrowsFragment.newInstance(element);
             }
 
             default: {
