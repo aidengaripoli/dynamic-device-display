@@ -14,9 +14,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+
+import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
+import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,12 +29,15 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class SliderFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "label";
-    private static final String ARG_PARAM2 = "value";
-    private static final String ARG_PARAM3 = "max";
-    private static final String ARG_PARAM4 = "min";
+    private static final String ARG_LABEL = "label";
+    private static final String ARG_MIN = "min";
+    private static final String ARG_MAX = "max";
+    private static final String ARG_VALUE = "value";
+
+    private static final int ARG_LABEL_INDEX = 0;
+    private static final int ARG_MIN_INDEX = 1;
+    private static final int ARG_MAX_INDEX = 2;
+    private static final int ARG_VALUE_INDEX = 3;
 
     private String label;
     private int value;
@@ -57,32 +62,18 @@ public class SliderFragment extends Fragment {
      * @param element Parameter 1.
      * @return A new instance of fragment SliderFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static SliderFragment newInstance(Element element) {
         SliderFragment fragment = new SliderFragment();
 
-        Node node = element.getElementsByTagName(ARG_PARAM1).item(0).getChildNodes().item(0);
-        String label = node.getNodeValue().toLowerCase().trim();
+        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
 
-        node = element.getElementsByTagName(ARG_PARAM2).item(0).getChildNodes().item(0);
-        String value = node.getNodeValue().toLowerCase().trim();
-
-        node = element.getElementsByTagName(ARG_PARAM3).item(0).getChildNodes().item(0);
-        String max = node.getNodeValue().toLowerCase().trim();
-
-        node = element.getElementsByTagName(ARG_PARAM4).item(0).getChildNodes().item(0);
-        String min = node.getNodeValue().toLowerCase().trim();
-
-        // convert parameters to Int
-        int minInt = min.isEmpty() ? 0 : Integer.parseInt(min);
-        int maxInt = max.isEmpty() ? 100 : Integer.parseInt(max);
-        int valInt = value.isEmpty() ? minInt : Integer.parseInt(value);
+        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
 
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, label);
-        args.putInt(ARG_PARAM2, valInt);
-        args.putInt(ARG_PARAM3, maxInt);
-        args.putInt(ARG_PARAM4, minInt);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putInt(ARG_MIN, Integer.parseInt(displaySettings.get(ARG_MIN_INDEX)));
+        args.putInt(ARG_MAX, Integer.parseInt(displaySettings.get(ARG_MAX_INDEX)));
+        args.putInt(ARG_VALUE, Integer.parseInt(displaySettings.get(ARG_VALUE_INDEX)));
         fragment.setArguments(args);
 
         return fragment;
@@ -92,10 +83,10 @@ public class SliderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            label = getArguments().getString(ARG_PARAM1);
-            value = getArguments().getInt(ARG_PARAM2);
-            max = getArguments().getInt(ARG_PARAM3);
-            min = getArguments().getInt(ARG_PARAM4);
+            label = getArguments().getString(ARG_LABEL);
+            min = getArguments().getInt(ARG_MIN);
+            max = getArguments().getInt(ARG_MAX);
+            value = getArguments().getInt(ARG_VALUE);
 
             range = max - min;
         }

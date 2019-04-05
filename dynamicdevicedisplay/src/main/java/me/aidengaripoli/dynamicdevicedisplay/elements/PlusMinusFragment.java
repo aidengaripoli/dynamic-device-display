@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+
+import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
+import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,12 +26,15 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class PlusMinusFragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "label";
-    private static final String ARG_PARAM2 = "value";
-    private static final String ARG_PARAM3 = "max";
-    private static final String ARG_PARAM4 = "min";
+    private static final String ARG_LABEL = "label";
+    private static final String ARG_MIN = "min";
+    private static final String ARG_MAX = "max";
+    private static final String ARG_VALUE = "value";
+
+    private static final int ARG_LABEL_INDEX = 0;
+    private static final int ARG_MIN_INDEX = 1;
+    private static final int ARG_MAX_INDEX = 2;
+    private static final int ARG_VALUE_INDEX = 3;
 
     private TextView value;
 
@@ -51,32 +56,18 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
      * @param element Parameter 1.
      * @return A new instance of fragment PlusMinusFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static PlusMinusFragment newInstance(Element element) {
         PlusMinusFragment fragment = new PlusMinusFragment();
 
-        Node node = element.getElementsByTagName(ARG_PARAM1).item(0).getChildNodes().item(0);
-        String label = node.getNodeValue().toLowerCase().trim();
+        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
 
-        node = element.getElementsByTagName(ARG_PARAM2).item(0).getChildNodes().item(0);
-        String value = node.getNodeValue().toLowerCase().trim();
-
-        node = element.getElementsByTagName(ARG_PARAM3).item(0).getChildNodes().item(0);
-        String max = node.getNodeValue().toLowerCase().trim();
-
-        node = element.getElementsByTagName(ARG_PARAM4).item(0).getChildNodes().item(0);
-        String min = node.getNodeValue().toLowerCase().trim();
-
-        // convert parameters to Int
-        int minInt = min.isEmpty() ? 0 : Integer.parseInt(min);
-        int maxInt = max.isEmpty() ? 100 : Integer.parseInt(max);
-        int valInt = value.isEmpty() ? minInt : Integer.parseInt(value);
+        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
 
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, label);
-        args.putInt(ARG_PARAM2, valInt);
-        args.putInt(ARG_PARAM3, maxInt);
-        args.putInt(ARG_PARAM4, minInt);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putInt(ARG_MIN, Integer.parseInt(displaySettings.get(ARG_MIN_INDEX)));
+        args.putInt(ARG_MAX, Integer.parseInt(displaySettings.get(ARG_MAX_INDEX)));
+        args.putInt(ARG_VALUE, Integer.parseInt(displaySettings.get(ARG_VALUE_INDEX)));
 
         fragment.setArguments(args);
         return fragment;
@@ -86,10 +77,10 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            label = getArguments().getString(ARG_PARAM1);
-            currentValue = getArguments().getInt(ARG_PARAM2);
-            max = getArguments().getInt(ARG_PARAM3);
-            min = getArguments().getInt(ARG_PARAM4);
+            label = getArguments().getString(ARG_LABEL);
+            min = getArguments().getInt(ARG_MIN);
+            max = getArguments().getInt(ARG_MAX);
+            currentValue = getArguments().getInt(ARG_VALUE);
         }
     }
 
@@ -139,11 +130,11 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.plus){
-            if(currentValue < max)
+        if (v.getId() == R.id.plus) {
+            if (currentValue < max)
                 currentValue++;
-        }else if(v.getId() == R.id.minus){
-            if(currentValue > min)
+        } else if (v.getId() == R.id.minus) {
+            if (currentValue > min)
                 currentValue--;
         }
         value.setText(String.valueOf(currentValue));

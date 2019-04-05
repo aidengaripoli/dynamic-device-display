@@ -7,49 +7,55 @@
     <group id="2" permission="WR">
         <gui_element id="1">
             <type>toggle</type>
-            <label>Open/Close</label>
-            <value>1</value>
+            <disp_settings>Open/Close,true</disp_settings>
+            <status_location>4</status_location>
+            <comment>Door open</comment>
         </gui_element>
         <gui_element id="2">
             <type>progress</type>
-            <label>Position</label>
-            <value>2</value>
+            <disp_settings>Position,69</disp_settings>
+            <status_location>4</status_location>
+            <comment>progress bar</comment>
         </gui_element>
         <gui_element id="3">
             <type>toggle</type>
-            <label>Lock/Unlock</label>
-            <value>3</value>
+            <disp_settings>Lock/Unlock,false</disp_settings>
+            <status_location>4</status_location>
+            <comment>Door lock</comment>
         </gui_element>
     </group>
     <group id="3" permisison="WN">
         <gui_element id="4">
             <type>selection</type>
-            <label>move door</label>
-            <value>1</value>
+            <disp_settings>move door,3,one,two,three,four,five,six</disp_settings>
+            <status_location>1</status_location>
+            <comment>Door positions</comment>
         </gui_element>
     </group>
     <group id="6" permisison="WR">
         <gui_element id="94">
             <type>plusminus</type>
-            <label>num</label>
-            <value>0</value>
-            <min>0</min>
-            <max>10</max>
+            <disp_settings>number,0,10,3</disp_settings>
+            <status_location>7</status_location>
+            <comment>Number Counter</comment>
         </gui_element>
     </group>
+
     <group id="5" permisison="WR">
         <gui_element id="4">
             <type>slider</type>
-            <label>volume</label>
-            <min>1000</min>
-            <max>3000</max>
-            <value>1677</value>
+            <disp_settings>volume,1000,3000,1677</disp_settings>
+            <status_location>7</status_location>
+            <comment>Volume Slider</comment>
         </gui_element>
     </group>
+
     <group id="55" permisison="WR">
         <gui_element id="4">
             <type>directionalarrows</type>
-            <label>movement</label>
+            <disp_settings>N,E,S,W</disp_settings>
+            <status_location>7</status_location>
+            <comment>Volume Slider</comment>
         </gui_element>
     </group>
 </device>

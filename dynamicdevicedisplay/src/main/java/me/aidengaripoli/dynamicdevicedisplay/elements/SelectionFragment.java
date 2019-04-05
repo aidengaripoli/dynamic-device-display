@@ -12,7 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.w3c.dom.Element;
+
+import java.util.ArrayList;
+
 import me.aidengaripoli.dynamicdevicedisplay.R;
+import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +31,9 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
     private static final String ARG_LABEL = "label";
     private static final String ARG_VALUE = "value";
     private static final String ARG_ITEMS = "items";
+
+    private static final int ARG_LABEL_INDEX = 0;
+    private static final int ARG_VALUE_INDEX = 1;
 
     private String mLabel;
     private String mValue;
@@ -44,17 +52,25 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label Parameter 1.
-     * @param value Parameter 2.
+     * @param element Parameter 1.
      * @return A new instance of fragment SelectionFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static SelectionFragment newInstance(String label, String value, String[] items) {
+    public static SelectionFragment newInstance(Element element) {
         SelectionFragment fragment = new SelectionFragment();
+
+        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+
+        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
-        args.putString(ARG_VALUE, value);
-        args.putStringArray(ARG_ITEMS, items);
+        args.putString(ARG_VALUE, displaySettings.get(ARG_VALUE_INDEX));
+        displaySettings.remove(ARG_VALUE_INDEX);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        displaySettings.remove(ARG_LABEL_INDEX);
+
+        String[] values = displaySettings.toArray(new String[0]);
+        args.putStringArray(ARG_ITEMS, values);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,6 +101,13 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
                 android.R.layout.simple_dropdown_item_1line,
                 mItems
         ));
+
+        //ensure default value is not out of bounds.
+        int defaultSelection = Integer.parseInt(mValue);
+        defaultSelection = defaultSelection > mItems.length - 1 ? mItems.length - 1 : (defaultSelection < 0 ? 0 : defaultSelection);
+
+
+        selection.setSelection(defaultSelection);
 
         return view;
     }
