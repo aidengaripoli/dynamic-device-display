@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import org.w3c.dom.Document;
@@ -22,11 +23,15 @@ import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalArrowsFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.InputFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SliderFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.StatusFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.SwitchToggleFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragment;
 
 public class DeviceActivity extends FragmentActivity implements
@@ -35,7 +40,11 @@ public class DeviceActivity extends FragmentActivity implements
         SelectionFragment.OnFragmentInteractionListener,
         SliderFragment.OnFragmentInteractionListener,
         PlusMinusFragment.OnFragmentInteractionListener,
-        DirectionalArrowsFragment.OnFragmentInteractionListener {
+        DirectionalArrowsFragment.OnFragmentInteractionListener,
+        SwitchToggleFragment.OnFragmentInteractionListener,
+        StatusFragment.OnFragmentInteractionListener,
+        InputFragment.OnFragmentInteractionListener,
+        ButtonGroupFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "DeviceActivity";
 
@@ -45,16 +54,23 @@ public class DeviceActivity extends FragmentActivity implements
     private static final String SLIDER = "slider";
     private static final String PLUS_MINUS = "plusminus";
     private static final String DIRECTIONAL_ARROWS = "directionalarrows";
+    private static final String SWITCH_TOGGLE = "switchtoggle";
+    private static final String STATUS = "status";
+    private static final String INPUT = "input";
+    private static final String BUTTON_GROUP = "buttongroup";
 
     private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_device);
 
         int rootLayoutId = View.generateViewId();
+        ScrollView scrollView = new ScrollView(this);
         LinearLayout rootLayout = new LinearLayout(this);
+
+        scrollView.addView(rootLayout);
+
         rootLayout.setOrientation(LinearLayout.VERTICAL);
         rootLayout.setId(rootLayoutId);
 
@@ -99,7 +115,7 @@ public class DeviceActivity extends FragmentActivity implements
         );
 
         // add the root layout to the content view
-        setContentView(rootLayout, layoutParams);
+        setContentView(scrollView, layoutParams);
     }
 
     private ViewGroup generateGroupLayout(Element element) {
@@ -167,6 +183,22 @@ public class DeviceActivity extends FragmentActivity implements
 
             case DIRECTIONAL_ARROWS: {
                 return DirectionalArrowsFragment.newInstance(element);
+            }
+
+            case SWITCH_TOGGLE: {
+                return SwitchToggleFragment.newInstance(element);
+            }
+
+            case STATUS: {
+                return StatusFragment.newInstance(element);
+            }
+
+            case INPUT: {
+                return InputFragment.newInstance(element);
+            }
+
+            case BUTTON_GROUP: {
+                return ButtonGroupFragment.newInstance(element);
             }
 
             default: {
