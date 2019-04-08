@@ -44,7 +44,7 @@
     <group id="5" permisison="WR">
         <gui_element id="4">
             <type>slider</type>
-            <disp_settings>volume,1000,3000,1677</disp_settings>
+            <disp_settings>Volume,Set,1000,3000,1677</disp_settings>
             <status_location>7</status_location>
             <comment>Volume Slider</comment>
         </gui_element>
@@ -56,6 +56,42 @@
             <disp_settings>N,E,S,W</disp_settings>
             <status_location>7</status_location>
             <comment>Volume Slider</comment>
+        </gui_element>
+    </group>
+
+    <group id="565" permisison="WR">
+        <gui_element id="1">
+            <type>switchToggle</type>
+            <disp_settings>On/Off</disp_settings>
+            <status_location>7</status_location>
+            <comment>Light Switch</comment>
+        </gui_element>
+    </group>
+
+    <group id="565" permisison="WR">
+        <gui_element id="1">
+            <type>status</type>
+            <disp_settings>Value,10</disp_settings>
+            <status_location>11</status_location>
+            <comment>Voltage level</comment>
+        </gui_element>
+    </group>
+
+    <group id="565" permisison="WR">
+        <gui_element id="1">
+            <type>input</type>
+            <disp_settings>Name,Submit</disp_settings>
+            <status_location>31</status_location>
+            <comment>Username</comment>
+        </gui_element>
+    </group>
+
+    <group id="565" permisison="WR">
+        <gui_element id="1">
+            <type>buttongroup</type>
+            <disp_settings>1,2,3,4</disp_settings>
+            <status_location>31</status_location>
+            <comment>numbers</comment>
         </gui_element>
     </group>
 </device>
