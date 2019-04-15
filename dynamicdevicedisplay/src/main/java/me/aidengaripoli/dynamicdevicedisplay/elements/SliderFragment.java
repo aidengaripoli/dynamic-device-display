@@ -34,13 +34,11 @@ public class SliderFragment extends Fragment {
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";
-    private static final String ARG_VALUE = "value";
 
     private static final int ARG_LABEL_INDEX = 0;
     private static final int ARG_BUTTON_LABEL_INDEX = 1;
     private static final int ARG_MIN_INDEX = 2;
     private static final int ARG_MAX_INDEX = 3;
-    private static final int ARG_VALUE_INDEX = 4;
 
     private String label;
     private String buttonLabel;
@@ -79,7 +77,6 @@ public class SliderFragment extends Fragment {
         args.putString(ARG_BUTTON_LABEL, displaySettings.get(ARG_BUTTON_LABEL_INDEX));
         args.putInt(ARG_MIN, Integer.parseInt(displaySettings.get(ARG_MIN_INDEX)));
         args.putInt(ARG_MAX, Integer.parseInt(displaySettings.get(ARG_MAX_INDEX)));
-        args.putInt(ARG_VALUE, Integer.parseInt(displaySettings.get(ARG_VALUE_INDEX)));
         fragment.setArguments(args);
 
         return fragment;
@@ -93,7 +90,7 @@ public class SliderFragment extends Fragment {
             buttonLabel = getArguments().getString(ARG_BUTTON_LABEL);
             min = getArguments().getInt(ARG_MIN);
             max = getArguments().getInt(ARG_MAX);
-            value = getArguments().getInt(ARG_VALUE);
+            value = 0;
 
             range = max - min;
         }

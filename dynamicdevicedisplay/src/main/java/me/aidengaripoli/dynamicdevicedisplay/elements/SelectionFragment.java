@@ -29,11 +29,9 @@ import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
  */
 public class SelectionFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private static final String ARG_LABEL = "label";
-    private static final String ARG_VALUE = "value";
     private static final String ARG_ITEMS = "items";
 
     private static final int ARG_LABEL_INDEX = 0;
-    private static final int ARG_VALUE_INDEX = 1;
 
     private String mLabel;
     private String mValue;
@@ -63,8 +61,6 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
         ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
-        args.putString(ARG_VALUE, displaySettings.get(ARG_VALUE_INDEX));
-        displaySettings.remove(ARG_VALUE_INDEX);
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
         displaySettings.remove(ARG_LABEL_INDEX);
 
@@ -80,7 +76,6 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mLabel = getArguments().getString(ARG_LABEL);
-            mValue = getArguments().getString(ARG_VALUE);
             mItems = getArguments().getStringArray(ARG_ITEMS);
         }
     }
@@ -102,12 +97,7 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
                 mItems
         ));
 
-        //ensure default value is not out of bounds.
-        int defaultSelection = Integer.parseInt(mValue);
-        defaultSelection = defaultSelection > mItems.length - 1 ? mItems.length - 1 : (defaultSelection < 0 ? 0 : defaultSelection);
-
-
-        selection.setSelection(defaultSelection);
+        selection.setSelection(0);
 
         return view;
     }
