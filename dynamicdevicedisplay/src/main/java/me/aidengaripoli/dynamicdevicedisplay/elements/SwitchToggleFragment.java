@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
+import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,9 +51,9 @@ public class SwitchToggleFragment extends Fragment {
     public static SwitchToggleFragment newInstance(Element element) {
         SwitchToggleFragment fragment = new SwitchToggleFragment();
 
-        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+        XmlParser xmlParser = new XmlParser();
 
-        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));

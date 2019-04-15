@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
+import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,9 +49,9 @@ public class DirectionalArrowsFragment extends Fragment implements View.OnClickL
     public static DirectionalArrowsFragment newInstance(Element element) {
         DirectionalArrowsFragment fragment = new DirectionalArrowsFragment();
 
-        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+        XmlParser xmlParser = new XmlParser();
 
-        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
         args.putString(ARG_TOP, displaySettings.get(ARG_TOP_INDEX));

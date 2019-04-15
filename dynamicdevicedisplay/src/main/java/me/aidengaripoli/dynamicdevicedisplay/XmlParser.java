@@ -7,7 +7,7 @@ import org.w3c.dom.NodeList;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class XmlDataExtractor {
+public class XmlParser {
 
     /**
      * Used to retrieve the string found inside the <Type/> tag.
