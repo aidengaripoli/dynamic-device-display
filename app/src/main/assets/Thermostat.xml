@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<device>
+    <group id="1" permission="RR">
+        <name>Garage door</name>
+        <room>Outside</room>
+    </group>
+    <group id="2" permission="WR">
+        <gui_element id="3">
+            <type>toggle</type>
+            <disp_settings>Lock/Unlock,false</disp_settings>
+            <status_location>4</status_location>
+            <comment>Door lock</comment>
+        </gui_element>
+    </group>
+
+    <group id="565" permisison="WR">
+        <gui_element id="1">
+            <type>switchToggle</type>
+            <disp_settings>On/Off</disp_settings>
+            <status_location>7</status_location>
+            <comment>Light Switch</comment>
+        </gui_element>
+    </group>
+
+    <group id="565" permisison="WR">
+        <gui_element id="1">
+            <type>status</type>
+            <disp_settings>Value,10</disp_settings>
+            <status_location>11</status_location>
+            <comment>Voltage level</comment>
+        </gui_element>
+    </group>
+
+    <group id="565" permisison="WR">
+        <gui_element id="1">
+            <type>buttongroup</type>
+            <disp_settings>1,2,3,4</disp_settings>
+            <status_location>31</status_location>
+            <comment>numbers</comment>
+        </gui_element>
+    </group>
+</device>
