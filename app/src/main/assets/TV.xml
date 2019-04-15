@@ -1,46 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <device>
-    <group id="2" permission="WR">
-        <gui_element id="3">
-            <type>toggle</type>
-            <disp_settings>Lock/Unlock,false</disp_settings>
-            <status_location>4</status_location>
-            <comment>Door lock</comment>
-        </gui_element>
-    </group>
-    <group id="3" permisison="WN">
-        <gui_element id="4">
-            <type>selection</type>
-            <disp_settings>move door,3,one,two,three,four,five,six</disp_settings>
+    <group id="1" permission="WR">
+        <gui_element id="1">
+            <type>switchtoggle</type>
+            <disp_settings>On/Off</disp_settings>
             <status_location>1</status_location>
-            <comment>Door positions</comment>
+            <comment>Turn TV On or Off</comment>
         </gui_element>
     </group>
-    <group id="6" permisison="WR">
-        <gui_element id="94">
+    <group id="2" permission="WR">
+        <gui_element id="1">
             <type>plusminus</type>
-            <disp_settings>number,0,10,3</disp_settings>
-            <status_location>7</status_location>
-            <comment>Number Counter</comment>
+            <disp_settings>Channel,0,100</disp_settings>
+            <status_location>2</status_location>
+            <comment>Channel selection</comment>
         </gui_element>
     </group>
-
-    <group id="55" permisison="WR">
-        <gui_element id="4">
+    <group id="3" permission="WR">
+        <gui_element id="1">
+            <type>plusminus</type>
+            <disp_settings>Volume,0,100</disp_settings>
+            <status_location>2</status_location>
+            <comment>Volume selection</comment>
+        </gui_element>
+    </group>
+    <group id="4" permission="WR">
+        <gui_element id="1">
             <type>directionalarrows</type>
             <disp_settings>N,E,S,W</disp_settings>
-            <status_location>7</status_location>
-            <comment>Volume Slider</comment>
+            <status_location>3</status_location>
+            <comment>Directional Arrows</comment>
         </gui_element>
     </group>
-
-
-    <group id="565" permisison="WR">
+    <group id="4" permission="WR">
         <gui_element id="1">
+            <type>selection</type>
+            <disp_settings>Source,HDMI1,HDMI2,HDMI3,HDMI4,AV</disp_settings>
+            <status_location>4</status_location>
+            <comment>Directional Arrows</comment>
+        </gui_element>
+    </group>
+    <group id="4" permission="WR">
+        <gui_element id="1">
+            <type>toggle</type>
+            <disp_settings>Record,Recording,Not Recording</disp_settings>
+            <status_location>5</status_location>
+            <comment>Recording</comment>
+        </gui_element>
+        <gui_element id="2">
+            <type>toggle</type>
+            <disp_settings>Mute,Muted,Unmuted</disp_settings>
+            <status_location>6</status_location>
+            <comment>Mute</comment>
+        </gui_element>
+        <gui_element id="3">
             <type>buttongroup</type>
-            <disp_settings>1,2,3,4</disp_settings>
-            <status_location>31</status_location>
-            <comment>numbers</comment>
+            <disp_settings>Info</disp_settings>
+            <status_location>7</status_location>
+            <comment>Information</comment>
         </gui_element>
     </group>
 </device>

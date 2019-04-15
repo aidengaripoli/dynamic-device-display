@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        String devices[] = {"oven.xml", "TV.xml", "SecCamera.xml", "Thermostat.xml"};
+        String devices[] = {"Kettle.xml", "TV.xml", "SecCamera.xml", "Thermostat.xml", "Elements.xml"};
 
         for (String device : devices) {
             Button button = new Button(this);
