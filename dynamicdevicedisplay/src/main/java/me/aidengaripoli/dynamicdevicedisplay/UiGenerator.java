@@ -19,18 +19,18 @@ import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-class UiGenerator {
+public class UiGenerator {
     private static final String TAG = "UiGenerator";
     private FragmentManager fragmentManager;
     private XmlParser xmlParser;
 
 
-    UiGenerator(FragmentManager fragmentManager) {
+    public UiGenerator(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
         xmlParser = new XmlParser();
     }
 
-    LinearLayout generateUi(Context context, InputStream inputStream) {
+    public LinearLayout generateUi(Context context, InputStream inputStream) {
         LinearLayout rootLayout = new LinearLayout(context);
         rootLayout.setOrientation(LinearLayout.VERTICAL);
         rootLayout.setId(View.generateViewId());
