@@ -94,4 +94,13 @@
             <comment>numbers</comment>
         </gui_element>
     </group>
+
+    <group id="565" permisison="WR">
+        <gui_element id="1">
+            <type>password</type>
+            <disp_settings>Password,Submit</disp_settings>
+            <status_location>33</status_location>
+            <comment>password</comment>
+        </gui_element>
+    </group>
 </device>

@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalArrowsFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.InputFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.PasswordFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
@@ -26,6 +27,7 @@ public class ElementsFactory {
     private static final String STATUS = "status";
     private static final String INPUT = "input";
     private static final String BUTTON_GROUP = "buttongroup";
+    private static final String PASSWORD = "password";
 
     public static Fragment getElement(String type, Element element) {
         switch (type) {
@@ -67,6 +69,10 @@ public class ElementsFactory {
 
             case BUTTON_GROUP: {
                 return ButtonGroupFragment.newInstance(element);
+            }
+
+            case PASSWORD: {
+                return PasswordFragment.newInstance(element);
             }
 
             default: {

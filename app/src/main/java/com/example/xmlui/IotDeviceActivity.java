@@ -14,6 +14,7 @@ import me.aidengaripoli.dynamicdevicedisplay.UiGenerator;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalArrowsFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.InputFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.PasswordFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
@@ -32,7 +33,8 @@ public class IotDeviceActivity extends FragmentActivity implements
         SwitchToggleFragment.OnFragmentInteractionListener,
         StatusFragment.OnFragmentInteractionListener,
         InputFragment.OnFragmentInteractionListener,
-        ButtonGroupFragment.OnFragmentInteractionListener {
+        ButtonGroupFragment.OnFragmentInteractionListener,
+        PasswordFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

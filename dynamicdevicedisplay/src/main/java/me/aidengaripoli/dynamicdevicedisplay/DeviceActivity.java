@@ -14,6 +14,7 @@ import java.io.InputStream;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalArrowsFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.InputFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.PasswordFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
@@ -32,7 +33,8 @@ public class DeviceActivity extends FragmentActivity implements
         SwitchToggleFragment.OnFragmentInteractionListener,
         StatusFragment.OnFragmentInteractionListener,
         InputFragment.OnFragmentInteractionListener,
-        ButtonGroupFragment.OnFragmentInteractionListener {
+        ButtonGroupFragment.OnFragmentInteractionListener,
+        PasswordFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "DeviceActivity";
 
@@ -82,34 +84,6 @@ public class DeviceActivity extends FragmentActivity implements
                 Toast.LENGTH_SHORT
         ).show();
     }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        Toast.makeText(
-                getApplicationContext(),
-                " slider is now: ",
-                Toast.LENGTH_SHORT
-        ).show();
-    }
-
-    @Override
-    public void onFragmentInteraction(String buttonPressed) {
-        Toast.makeText(
-                getApplicationContext(),
-                buttonPressed + " pressed",
-                Toast.LENGTH_SHORT
-        ).show();
-    }
-
-    @Override
-    public void onFragmentInteraction(String label, String value) {
-        Toast.makeText(
-                getApplicationContext(),
-                label + " spinner is now: " + value,
-                Toast.LENGTH_SHORT
-        ).show();
-    }
-
 
     @Override
     public void onFragmentInteraction(Uri uri) {
