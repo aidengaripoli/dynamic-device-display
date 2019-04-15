@@ -21,6 +21,7 @@ import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SliderFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.StatusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SwitchToggleFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.TimePickerFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragment;
 
 public class DeviceActivity extends FragmentActivity implements
@@ -34,7 +35,8 @@ public class DeviceActivity extends FragmentActivity implements
         StatusFragment.OnFragmentInteractionListener,
         InputFragment.OnFragmentInteractionListener,
         ButtonGroupFragment.OnFragmentInteractionListener,
-        PasswordFragment.OnFragmentInteractionListener {
+        PasswordFragment.OnFragmentInteractionListener,
+        TimePickerFragment.OnFragmentInteractionListener{
 
     private static final String TAG = "DeviceActivity";
 

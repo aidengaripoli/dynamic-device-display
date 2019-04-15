@@ -103,4 +103,13 @@
             <comment>password</comment>
         </gui_element>
     </group>
+
+    <group id="565" permisison="WR">
+        <gui_element id="1">
+            <type>scheduler</type>
+            <disp_settings>Scheduler</disp_settings>
+            <status_location>13</status_location>
+            <comment>Time picker</comment>
+        </gui_element>
+    </group>
 </device>

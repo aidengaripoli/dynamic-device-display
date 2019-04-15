@@ -14,6 +14,7 @@ import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SliderFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.StatusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SwitchToggleFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.TimePickerFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragment;
 
 public class ElementsFactory {
@@ -28,6 +29,7 @@ public class ElementsFactory {
     private static final String INPUT = "input";
     private static final String BUTTON_GROUP = "buttongroup";
     private static final String PASSWORD = "password";
+    private static final String SCHEDULER = "scheduler";
 
     public static Fragment getElement(String type, Element element) {
         switch (type) {
@@ -73,6 +75,10 @@ public class ElementsFactory {
 
             case PASSWORD: {
                 return PasswordFragment.newInstance(element);
+            }
+
+            case SCHEDULER: {
+                return TimePickerFragment.newInstance(element);
             }
 
             default: {
