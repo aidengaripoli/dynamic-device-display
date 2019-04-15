@@ -14,7 +14,7 @@ import org.w3c.dom.Element;
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
+import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,9 +44,9 @@ public class ButtonGroupFragment extends Fragment {
     public static ButtonGroupFragment newInstance(Element element) {
         ButtonGroupFragment fragment = new ButtonGroupFragment();
 
-        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+        XmlParser xmlParser = new XmlParser();
 
-        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
 

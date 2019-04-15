@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
+import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 
 /**
@@ -56,9 +56,9 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
     public static ToggleFragment newInstance(Element element) {
         ToggleFragment fragment = new ToggleFragment();
 
-        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+        XmlParser xmlParser = new XmlParser();
 
-        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
