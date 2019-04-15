@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
+import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,10 +27,8 @@ import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
  */
 public class ProgressFragment extends Fragment {
     private static final String ARG_LABEL = "label";
-    private static final String ARG_VALUE = "value";
 
     private static final int ARG_LABEL_INDEX = 0;
-    private static final int ARG_VALUE_INDEX = 1;
 
     private String mLabel;
     private int mValue;
@@ -55,13 +53,12 @@ public class ProgressFragment extends Fragment {
     public static ProgressFragment newInstance(Element element) {
         ProgressFragment fragment = new ProgressFragment();
 
-        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+        XmlParser xmlParser = new XmlParser();
 
-        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
-        args.putInt(ARG_VALUE, Integer.parseInt(displaySettings.get(ARG_VALUE_INDEX)));
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,7 +68,7 @@ public class ProgressFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mLabel = getArguments().getString(ARG_LABEL);
-            mValue = getArguments().getInt(ARG_VALUE);
+            mValue = 0;
         }
     }
 

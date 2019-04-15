@@ -14,7 +14,7 @@ import org.w3c.dom.Element;
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
+import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,13 +26,10 @@ import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
  */
 public class StatusFragment extends Fragment {
     private static final String ARG_LABEL = "label";
-    private static final String ARG_VALUE = "value";
 
     private static final int ARG_LABEL_INDEX = 0;
-    private static final int ARG_VALUE_INDEX = 1;
 
     private String label;
-    private String value;
 
     private TextView statusLabel;
     private TextView statusValue;
@@ -53,13 +50,12 @@ public class StatusFragment extends Fragment {
     public static StatusFragment newInstance(Element element) {
         StatusFragment fragment = new StatusFragment();
 
-        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+        XmlParser xmlParser = new XmlParser();
 
-        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
-        args.putString(ARG_VALUE, displaySettings.get(ARG_VALUE_INDEX));
 
         fragment.setArguments(args);
         return fragment;
@@ -70,7 +66,6 @@ public class StatusFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             label = getArguments().getString(ARG_LABEL);
-            value = getArguments().getString(ARG_VALUE);
         }
     }
 
@@ -84,7 +79,6 @@ public class StatusFragment extends Fragment {
         statusLabel.setText(label);
 
         statusValue = view.findViewById(R.id.status_value);
-        statusValue.setText(value);
 
         return view;
     }

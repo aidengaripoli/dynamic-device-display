@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
+import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,12 +29,10 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
     private static final String ARG_LABEL = "label";
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";
-    private static final String ARG_VALUE = "value";
 
     private static final int ARG_LABEL_INDEX = 0;
     private static final int ARG_MIN_INDEX = 1;
     private static final int ARG_MAX_INDEX = 2;
-    private static final int ARG_VALUE_INDEX = 3;
 
     private TextView value;
 
@@ -59,15 +57,14 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
     public static PlusMinusFragment newInstance(Element element) {
         PlusMinusFragment fragment = new PlusMinusFragment();
 
-        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+        XmlParser xmlParser = new XmlParser();
 
-        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
         args.putInt(ARG_MIN, Integer.parseInt(displaySettings.get(ARG_MIN_INDEX)));
         args.putInt(ARG_MAX, Integer.parseInt(displaySettings.get(ARG_MAX_INDEX)));
-        args.putInt(ARG_VALUE, Integer.parseInt(displaySettings.get(ARG_VALUE_INDEX)));
 
         fragment.setArguments(args);
         return fragment;
@@ -80,7 +77,6 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
             label = getArguments().getString(ARG_LABEL);
             min = getArguments().getInt(ARG_MIN);
             max = getArguments().getInt(ARG_MAX);
-            currentValue = getArguments().getInt(ARG_VALUE);
         }
     }
 

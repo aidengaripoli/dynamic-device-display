@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
+import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 
 /**
@@ -29,12 +29,16 @@ import me.aidengaripoli.dynamicdevicedisplay.XmlDataExtractor;
 public class ToggleFragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_LABEL = "label";
-    private static final String ARG_STATE = "state";
+    private static final String ARG_POS_LABEL = "pos_label";
+    private static final String ARG_NEG_LABEL = "neg_label";
 
     private static final int ARG_LABEL_INDEX = 0;
-    private static final int ARG_STATE_INDEX = 1;
+    private static final int ARG_POS_LABEL_INDEX = 1;
+    private static final int ARG_NEG_LABEL_INDEX = 2;
 
     private String mLabel;
+    private String mPosLabel;
+    private String mNegLabel;
     private boolean mState;
 
     private Button toggleButton;
@@ -56,13 +60,15 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
     public static ToggleFragment newInstance(Element element) {
         ToggleFragment fragment = new ToggleFragment();
 
-        XmlDataExtractor xmlDataExtractor = new XmlDataExtractor();
+        XmlParser xmlParser = new XmlParser();
 
-        ArrayList<String> displaySettings = xmlDataExtractor.getDisplaySettings(element);
+        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
-        args.putBoolean(ARG_STATE, Boolean.parseBoolean(displaySettings.get(ARG_STATE_INDEX)));
+        args.putString(ARG_POS_LABEL, displaySettings.get(ARG_POS_LABEL_INDEX));
+        args.putString(ARG_NEG_LABEL, displaySettings.get(ARG_NEG_LABEL_INDEX));
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,7 +78,9 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mLabel = getArguments().getString(ARG_LABEL);
-            mState = getArguments().getBoolean(ARG_STATE);
+            mState = true;
+            mPosLabel = getArguments().getString(ARG_POS_LABEL);
+            mNegLabel = getArguments().getString(ARG_NEG_LABEL);
         }
     }
 
@@ -86,7 +94,7 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
         label.setText(mLabel);
 
         toggleButton = view.findViewById(R.id.toggle_button);
-        toggleButton.setText(mState ? "ON" : "OFF"); // TODO: change this
+        toggleButton.setText(mState ? mPosLabel : mNegLabel);
         toggleButton.setOnClickListener(this);
 
         return view;
@@ -119,8 +127,7 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         mState = !mState;
-        toggleButton.setText(mState ? "ON" : "OFF");
-
+        toggleButton.setText(mState ? mPosLabel : mNegLabel);
         onButtonPressed();
     }
 
