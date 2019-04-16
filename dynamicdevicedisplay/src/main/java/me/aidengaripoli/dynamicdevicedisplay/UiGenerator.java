@@ -23,7 +23,6 @@ public class UiGenerator {
     private static final String TAG = "UiGenerator";
     private FragmentManager fragmentManager;
 
-
     public UiGenerator(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
     }
@@ -34,26 +33,18 @@ public class UiGenerator {
         rootLayout.setId(View.generateViewId());
 
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(inputStream);
-
-            Element deviceElement = document.getDocumentElement();
-            deviceElement.normalize();
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
             // get all of the <group> elements
-            NodeList groupNodeList = document.getElementsByTagName("group");
+            NodeList groupNodeList = builder.parse(inputStream).getElementsByTagName("group");
 
             // iterate through all the <group> elements
             for (int i = 0; i < groupNodeList.getLength(); i++) {
                 Node node = groupNodeList.item(i);
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element groupElement = (Element) node;
-
                     // generate a layout for each group
-                    ViewGroup groupLayout = generateGroupLayout(groupElement, context);
+                    ViewGroup groupLayout = generateGroupLayout((Element) node, context);
 
                     // add the layout to the root layout
                     rootLayout.addView(groupLayout);
@@ -62,13 +53,36 @@ public class UiGenerator {
         } catch (Exception e) {
             Log.e(TAG, "ERROR WHILST GENERATING UI: " + e.getMessage());
         }
+
         return rootLayout;
     }
 
     private ViewGroup generateGroupLayout(Element element, Context context) {
         NodeList guiNodeList = element.getElementsByTagName("gui_element");
 
-        int layoutId = View.generateViewId();
+        LinearLayout layout = createLinearLayout(context);
+
+        // iterate through all the <gui_element> elements in the group
+        for (int i = 0; i < guiNodeList.getLength(); i++) {
+            Node node = guiNodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                // generate a view (widget) for each gui_element
+                Fragment fragment = generateGuiElement((Element) node);
+
+                // add the view to the groups layout
+                if (fragment != null) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.add(layout.getId(), fragment);
+                    fragmentTransaction.commit();
+                }
+            }
+        }
+        return layout;
+    }
+
+    private LinearLayout createLinearLayout(Context context){
         LinearLayout layout = new LinearLayout(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -77,27 +91,8 @@ public class UiGenerator {
         layoutParams.setMargins(40, 20, 0, 20);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setLayoutParams(layoutParams);
-        layout.setId(layoutId);
+        layout.setId(View.generateViewId());
 
-        // iterate through all the <gui_element> elements in the group
-        for (int i = 0; i < guiNodeList.getLength(); i++) {
-            Node node = guiNodeList.item(i);
-
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element guiElement = (Element) node;
-
-                // generate a view (widget) for each gui_element
-                Fragment fragment = generateGuiElement(guiElement);
-
-                // add the view to the groups layout
-                if (fragment != null) {
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    fragmentTransaction.add(layoutId, fragment);
-                    fragmentTransaction.commit();
-                }
-            }
-        }
         return layout;
     }
 
