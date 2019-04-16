@@ -48,7 +48,7 @@
         </gui_element>
     </group>
 
-    <!--DirectionalArrows-->
+    <!--DirectionalButtons-->
     <group id="1" permisison="WR">
         <gui_element id="1">
             <type>directionalbuttons</type>
