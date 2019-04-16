@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,13 +25,8 @@ import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 public class ProgressFragment extends Fragment {
     private static final String ARG_LABEL = "label";
 
-    private static final int ARG_LABEL_INDEX = 0;
-
     private String mLabel;
     private int mValue;
-
-    private ProgressBar progressValue;
-    private TextView label;
 
     private OnFragmentInteractionListener mListener;
 
@@ -46,19 +38,15 @@ public class ProgressFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
      * @return A new instance of fragment ProgressFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ProgressFragment newInstance(Element element) {
+    public static ProgressFragment newInstance(String label, ArrayList<String> displaySettings) {
         ProgressFragment fragment = new ProgressFragment();
 
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
-
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putString(ARG_LABEL, label);
         fragment.setArguments(args);
         return fragment;
     }
@@ -78,16 +66,15 @@ public class ProgressFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
-        label = view.findViewById(R.id.progress_label);
+        TextView label = view.findViewById(R.id.progress_label);
         label.setText(mLabel);
 
-        progressValue = view.findViewById(R.id.progress_value);
+        ProgressBar progressValue = view.findViewById(R.id.progress_value);
         progressValue.setProgress(mValue);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onProgressChanged() {
         if (mListener != null) {
             mListener.onFragmentInteraction(mLabel, mValue);

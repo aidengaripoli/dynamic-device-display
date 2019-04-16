@@ -12,31 +12,31 @@ import java.io.InputStream;
 
 import me.aidengaripoli.dynamicdevicedisplay.UiGenerator;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalArrowsFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.InputFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonToggleFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalButtonsFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.PasswordFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.RangeInputFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.SchedulerFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.SliderFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.StatusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SwitchToggleFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.TimePickerFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.TextInputFragment;
 
 public class IotDeviceActivity extends FragmentActivity implements
-        ToggleFragment.OnFragmentInteractionListener,
+        ButtonToggleFragment.OnFragmentInteractionListener,
         ProgressFragment.OnFragmentInteractionListener,
         SelectionFragment.OnFragmentInteractionListener,
-        SliderFragment.OnFragmentInteractionListener,
+        RangeInputFragment.OnFragmentInteractionListener,
         PlusMinusFragment.OnFragmentInteractionListener,
-        DirectionalArrowsFragment.OnFragmentInteractionListener,
+        DirectionalButtonsFragment.OnFragmentInteractionListener,
         SwitchToggleFragment.OnFragmentInteractionListener,
         StatusFragment.OnFragmentInteractionListener,
-        InputFragment.OnFragmentInteractionListener,
+        TextInputFragment.OnFragmentInteractionListener,
         ButtonGroupFragment.OnFragmentInteractionListener,
         PasswordFragment.OnFragmentInteractionListener,
-        TimePickerFragment.OnFragmentInteractionListener {
+        SchedulerFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class IotDeviceActivity extends FragmentActivity implements
         String file;
         if (extras != null) {
             file = extras.getString("xmlFile");
-        }else{
+        } else {
             return;
         }
 

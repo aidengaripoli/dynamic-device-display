@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,9 +27,8 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";
 
-    private static final int ARG_LABEL_INDEX = 0;
-    private static final int ARG_MIN_INDEX = 1;
-    private static final int ARG_MAX_INDEX = 2;
+    private static final int ARG_MIN_INDEX = 0;
+    private static final int ARG_MAX_INDEX = 1;
 
     private TextView value;
 
@@ -51,18 +47,15 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
      * @return A new instance of fragment PlusMinusFragment.
      */
-    public static PlusMinusFragment newInstance(Element element) {
+    public static PlusMinusFragment newInstance(String label, ArrayList<String> displaySettings) {
         PlusMinusFragment fragment = new PlusMinusFragment();
 
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
-
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putString(ARG_LABEL, label);
         args.putInt(ARG_MIN, Integer.parseInt(displaySettings.get(ARG_MIN_INDEX)));
         args.putInt(ARG_MAX, Integer.parseInt(displaySettings.get(ARG_MAX_INDEX)));
 
@@ -100,7 +93,6 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

@@ -7,15 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
-
-import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,12 +23,8 @@ import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
  */
 public class SwitchToggleFragment extends Fragment {
     private static final String ARG_LABEL = "label";
-    private static final int ARG_LABEL_INDEX = 0;
 
     private String label;
-
-    private Switch switchWidget;
-    private TextView labelView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -44,19 +36,15 @@ public class SwitchToggleFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
      * @return A new instance of fragment SwitchToggleFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static SwitchToggleFragment newInstance(Element element) {
+    public static SwitchToggleFragment newInstance(String label, ArrayList<String> displaySettings) {
         SwitchToggleFragment fragment = new SwitchToggleFragment();
 
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
-
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putString(ARG_LABEL, label);
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,12 +64,11 @@ public class SwitchToggleFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_switch_toggle, container, false);
 
-        labelView = view.findViewById(R.id.switch_toggle_label);
+        TextView labelView = view.findViewById(R.id.switch_toggle_label);
         labelView.setText(label);
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

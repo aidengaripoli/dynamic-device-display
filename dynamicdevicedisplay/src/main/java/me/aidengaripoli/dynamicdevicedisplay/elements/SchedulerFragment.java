@@ -1,5 +1,6 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,31 +10,46 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
+import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
+import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TextInputFragment.OnFragmentInteractionListener} interface
+ * {@link TimePickerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TextInputFragment#newInstance} factory method to
+ * Use the {@link TimePickerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PasswordFragment extends Fragment {
+public class TimePickerFragment extends Fragment {
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_LABEL = "label";
-    private static final String ARG_BUTTON_LABEL = "buttonLabel";
-
-    private static final int ARG_BUTTON_LABEL_INDEX = 0;
+    private static final int ARG_LABEL_INDEX = 0;
 
     private String label;
-    private String buttonLabel;
 
     private OnFragmentInteractionListener mListener;
 
-    public PasswordFragment() {
+    private int hr;
+    private int min;
+    private TextView time;
+
+    private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
+            hr = hourOfDay;
+            min = minutes;
+            updateTime(hr, min);
+        }
+    };
+
+    public TimePickerFragment() {
         // Required empty public constructor
     }
 
@@ -41,16 +57,15 @@ public class PasswordFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label           Parameter 1.
+     * @param label Parameter 1.
      * @param displaySettings Parameter 2.
-     * @return A new instance of fragment PasswordFragment.
+     * @return A new instance of fragment TimePickerFragment.
      */
-    public static PasswordFragment newInstance(String label, ArrayList<String> displaySettings) {
-        PasswordFragment fragment = new PasswordFragment();
+    public static TimePickerFragment newInstance(String label, ArrayList<String> displaySettings) {
+        TimePickerFragment fragment = new TimePickerFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
-        args.putString(ARG_BUTTON_LABEL, displaySettings.get(ARG_BUTTON_LABEL_INDEX));
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,29 +75,22 @@ public class PasswordFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             label = getArguments().getString(ARG_LABEL);
-            buttonLabel = getArguments().getString(ARG_BUTTON_LABEL);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_password, container, false);
+        View view = inflater.inflate(R.layout.fragment_time_picker, container, false);
 
-        TextView labelView = view.findViewById(R.id.password_label);
+        TextView labelView = view.findViewById(R.id.TimePicker_Label);
         labelView.setText(label);
 
-        Button button = view.findViewById(R.id.password_button);
-        button.setText(buttonLabel);
+        time = view.findViewById(R.id.TimePicker_output);
 
+        Button button = view.findViewById(R.id.btnClick);
+        button.setOnClickListener(v -> new TimePickerDialog(getActivity(), timePickerListener, hr, min, false).show());
         return view;
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -100,6 +108,27 @@ public class PasswordFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void updateTime(int hours, int mins) {
+        String timeSet;
+        if (hours > 12) {
+            hours -= 12;
+            timeSet = "PM";
+        } else if (hours == 0) {
+            hours += 12;
+            timeSet = "AM";
+        } else if (hours == 12)
+            timeSet = "PM";
+        else
+            timeSet = "AM";
+        String minutes;
+        if (mins < 10)
+            minutes = "0" + mins;
+        else
+            minutes = String.valueOf(mins);
+        String aTime = String.valueOf(hours) + ':' + minutes + " " + timeSet;
+        time.setText(aTime);
     }
 
     /**

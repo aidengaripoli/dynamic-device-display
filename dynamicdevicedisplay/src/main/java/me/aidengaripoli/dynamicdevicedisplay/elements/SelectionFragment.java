@@ -12,12 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,14 +28,9 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
     private static final String ARG_LABEL = "label";
     private static final String ARG_ITEMS = "items";
 
-    private static final int ARG_LABEL_INDEX = 0;
-
     private String mLabel;
     private String mValue;
     private String[] mItems;
-
-    private Spinner selection;
-    private TextView label;
 
     private OnFragmentInteractionListener mListener;
 
@@ -50,19 +42,15 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
      * @return A new instance of fragment SelectionFragment.
      */
-    public static SelectionFragment newInstance(Element element) {
+    public static SelectionFragment newInstance(String label, ArrayList<String> displaySettings) {
         SelectionFragment fragment = new SelectionFragment();
 
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
-
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
-        displaySettings.remove(ARG_LABEL_INDEX);
+        args.putString(ARG_LABEL, label);
 
         String[] values = displaySettings.toArray(new String[0]);
         args.putStringArray(ARG_ITEMS, values);
@@ -86,10 +74,10 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_selection, container, false);
 
-        label = view.findViewById(R.id.selection_label);
+        TextView label = view.findViewById(R.id.selection_label);
         label.setText(mLabel);
 
-        selection = view.findViewById(R.id.selection_value);
+        Spinner selection = view.findViewById(R.id.selection_value);
         selection.setOnItemSelectedListener(this);
         selection.setAdapter(new ArrayAdapter<>(
                 getActivity(),
@@ -102,7 +90,6 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onItemSelected() {
         if (mListener != null) {
             mListener.onFragmentInteraction(mLabel, mValue);

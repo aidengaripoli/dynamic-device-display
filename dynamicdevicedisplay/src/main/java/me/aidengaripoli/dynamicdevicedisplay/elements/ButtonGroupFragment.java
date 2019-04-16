@@ -8,13 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import org.w3c.dom.Element;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +23,7 @@ import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
  * create an instance of this fragment.
  */
 public class ButtonGroupFragment extends Fragment {
+    private static final String ARG_LABEL = "label";
     private static final String ARG_BUTTON_LABELS = "buttonlabels";
     private String[] buttonLabels;
 
@@ -38,20 +37,18 @@ public class ButtonGroupFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
      * @return A new instance of fragment ButtonGroupFragment.
      */
-    public static ButtonGroupFragment newInstance(Element element) {
+    public static ButtonGroupFragment newInstance(String label, ArrayList<String> displaySettings) {
         ButtonGroupFragment fragment = new ButtonGroupFragment();
-
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
 
         Bundle args = new Bundle();
 
         String[] buttonLabels = displaySettings.toArray(new String[0]);
         args.putStringArray(ARG_BUTTON_LABELS, buttonLabels);
+        args.putString(ARG_LABEL, label);
 
         fragment.setArguments(args);
         return fragment;
@@ -71,6 +68,12 @@ public class ButtonGroupFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_button_group, container, false);
 
+        TextView labelView = view.findViewById(R.id.buttonGroupLabel);
+        if (getArguments() != null) {
+            String label = getArguments().getString(ARG_LABEL);
+            labelView.setText(label);
+        }
+
         for (String buttonLabel : buttonLabels) {
             Button button = new Button(view.getContext());
             button.setText(buttonLabel);
@@ -80,7 +83,6 @@ public class ButtonGroupFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

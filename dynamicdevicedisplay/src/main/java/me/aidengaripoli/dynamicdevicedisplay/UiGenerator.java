@@ -22,12 +22,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class UiGenerator {
     private static final String TAG = "UiGenerator";
     private FragmentManager fragmentManager;
-    private XmlParser xmlParser;
 
 
     public UiGenerator(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
-        xmlParser = new XmlParser();
     }
 
     public LinearLayout generateUi(Context context, InputStream inputStream) {
@@ -104,7 +102,6 @@ public class UiGenerator {
     }
 
     private Fragment generateGuiElement(Element element) {
-        String type = xmlParser.getElementType(element);
-        return ElementsFactory.getElement(type, element);
+        return ElementsFactory.getElement(element);
     }
 }

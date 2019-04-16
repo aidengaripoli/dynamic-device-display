@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".elements.TimePickerFragment">
+    tools:context=".elements.SchedulerFragment">
 
     <TextView
         android:id="@+id/TimePicker_Label"

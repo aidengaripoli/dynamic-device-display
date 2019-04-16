@@ -1,19 +1,14 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import org.w3c.dom.Element;
 
@@ -22,37 +17,36 @@ import java.util.ArrayList;
 import me.aidengaripoli.dynamicdevicedisplay.R;
 import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TimePickerFragment.OnFragmentInteractionListener} interface
+ * {@link ToggleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TimePickerFragment#newInstance} factory method to
+ * Use the {@link ToggleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TimePickerFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_LABEL = "label";
-    private static final int ARG_LABEL_INDEX = 0;
+public class ToggleFragment extends Fragment implements View.OnClickListener {
 
-    private String label;
+    private static final String ARG_LABEL = "label";
+    private static final String ARG_POS_LABEL = "pos_label";
+    private static final String ARG_NEG_LABEL = "neg_label";
+
+    private static final int ARG_LABEL_INDEX = 0;
+    private static final int ARG_POS_LABEL_INDEX = 1;
+    private static final int ARG_NEG_LABEL_INDEX = 2;
+
+    private String mLabel;
+    private String mPosLabel;
+    private String mNegLabel;
+    private boolean mState;
+
+    private Button toggleButton;
+    private TextView label;
 
     private OnFragmentInteractionListener mListener;
 
-    private int hr;
-    private int min;
-    private TextView time;
-
-    private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
-            hr = hourOfDay;
-            min = minutes;
-            updateTime(hr, min);
-        }
-    };
-
-    public TimePickerFragment() {
+    public ToggleFragment() {
         // Required empty public constructor
     }
 
@@ -61,11 +55,10 @@ public class TimePickerFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param element Parameter 1.
-     * @return A new instance of fragment TimePickerFragment.
+     * @return A new instance of fragment ToggleFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static TimePickerFragment newInstance(Element element) {
-        TimePickerFragment fragment = new TimePickerFragment();
+    public static ToggleFragment newInstance(Element element) {
+        ToggleFragment fragment = new ToggleFragment();
 
         XmlParser xmlParser = new XmlParser();
 
@@ -73,6 +66,9 @@ public class TimePickerFragment extends Fragment {
 
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putString(ARG_POS_LABEL, displaySettings.get(ARG_POS_LABEL_INDEX));
+        args.putString(ARG_NEG_LABEL, displaySettings.get(ARG_NEG_LABEL_INDEX));
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,23 +77,34 @@ public class TimePickerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            label = getArguments().getString(ARG_LABEL);
+            mLabel = getArguments().getString(ARG_LABEL);
+            mState = true;
+            mPosLabel = getArguments().getString(ARG_POS_LABEL);
+            mNegLabel = getArguments().getString(ARG_NEG_LABEL);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_time_picker, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_toggle, container, false);
 
-        TextView labelView = view.findViewById(R.id.TimePicker_Label);
-        labelView.setText(label);
+        label = view.findViewById(R.id.toggle_label);
+        label.setText(mLabel);
 
-        time = view.findViewById(R.id.TimePicker_output);
+        toggleButton = view.findViewById(R.id.toggle_button);
+        toggleButton.setText(mState ? mPosLabel : mNegLabel);
+        toggleButton.setOnClickListener(this);
 
-        Button button = view.findViewById(R.id.btnClick);
-        button.setOnClickListener(v -> new TimePickerDialog(getActivity(), timePickerListener, hr, min, false).show());
         return view;
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed() {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(mLabel, mState);
+        }
     }
 
     @Override
@@ -117,25 +124,11 @@ public class TimePickerFragment extends Fragment {
         mListener = null;
     }
 
-    private void updateTime(int hours, int mins) {
-        String timeSet;
-        if (hours > 12) {
-            hours -= 12;
-            timeSet = "PM";
-        } else if (hours == 0) {
-            hours += 12;
-            timeSet = "AM";
-        } else if (hours == 12)
-            timeSet = "PM";
-        else
-            timeSet = "AM";
-        String minutes;
-        if (mins < 10)
-            minutes = "0" + mins;
-        else
-            minutes = String.valueOf(mins);
-        String aTime = String.valueOf(hours) + ':' + minutes + " " + timeSet;
-        time.setText(aTime);
+    @Override
+    public void onClick(View v) {
+        mState = !mState;
+        toggleButton.setText(mState ? mPosLabel : mNegLabel);
+        onButtonPressed();
     }
 
     /**
@@ -150,6 +143,6 @@ public class TimePickerFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String label, boolean state);
     }
 }

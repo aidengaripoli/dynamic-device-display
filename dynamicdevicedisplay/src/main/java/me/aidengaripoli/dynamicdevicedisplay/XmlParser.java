@@ -29,8 +29,10 @@ public class XmlParser {
      */
     public ArrayList<String> getDisplaySettings(Element element) {
         ArrayList<String> displaySettings = new ArrayList<>();
-
         String value = getTagData(element, "disp_settings");
+
+        if (value == null)
+            return displaySettings; //No display settings found for this element
 
         StringTokenizer st = new StringTokenizer(value, ",");
         while (st.hasMoreTokens()) {
@@ -41,7 +43,17 @@ public class XmlParser {
     }
 
     /**
-     * Used to retrieve the string found inside the a specific tag.
+     * Used to retrieve the value in the <label/> tag.
+     *
+     * @param element Parameter 1.
+     * @return A String with the value in the label tag.
+     */
+    public String getLabel(Element element) {
+        return getTagData(element, "label");
+    }
+
+    /**
+     * Used to retrieve the string found inside a specific tag.
      *
      * @param element Parameter 1.
      * @param tag     Parameter 2.

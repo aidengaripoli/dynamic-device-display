@@ -9,12 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,12 +24,7 @@ import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 public class StatusFragment extends Fragment {
     private static final String ARG_LABEL = "label";
 
-    private static final int ARG_LABEL_INDEX = 0;
-
     private String label;
-
-    private TextView statusLabel;
-    private TextView statusValue;
 
     private OnFragmentInteractionListener mListener;
 
@@ -44,18 +36,15 @@ public class StatusFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
      * @return A new instance of fragment StatusFragment.
      */
-    public static StatusFragment newInstance(Element element) {
+    public static StatusFragment newInstance(String label, ArrayList<String> displaySettings) {
         StatusFragment fragment = new StatusFragment();
 
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
-
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putString(ARG_LABEL, label);
 
         fragment.setArguments(args);
         return fragment;
@@ -75,15 +64,12 @@ public class StatusFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_status, container, false);
 
-        statusLabel = view.findViewById(R.id.status_labels);
+        TextView statusLabel = view.findViewById(R.id.status_labels);
         statusLabel.setText(label);
-
-        statusValue = view.findViewById(R.id.status_value);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
