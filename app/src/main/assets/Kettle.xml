@@ -4,10 +4,10 @@
         <name>Kettle</name>
         <room>Kitchen</room>
     </group>
-    <group id="1" permission="WR">
+    <group id="1" permisison="WR">
         <gui_element id="1">
             <type>status</type>
-            <disp_settings>Kettle</disp_settings>
+            <label>Kettle</label>
             <status_location>1</status_location>
             <comment>Kettle</comment>
         </gui_element>
@@ -15,7 +15,7 @@
     <group id="2" permission="WR">
         <gui_element id="1">
             <type>switchtoggle</type>
-            <disp_settings>On/Off</disp_settings>
+            <label>On/Off</label>
             <status_location>2</status_location>
             <comment>Turn on or off</comment>
         </gui_element>
@@ -31,15 +31,16 @@
     <group id="4" permission="WR">
         <gui_element id="1">
             <type>switchtoggle</type>
-            <disp_settings>Keep Warm</disp_settings>
+            <label>Keep Warm</label>
             <status_location>4</status_location>
             <comment>Keep warm</comment>
         </gui_element>
     </group>
     <group id="5" permission="WR">
         <gui_element id="1">
-            <type>slider</type>
-            <disp_settings>Target Temperature,Set,0,150,50</disp_settings>
+            <type>rangeinput</type>
+            <label>Target Temperature</label>
+            <disp_settings>Set,10,150</disp_settings>
             <status_location>5</status_location>
             <comment>Set the target temperature</comment>
         </gui_element>
@@ -47,7 +48,8 @@
     <group id="6" permission="WR">
         <gui_element id="1">
             <type>selection</type>
-            <disp_settings>Temp Settings,0,Coffee,Hot Chocolate,Water</disp_settings>
+            <label>Temp Settings</label>
+            <disp_settings>Coffee,Hot Chocolate,Water</disp_settings>
             <status_location>6</status_location>
             <comment>Set temp settings</comment>
         </gui_element>

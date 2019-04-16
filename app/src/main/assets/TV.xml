@@ -7,27 +7,30 @@
     <group id="1" permission="WR">
         <gui_element id="1">
             <type>switchtoggle</type>
-            <disp_settings>On/Off</disp_settings>
+            <label>On/Off</label>
             <status_location>1</status_location>
             <comment>Turn TV On or Off</comment>
         </gui_element>
         <gui_element id="1">
             <type>selection</type>
-            <disp_settings>Source,HDMI1,HDMI2,HDMI3,HDMI4,AV</disp_settings>
+            <label>Source</label>
+            <disp_settings>HDMI1,HDMI2,HDMI3,HDMI4,AV</disp_settings>
             <status_location>4</status_location>
             <comment>Input Source</comment>
         </gui_element>
     </group>
     <group id="4" permission="WR">
         <gui_element id="1">
-            <type>toggle</type>
-            <disp_settings>Record,Recording,Not Recording</disp_settings>
+            <type>buttontoggle</type>
+            <label>Record</label>
+            <disp_settings>Recording,Not Recording</disp_settings>
             <status_location>5</status_location>
             <comment>Recording</comment>
         </gui_element>
         <gui_element id="2">
-            <type>toggle</type>
-            <disp_settings>Mute,Muted,Unmuted</disp_settings>
+            <type>buttontoggle</type>
+            <label>Mute</label>
+            <disp_settings>Muted,Unmuted</disp_settings>
             <status_location>6</status_location>
             <comment>Mute</comment>
         </gui_element>
@@ -35,7 +38,8 @@
     <group id="2" permission="WR">
         <gui_element id="1">
             <type>plusminus</type>
-            <disp_settings>Channel,0,100</disp_settings>
+            <label>Channel</label>
+            <disp_settings>0,100</disp_settings>
             <status_location>2</status_location>
             <comment>Channel selection</comment>
         </gui_element>
@@ -43,7 +47,8 @@
     <group id="3" permission="WR">
         <gui_element id="1">
             <type>plusminus</type>
-            <disp_settings>Volume,0,100</disp_settings>
+            <label>Volume</label>
+            <disp_settings>0,100</disp_settings>
             <status_location>2</status_location>
             <comment>Volume selection</comment>
         </gui_element>
