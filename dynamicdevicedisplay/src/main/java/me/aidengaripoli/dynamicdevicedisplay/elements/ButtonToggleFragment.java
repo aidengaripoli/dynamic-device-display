@@ -10,31 +10,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ToggleFragment.OnFragmentInteractionListener} interface
+ * {@link ButtonToggleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ToggleFragment#newInstance} factory method to
+ * Use the {@link ButtonToggleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ToggleFragment extends Fragment implements View.OnClickListener {
+public class ButtonToggleFragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_LABEL = "label";
     private static final String ARG_POS_LABEL = "pos_label";
     private static final String ARG_NEG_LABEL = "neg_label";
 
-    private static final int ARG_LABEL_INDEX = 0;
-    private static final int ARG_POS_LABEL_INDEX = 1;
-    private static final int ARG_NEG_LABEL_INDEX = 2;
+    private static final int ARG_POS_LABEL_INDEX = 0;
+    private static final int ARG_NEG_LABEL_INDEX = 1;
 
     private String mLabel;
     private String mPosLabel;
@@ -42,11 +38,10 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
     private boolean mState;
 
     private Button toggleButton;
-    private TextView label;
 
     private OnFragmentInteractionListener mListener;
 
-    public ToggleFragment() {
+    public ButtonToggleFragment() {
         // Required empty public constructor
     }
 
@@ -54,18 +49,15 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
-     * @return A new instance of fragment ToggleFragment.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
+     * @return A new instance of fragment ButtonToggleFragment.
      */
-    public static ToggleFragment newInstance(Element element) {
-        ToggleFragment fragment = new ToggleFragment();
-
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
+    public static ButtonToggleFragment newInstance(String label, ArrayList<String> displaySettings) {
+        ButtonToggleFragment fragment = new ButtonToggleFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putString(ARG_LABEL, label);
         args.putString(ARG_POS_LABEL, displaySettings.get(ARG_POS_LABEL_INDEX));
         args.putString(ARG_NEG_LABEL, displaySettings.get(ARG_NEG_LABEL_INDEX));
 
@@ -90,7 +82,7 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_toggle, container, false);
 
-        label = view.findViewById(R.id.toggle_label);
+        TextView label = view.findViewById(R.id.toggle_label);
         label.setText(mLabel);
 
         toggleButton = view.findViewById(R.id.toggle_button);
@@ -100,7 +92,6 @@ public class ToggleFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed() {
         if (mListener != null) {
             mListener.onFragmentInteraction(mLabel, mState);

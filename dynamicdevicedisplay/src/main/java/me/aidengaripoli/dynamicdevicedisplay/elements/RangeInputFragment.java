@@ -14,31 +14,27 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SliderFragment.OnFragmentInteractionListener} interface
+ * {@link RangeInputFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SliderFragment#newInstance} factory method to
+ * Use the {@link RangeInputFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SliderFragment extends Fragment {
+public class RangeInputFragment extends Fragment {
     private static final String ARG_LABEL = "label";
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";
 
-    private static final int ARG_LABEL_INDEX = 0;
-    private static final int ARG_BUTTON_LABEL_INDEX = 1;
-    private static final int ARG_MIN_INDEX = 2;
-    private static final int ARG_MAX_INDEX = 3;
+    private static final int ARG_BUTTON_LABEL_INDEX = 0;
+    private static final int ARG_MIN_INDEX = 1;
+    private static final int ARG_MAX_INDEX = 2;
 
     private String label;
     private String buttonLabel;
@@ -47,14 +43,12 @@ public class SliderFragment extends Fragment {
     private int min;
     private int range;
 
-    private TextView labelView;
-    private Button buttonView;
     private EditText valueView;
     private SeekBar seekBarView;
 
     private OnFragmentInteractionListener mListener;
 
-    public SliderFragment() {
+    public RangeInputFragment() {
         // Required empty public constructor
     }
 
@@ -62,18 +56,15 @@ public class SliderFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
-     * @return A new instance of fragment SliderFragment.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
+     * @return A new instance of fragment RangeInputFragment.
      */
-    public static SliderFragment newInstance(Element element) {
-        SliderFragment fragment = new SliderFragment();
-
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
+    public static RangeInputFragment newInstance(String label, ArrayList<String> displaySettings) {
+        RangeInputFragment fragment = new RangeInputFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putString(ARG_LABEL, label);
         args.putString(ARG_BUTTON_LABEL, displaySettings.get(ARG_BUTTON_LABEL_INDEX));
         args.putInt(ARG_MIN, Integer.parseInt(displaySettings.get(ARG_MIN_INDEX)));
         args.putInt(ARG_MAX, Integer.parseInt(displaySettings.get(ARG_MAX_INDEX)));
@@ -101,10 +92,10 @@ public class SliderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_slider, container, false);
 
-        labelView = view.findViewById(R.id.slider_label);
+        TextView labelView = view.findViewById(R.id.slider_label);
         labelView.setText(label);
 
-        buttonView = view.findViewById(R.id.slider_button);
+        Button buttonView = view.findViewById(R.id.slider_button);
         buttonView.setText(buttonLabel);
 
         valueView = view.findViewById(R.id.slider_value);

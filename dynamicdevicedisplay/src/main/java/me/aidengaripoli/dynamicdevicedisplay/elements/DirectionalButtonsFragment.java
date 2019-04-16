@@ -7,25 +7,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import org.w3c.dom.Element;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DirectionalArrowsFragment.OnFragmentInteractionListener} interface
+ * {@link DirectionalButtonsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DirectionalArrowsFragment#newInstance} factory method to
+ * Use the {@link DirectionalButtonsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DirectionalArrowsFragment extends Fragment implements View.OnClickListener {
+public class DirectionalButtonsFragment extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener mListener;
 
+    private static final String ARG_LABEL = "label";
     private static final String ARG_TOP = "top";
     private static final String ARG_RIGHT = "right";
     private static final String ARG_BOTTOM = "bottom";
@@ -36,7 +35,7 @@ public class DirectionalArrowsFragment extends Fragment implements View.OnClickL
     private static final int ARG_BOTTOM_INDEX = 2;
     private static final int ARG_LEFT_INDEX = 3;
 
-    public DirectionalArrowsFragment() {
+    public DirectionalButtonsFragment() {
         // Required empty public constructor
     }
 
@@ -44,16 +43,15 @@ public class DirectionalArrowsFragment extends Fragment implements View.OnClickL
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment DirectionalArrowsFragment.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
+     * @return A new instance of fragment DirectionalButtonsFragment.
      */
-    public static DirectionalArrowsFragment newInstance(Element element) {
-        DirectionalArrowsFragment fragment = new DirectionalArrowsFragment();
-
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
+    public static DirectionalButtonsFragment newInstance(String label, ArrayList<String> displaySettings) {
+        DirectionalButtonsFragment fragment = new DirectionalButtonsFragment();
 
         Bundle args = new Bundle();
+        args.putString(ARG_LABEL, label);
         args.putString(ARG_TOP, displaySettings.get(ARG_TOP_INDEX));
         args.putString(ARG_RIGHT, displaySettings.get(ARG_RIGHT_INDEX));
         args.putString(ARG_BOTTOM, displaySettings.get(ARG_BOTTOM_INDEX));
@@ -75,12 +73,17 @@ public class DirectionalArrowsFragment extends Fragment implements View.OnClickL
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_directional_arrows, container, false);
 
+        TextView labelView = view.findViewById(R.id.direcButtonLabel);
         Button nButton = view.findViewById(R.id.direcButtonN);
         Button eButton = view.findViewById(R.id.direcButtonE);
         Button sButton = view.findViewById(R.id.direcButtonS);
         Button wButton = view.findViewById(R.id.direcButtonW);
 
         if (getArguments() != null) {
+            String label = getArguments().getString(ARG_LABEL);
+            if (label != null) //label is and optional field
+                labelView.setText(getArguments().getString(ARG_LABEL));
+
             nButton.setText(getArguments().getString(ARG_TOP));
             eButton.setText(getArguments().getString(ARG_RIGHT));
             sButton.setText(getArguments().getString(ARG_BOTTOM));
@@ -95,7 +98,6 @@ public class DirectionalArrowsFragment extends Fragment implements View.OnClickL
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(String buttonPressed) {
         if (mListener != null) {
             mListener.onFragmentInteraction(buttonPressed);

@@ -10,37 +10,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link InputFragment.OnFragmentInteractionListener} interface
+ * {@link TextInputFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link InputFragment#newInstance} factory method to
+ * Use the {@link TextInputFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InputFragment extends Fragment {
+public class TextInputFragment extends Fragment {
     private static final String ARG_LABEL = "label";
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
 
-    private static final int ARG_LABEL_INDEX = 0;
-    private static final int ARG_BUTTON_LABEL_INDEX = 1;
+    private static final int ARG_BUTTON_LABEL_INDEX = 0;
 
     private String label;
     private String buttonLabel;
 
-    private TextView labelView;
-    private Button button;
-
     private OnFragmentInteractionListener mListener;
 
-    public InputFragment() {
+    public TextInputFragment() {
         // Required empty public constructor
     }
 
@@ -48,19 +41,15 @@ public class InputFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
-     * @return A new instance of fragment InputFragment.
+     * @param label           Parameter 1.
+     * @param displaySettings Parameter 2.
+     * @return A new instance of fragment TextInputFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static InputFragment newInstance(Element element) {
-        InputFragment fragment = new InputFragment();
-
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
+    public static TextInputFragment newInstance(String label, ArrayList<String> displaySettings) {
+        TextInputFragment fragment = new TextInputFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putString(ARG_LABEL, label);
         args.putString(ARG_BUTTON_LABEL, displaySettings.get(ARG_BUTTON_LABEL_INDEX));
         fragment.setArguments(args);
         return fragment;
@@ -81,16 +70,15 @@ public class InputFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_input, container, false);
 
-        labelView = view.findViewById(R.id.input_label);
+        TextView labelView = view.findViewById(R.id.input_label);
         labelView.setText(label);
 
-        button = view.findViewById(R.id.input_button);
+        Button button = view.findViewById(R.id.input_button);
         button.setText(buttonLabel);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

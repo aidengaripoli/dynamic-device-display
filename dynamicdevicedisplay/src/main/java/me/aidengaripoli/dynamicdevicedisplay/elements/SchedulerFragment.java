@@ -12,22 +12,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TimePickerFragment.OnFragmentInteractionListener} interface
+ * {@link SchedulerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TimePickerFragment#newInstance} factory method to
+ * Use the {@link SchedulerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TimePickerFragment extends Fragment {
+public class SchedulerFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_LABEL = "label";
     private static final int ARG_LABEL_INDEX = 0;
@@ -49,7 +46,7 @@ public class TimePickerFragment extends Fragment {
         }
     };
 
-    public TimePickerFragment() {
+    public SchedulerFragment() {
         // Required empty public constructor
     }
 
@@ -57,15 +54,15 @@ public class TimePickerFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label Parameter 1.
+     * @param label           Parameter 1.
      * @param displaySettings Parameter 2.
-     * @return A new instance of fragment TimePickerFragment.
+     * @return A new instance of fragment SchedulerFragment.
      */
-    public static TimePickerFragment newInstance(String label, ArrayList<String> displaySettings) {
-        TimePickerFragment fragment = new TimePickerFragment();
+    public static SchedulerFragment newInstance(String label, ArrayList<String> displaySettings) {
+        SchedulerFragment fragment = new SchedulerFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        args.putString(ARG_LABEL, label);
         fragment.setArguments(args);
         return fragment;
     }
