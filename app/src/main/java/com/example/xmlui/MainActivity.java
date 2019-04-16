@@ -16,10 +16,12 @@ public class MainActivity extends AppCompatActivity {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         String devices[] = {"Kettle.xml", "TV.xml", "SecCamera.xml", "Thermostat.xml", "Elements.xml"};
+        String buttonNames[] = {"Kettle", "TV", "Security Camera", "Thermostat", "Elements"};
 
+        int i = 0;
         for (String device : devices) {
             Button button = new Button(this);
-            button.setText(device);
+            button.setText(buttonNames[i++]);
             linearLayout.addView(button);
             button.setOnClickListener(v -> {
                 Intent intent = new Intent(this, IotDeviceActivity.class);
