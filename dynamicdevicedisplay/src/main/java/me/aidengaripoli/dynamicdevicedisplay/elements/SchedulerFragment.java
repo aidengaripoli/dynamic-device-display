@@ -2,13 +2,16 @@ package me.aidengaripoli.dynamicdevicedisplay.elements;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -24,18 +27,23 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link SchedulerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SchedulerFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class SchedulerFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private static final String ARG_LABEL = "label";
-    private static final int ARG_LABEL_INDEX = 0;
+    private static final String ARG_BUTTON_LABEL = "buttonLabel";
+    private static final String ARG_ITEMS = "items";
+
+    private static final int ARG_BUTTON_LABEL_INDEX = 0;
+
 
     private String label;
+    private String[] spinnerItems;
 
     private OnFragmentInteractionListener mListener;
 
     private int hr;
     private int min;
-    private TextView time;
+    private String aTime;
+    private Button timeButton;
 
     private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
@@ -63,6 +71,11 @@ public class SchedulerFragment extends Fragment {
 
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, label);
+        args.putString(ARG_BUTTON_LABEL, displaySettings.get(ARG_BUTTON_LABEL_INDEX));
+        displaySettings.remove(ARG_BUTTON_LABEL_INDEX);
+
+        String[] values = displaySettings.toArray(new String[0]);
+        args.putStringArray(ARG_ITEMS, values);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,21 +85,35 @@ public class SchedulerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             label = getArguments().getString(ARG_LABEL);
+            spinnerItems = getArguments().getStringArray(ARG_ITEMS);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_time_picker, container, false);
+        View view = inflater.inflate(R.layout.fragment_scheduler, container, false);
 
-        TextView labelView = view.findViewById(R.id.TimePicker_Label);
+        TextView labelView = view.findViewById(R.id.SchedulerLabel);
         labelView.setText(label);
 
-        time = view.findViewById(R.id.TimePicker_output);
+        timeButton = view.findViewById(R.id.SchedulerButtonTime);
+        timeButton.setOnClickListener(v -> new TimePickerDialog(getActivity(), timePickerListener, hr, min, false).show());
 
-        Button button = view.findViewById(R.id.btnClick);
-        button.setOnClickListener(v -> new TimePickerDialog(getActivity(), timePickerListener, hr, min, false).show());
+        Spinner selection = view.findViewById(R.id.SchedulerSpinner);
+        selection.setOnItemSelectedListener(this);
+        selection.setAdapter(new ArrayAdapter<>(
+                getActivity(),
+                android.R.layout.simple_dropdown_item_1line,
+                spinnerItems
+        ));
+
+        Button button = view.findViewById(R.id.SchedulerButtonSubmit);
+        if (getArguments() != null) {
+            button.setText(getArguments().getString(ARG_BUTTON_LABEL));
+        }
+        button.setOnClickListener(v -> mListener.onFragmentInteraction(aTime));
+
         return view;
     }
 
@@ -124,8 +151,20 @@ public class SchedulerFragment extends Fragment {
             minutes = "0" + mins;
         else
             minutes = String.valueOf(mins);
-        String aTime = String.valueOf(hours) + ':' + minutes + " " + timeSet;
-        time.setText(aTime);
+        aTime = String.valueOf(hours) + ':' + minutes + " " + timeSet;
+        timeButton.setText(aTime);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(label);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     /**
@@ -139,7 +178,6 @@ public class SchedulerFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String uri);
     }
 }
