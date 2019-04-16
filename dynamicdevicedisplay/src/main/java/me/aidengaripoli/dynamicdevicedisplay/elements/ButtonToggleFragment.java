@@ -80,7 +80,7 @@ public class ButtonToggleFragment extends Fragment implements View.OnClickListen
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_toggle, container, false);
+        View view = inflater.inflate(R.layout.fragment_button_toggle, container, false);
 
         TextView label = view.findViewById(R.id.toggle_label);
         label.setText(mLabel);
