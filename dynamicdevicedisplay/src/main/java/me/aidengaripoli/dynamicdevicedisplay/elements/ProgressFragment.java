@@ -23,6 +23,8 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class ProgressFragment extends Fragment {
+    public static final String PROGRESS = "progress";
+
     private static final String ARG_LABEL = "label";
 
     private String mLabel;

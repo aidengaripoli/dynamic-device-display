@@ -25,6 +25,8 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class SelectionFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+    public static final String SELECTION = "selection";
+
     private static final String ARG_LABEL = "label";
     private static final String ARG_ITEMS = "items";
 

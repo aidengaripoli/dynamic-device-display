@@ -22,6 +22,8 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class SwitchToggleFragment extends Fragment {
+    public static final String SWITCH_TOGGLE = "switchtoggle";
+
     private static final String ARG_LABEL = "label";
 
     private String label;

@@ -23,6 +23,8 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class PasswordFragment extends Fragment {
+    public static final String PASSWORD = "password";
+
     private static final String ARG_LABEL = "label";
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
 

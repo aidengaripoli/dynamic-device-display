@@ -23,6 +23,8 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class PlusMinusFragment extends Fragment implements View.OnClickListener {
+    public static final String PLUS_MINUS = "plusminus";
+
     private static final String ARG_LABEL = "label";
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";

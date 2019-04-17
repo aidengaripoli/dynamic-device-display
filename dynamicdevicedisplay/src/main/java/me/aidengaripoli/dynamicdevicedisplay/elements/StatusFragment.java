@@ -22,6 +22,8 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class StatusFragment extends Fragment {
+    public static final String STATUS = "status";
+
     private static final String ARG_LABEL = "label";
 
     private String label;

@@ -28,12 +28,13 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class SchedulerFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+    public static final String SCHEDULER = "scheduler";
+
     private static final String ARG_LABEL = "label";
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
     private static final String ARG_ITEMS = "items";
 
     private static final int ARG_BUTTON_LABEL_INDEX = 0;
-
 
     private String label;
     private String[] spinnerItems;

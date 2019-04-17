@@ -22,6 +22,8 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class DirectionalButtonsFragment extends Fragment implements View.OnClickListener {
+    public static final String DIRECTIONAL_BUTTONS = "directionalbuttons";
+
     private OnFragmentInteractionListener mListener;
 
     private static final String ARG_LABEL = "label";

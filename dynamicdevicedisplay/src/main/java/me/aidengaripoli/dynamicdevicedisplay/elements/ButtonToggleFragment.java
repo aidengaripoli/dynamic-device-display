@@ -24,6 +24,7 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class ButtonToggleFragment extends Fragment implements View.OnClickListener {
+    public static final String BUTTON_TOGGLE = "buttontoggle";
 
     private static final String ARG_LABEL = "label";
     private static final String ARG_POS_LABEL = "pos_label";
