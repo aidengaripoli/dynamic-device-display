@@ -27,7 +27,7 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * create an instance of this fragment.
  */
 public class RangeInputFragment extends Fragment {
-    public static final String RANGE_INPUT = "rangeslider";
+    public static final String RANGE_INPUT = "rangeinput";
 
     private static final String ARG_LABEL = "label";
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
