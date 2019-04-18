@@ -55,7 +55,7 @@
     </group>
     <group id="4" permission="WR">
         <gui_element id="1">
-            <type>directionalarrows</type>
+            <type>directionalbuttons</type>
             <disp_settings>↑,→,↓,←</disp_settings>
             <status_location>3</status_location>
             <comment>Directional Arrows</comment>

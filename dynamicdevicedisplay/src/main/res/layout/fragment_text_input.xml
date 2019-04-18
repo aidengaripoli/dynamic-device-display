@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".elements.TextInputFragment"
-    android:padding="16dp">
+    tools:context=".elements.TextInputFragment">
 
     <TextView
         android:id="@+id/input_label"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="" />
 
     <EditText
         android:id="@+id/input_value"

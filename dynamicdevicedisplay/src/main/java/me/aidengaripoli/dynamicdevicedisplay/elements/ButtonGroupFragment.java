@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -76,10 +77,12 @@ public class ButtonGroupFragment extends Fragment {
             labelView.setText(label);
         }
 
+        LinearLayout buttonLayout = view.findViewById(R.id.buttonGroup_layout);
+
         for (String buttonLabel : buttonLabels) {
             Button button = new Button(view.getContext());
             button.setText(buttonLabel);
-            container.addView(button);
+            buttonLayout.addView(button);
         }
 
         return view;
