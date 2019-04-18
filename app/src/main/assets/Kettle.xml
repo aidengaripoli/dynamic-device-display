@@ -4,14 +4,6 @@
         <name>Kettle</name>
         <room>Kitchen</room>
     </group>
-    <group id="1" permisison="WR">
-        <gui_element id="1">
-            <type>status</type>
-            <label>Kettle</label>
-            <status_location>1</status_location>
-            <comment>Kettle</comment>
-        </gui_element>
-    </group>
     <group id="2" permission="WR">
         <gui_element id="1">
             <type>switchtoggle</type>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <device>
     <group id="1" permission="RR">
-        <name>Garage door</name>
+        <name>Element Samples</name>
         <room>Outside</room>
     </group>
 

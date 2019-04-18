@@ -5,11 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
@@ -37,8 +40,10 @@ public class UiGenerator {
             // get all of the <group> elements
             NodeList groupNodeList = builder.parse(inputStream).getElementsByTagName("group");
 
+            addTitle((Element) groupNodeList.item(0), rootLayout, context);
+
             // iterate through all the <group> elements
-            for (int i = 0; i < groupNodeList.getLength(); i++) {
+            for (int i = 1; i < groupNodeList.getLength(); i++) {
                 Element element = (Element) groupNodeList.item(i);
                 NodeList guiNodeList = element.getElementsByTagName("gui_element");
 
@@ -54,6 +59,19 @@ public class UiGenerator {
         }
 
         return rootLayout;
+    }
+
+    private void addTitle(Element element,LinearLayout rootLayout, Context context){
+        XmlParser xmlParser = new XmlParser();
+        String name = xmlParser.getName(element);
+
+        TextView title = new TextView(context);
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP,36);
+        title.setText(name);
+
+        LinearLayout groupLayout = createLinearLayout(context);
+        groupLayout.addView(title);
+        rootLayout.addView(groupLayout);
     }
 
     private void createGroupOfElements(LinearLayout layout, NodeList guiNodeList, Context context) {

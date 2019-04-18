@@ -53,6 +53,16 @@ public class XmlParser {
     }
 
     /**
+     * Used to retrieve the value in the <name/> tag.
+     *
+     * @param element Parameter 1.
+     * @return A String with the value in the name tag.
+     */
+    public String getName(Element element) {
+        return getTagData(element, "name");
+    }
+
+    /**
      * Used to retrieve the string found inside a specific tag.
      *
      * @param element Parameter 1.
