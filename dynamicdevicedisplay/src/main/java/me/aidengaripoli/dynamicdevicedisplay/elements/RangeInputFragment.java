@@ -1,10 +1,8 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +47,7 @@ public class RangeInputFragment extends Fragment {
     private EditText valueView;
     private SeekBar seekBarView;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener interactionListener;
 
     public RangeInputFragment() {
         // Required empty public constructor
@@ -100,6 +98,7 @@ public class RangeInputFragment extends Fragment {
 
         Button buttonView = view.findViewById(R.id.slider_button);
         buttonView.setText(buttonLabel);
+        buttonView.setOnClickListener(v -> onButtonPressed(String.valueOf(valueView.getText())));
 
         valueView = view.findViewById(R.id.slider_value);
         seekBarView = view.findViewById(R.id.slider);
@@ -156,8 +155,8 @@ public class RangeInputFragment extends Fragment {
     }
 
     public void onButtonPressed(String data) {
-        if (mListener != null) {
-            mListener.onFragmentMessage(data);
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(data);
         }
     }
 
@@ -165,7 +164,7 @@ public class RangeInputFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -175,6 +174,6 @@ public class RangeInputFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interactionListener = null;
     }
 }

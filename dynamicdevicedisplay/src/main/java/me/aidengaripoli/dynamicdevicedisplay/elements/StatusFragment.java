@@ -73,12 +73,6 @@ public class StatusFragment extends Fragment {
         return view;
     }
 
-    public void onButtonPressed(String uri) {
-        if (mListener != null) {
-            mListener.onFragmentMessage(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

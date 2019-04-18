@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,14 +34,14 @@ public class ButtonToggleFragment extends Fragment implements View.OnClickListen
     private static final int ARG_POS_LABEL_INDEX = 0;
     private static final int ARG_NEG_LABEL_INDEX = 1;
 
-    private String mLabel;
-    private String mPosLabel;
-    private String mNegLabel;
+    private String label;
+    private String buttonPosLabel;
+    private String buttonNegLabel;
     private boolean mState;
 
     private Button toggleButton;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener interactionListener;
 
     public ButtonToggleFragment() {
         // Required empty public constructor
@@ -72,10 +71,10 @@ public class ButtonToggleFragment extends Fragment implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mLabel = getArguments().getString(ARG_LABEL);
+            label = getArguments().getString(ARG_LABEL);
             mState = true;
-            mPosLabel = getArguments().getString(ARG_POS_LABEL);
-            mNegLabel = getArguments().getString(ARG_NEG_LABEL);
+            buttonPosLabel = getArguments().getString(ARG_POS_LABEL);
+            buttonNegLabel = getArguments().getString(ARG_NEG_LABEL);
         }
     }
 
@@ -86,18 +85,18 @@ public class ButtonToggleFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.fragment_button_toggle, container, false);
 
         TextView label = view.findViewById(R.id.toggle_label);
-        label.setText(mLabel);
+        label.setText(this.label);
 
         toggleButton = view.findViewById(R.id.toggle_button);
-        toggleButton.setText(mState ? mPosLabel : mNegLabel);
+        toggleButton.setText(mState ? buttonPosLabel : buttonNegLabel);
         toggleButton.setOnClickListener(this);
 
         return view;
     }
 
     public void onButtonPressed() {
-        if (mListener != null) {
-            mListener.onFragmentMessage(mState ? mPosLabel : mNegLabel);
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(mState ? buttonPosLabel : buttonNegLabel);
         }
     }
 
@@ -105,7 +104,7 @@ public class ButtonToggleFragment extends Fragment implements View.OnClickListen
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -115,13 +114,13 @@ public class ButtonToggleFragment extends Fragment implements View.OnClickListen
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interactionListener = null;
     }
 
     @Override
     public void onClick(View v) {
         mState = !mState;
-        toggleButton.setText(mState ? mPosLabel : mNegLabel);
+        toggleButton.setText(mState ? buttonPosLabel : buttonNegLabel);
         onButtonPressed();
     }
 }

@@ -1,7 +1,6 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -31,7 +30,7 @@ public class ButtonGroupFragment extends Fragment {
     private static final String ARG_BUTTON_LABELS = "buttonlabels";
     private String[] buttonLabels;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener interactionListener;
 
     public ButtonGroupFragment() {
         // Required empty public constructor
@@ -83,6 +82,7 @@ public class ButtonGroupFragment extends Fragment {
         for (String buttonLabel : buttonLabels) {
             Button button = new Button(view.getContext());
             button.setText(buttonLabel);
+            button.setOnClickListener(v -> onButtonPressed(buttonLabel));
             buttonLayout.addView(button);
         }
 
@@ -90,8 +90,8 @@ public class ButtonGroupFragment extends Fragment {
     }
 
     public void onButtonPressed(String data) {
-        if (mListener != null) {
-            mListener.onFragmentMessage(data);
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(data);
         }
     }
 
@@ -99,7 +99,7 @@ public class ButtonGroupFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -109,6 +109,6 @@ public class ButtonGroupFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interactionListener = null;
     }
 }

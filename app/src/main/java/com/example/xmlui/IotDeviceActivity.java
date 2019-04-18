@@ -45,6 +45,6 @@ public class IotDeviceActivity extends FragmentActivity implements OnFragmentInt
 
     @Override
     public void onFragmentMessage(String data) {
-        Log.e("PRESSED", data);
+        Log.i("Fragment Message", data);
     }
 }

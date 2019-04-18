@@ -1,7 +1,6 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,7 +22,7 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link PlusMinusFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlusMinusFragment extends Fragment implements View.OnClickListener {
+public class PlusMinusFragment extends Fragment {
     public static final String PLUS_MINUS = "plusminus";
 
     private static final String ARG_LABEL = "label";
@@ -40,7 +39,7 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
     private int max;
     private int min;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener interactionListener;
 
     public PlusMinusFragment() {
         // Required empty public constructor
@@ -90,15 +89,29 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
         value.setText(String.valueOf(currentValue));
         labelView.setText(label);
 
-        plusButton.setOnClickListener(this);
-        minusButton.setOnClickListener(this);
+        plusButton.setOnClickListener(v -> changeValue(true));
+        minusButton.setOnClickListener(v -> changeValue(false));
 
         return view;
     }
 
+
+    private void changeValue(boolean plusButton) {
+        if (plusButton) {
+            if (currentValue < max)
+                currentValue++;
+        } else {
+            if (currentValue > min)
+                currentValue--;
+        }
+        value.setText(String.valueOf(currentValue));
+
+        onButtonPressed(String.valueOf(currentValue));
+    }
+
     public void onButtonPressed(String data) {
-        if (mListener != null) {
-            mListener.onFragmentMessage(data);
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(data);
         }
     }
 
@@ -106,7 +119,7 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -116,18 +129,6 @@ public class PlusMinusFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.plus) {
-            if (currentValue < max)
-                currentValue++;
-        } else if (v.getId() == R.id.minus) {
-            if (currentValue > min)
-                currentValue--;
-        }
-        value.setText(String.valueOf(currentValue));
+        interactionListener = null;
     }
 }

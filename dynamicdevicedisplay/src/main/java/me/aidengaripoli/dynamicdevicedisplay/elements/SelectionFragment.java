@@ -31,11 +31,10 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
     private static final String ARG_LABEL = "label";
     private static final String ARG_ITEMS = "items";
 
-    private String mLabel;
-    private String mValue;
-    private String[] mItems;
+    private String label;
+    private String[] items;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener interactionListener;
 
     public SelectionFragment() {
         // Required empty public constructor
@@ -66,8 +65,8 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mLabel = getArguments().getString(ARG_LABEL);
-            mItems = getArguments().getStringArray(ARG_ITEMS);
+            label = getArguments().getString(ARG_LABEL);
+            items = getArguments().getStringArray(ARG_ITEMS);
         }
     }
 
@@ -78,14 +77,14 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
         View view = inflater.inflate(R.layout.fragment_selection, container, false);
 
         TextView label = view.findViewById(R.id.selection_label);
-        label.setText(mLabel);
+        label.setText(this.label);
 
         Spinner selection = view.findViewById(R.id.selection_value);
         selection.setOnItemSelectedListener(this);
         selection.setAdapter(new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_dropdown_item_1line,
-                mItems
+                items
         ));
 
         selection.setSelection(0);
@@ -93,17 +92,11 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
         return view;
     }
 
-    public void onItemSelected() {
-        if (mListener != null) {
-            mListener.onFragmentMessage(mLabel);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -113,14 +106,16 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interactionListener = null;
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        mValue = (String) parent.getItemAtPosition(position);
+        String value = (String) parent.getItemAtPosition(position);
 
-        onItemSelected();
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(value);
+        }
     }
 
     @Override

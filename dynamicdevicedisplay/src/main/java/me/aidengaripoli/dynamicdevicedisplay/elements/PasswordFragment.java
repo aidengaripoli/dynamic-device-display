@@ -1,13 +1,13 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class PasswordFragment extends Fragment {
     private String label;
     private String buttonLabel;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener interactionListener;
 
     public PasswordFragment() {
         // Required empty public constructor
@@ -76,15 +76,18 @@ public class PasswordFragment extends Fragment {
         TextView labelView = view.findViewById(R.id.password_label);
         labelView.setText(label);
 
+        EditText passwordView = view.findViewById(R.id.password_value);
+
         Button button = view.findViewById(R.id.password_button);
+        button.setOnClickListener(v -> onButtonPressed(passwordView.getText().toString()));
         button.setText(buttonLabel);
 
         return view;
     }
 
     public void onButtonPressed(String data) {
-        if (mListener != null) {
-            mListener.onFragmentMessage(data);
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(data);
         }
     }
 
@@ -92,7 +95,7 @@ public class PasswordFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -102,6 +105,6 @@ public class PasswordFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interactionListener = null;
     }
 }

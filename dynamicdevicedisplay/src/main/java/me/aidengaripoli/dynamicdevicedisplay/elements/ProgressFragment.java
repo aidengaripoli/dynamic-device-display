@@ -31,7 +31,7 @@ public class ProgressFragment extends Fragment {
     private String mLabel;
     private int mValue;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener interactionListener;
 
     public ProgressFragment() {
         // Required empty public constructor
@@ -79,8 +79,8 @@ public class ProgressFragment extends Fragment {
     }
 
     public void onProgressChanged() {
-        if (mListener != null) {
-            mListener.onFragmentMessage(mLabel);
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(mLabel);
         }
     }
 
@@ -88,7 +88,7 @@ public class ProgressFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -98,6 +98,6 @@ public class ProgressFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interactionListener = null;
     }
 }

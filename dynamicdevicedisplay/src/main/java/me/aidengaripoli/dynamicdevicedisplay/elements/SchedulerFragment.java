@@ -40,12 +40,16 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
     private String label;
     private String[] spinnerItems;
 
-    private OnFragmentInteractionListener mListener;
+    private Spinner selection;
+
+    private OnFragmentInteractionListener interactionListener;
 
     private int hr;
     private int min;
-    private String aTime;
+    private String time;
     private Button timeButton;
+
+    private int currentPosition;
 
     private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
@@ -102,7 +106,7 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
         timeButton = view.findViewById(R.id.SchedulerButtonTime);
         timeButton.setOnClickListener(v -> new TimePickerDialog(getActivity(), timePickerListener, hr, min, false).show());
 
-        Spinner selection = view.findViewById(R.id.SchedulerSpinner);
+        selection = view.findViewById(R.id.SchedulerSpinner);
         selection.setOnItemSelectedListener(this);
         selection.setAdapter(new ArrayAdapter<>(
                 getActivity(),
@@ -114,7 +118,7 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
         if (getArguments() != null) {
             button.setText(getArguments().getString(ARG_BUTTON_LABEL));
         }
-        button.setOnClickListener(v -> mListener.onFragmentMessage(aTime));
+        button.setOnClickListener(v -> interactionListener.onFragmentMessage(spinnerItems[currentPosition] + "," + time));
 
         return view;
     }
@@ -123,7 +127,7 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -133,7 +137,7 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interactionListener = null;
     }
 
     private void updateTime(int hours, int mins) {
@@ -153,14 +157,15 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
             minutes = "0" + mins;
         else
             minutes = String.valueOf(mins);
-        aTime = String.valueOf(hours) + ':' + minutes + " " + timeSet;
-        timeButton.setText(aTime);
+        time = String.valueOf(hours) + ':' + minutes + " " + timeSet;
+        timeButton.setText(time);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (mListener != null) {
-            mListener.onFragmentMessage(label);
+        currentPosition = position;
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(spinnerItems[currentPosition]);
         }
     }
 

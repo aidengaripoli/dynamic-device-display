@@ -22,10 +22,10 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link DirectionalButtonsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DirectionalButtonsFragment extends Fragment implements View.OnClickListener {
+public class DirectionalButtonsFragment extends Fragment {
     public static final String DIRECTIONAL_BUTTONS = "directionalbuttons";
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener interactionListener;
 
     private static final String ARG_LABEL = "label";
     private static final String ARG_TOP = "top";
@@ -91,19 +91,19 @@ public class DirectionalButtonsFragment extends Fragment implements View.OnClick
             eButton.setText(getArguments().getString(ARG_RIGHT));
             sButton.setText(getArguments().getString(ARG_BOTTOM));
             wButton.setText(getArguments().getString(ARG_LEFT));
-        }
 
-        nButton.setOnClickListener(this);
-        eButton.setOnClickListener(this);
-        sButton.setOnClickListener(this);
-        wButton.setOnClickListener(this);
+            nButton.setOnClickListener(v -> onButtonPressed(getArguments().getString(ARG_TOP)));
+            eButton.setOnClickListener(v -> onButtonPressed(getArguments().getString(ARG_RIGHT)));
+            sButton.setOnClickListener(v -> onButtonPressed(getArguments().getString(ARG_BOTTOM)));
+            wButton.setOnClickListener(v -> onButtonPressed(getArguments().getString(ARG_LEFT)));
+        }
 
         return view;
     }
 
     public void onButtonPressed(String buttonPressed) {
-        if (mListener != null) {
-            mListener.onFragmentMessage(buttonPressed);
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(buttonPressed);
         }
     }
 
@@ -111,7 +111,7 @@ public class DirectionalButtonsFragment extends Fragment implements View.OnClick
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -121,20 +121,6 @@ public class DirectionalButtonsFragment extends Fragment implements View.OnClick
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.direcButtonN) {
-            onButtonPressed("N");
-        } else if (i == R.id.direcButtonS) {
-            onButtonPressed("S");
-        } else if (i == R.id.direcButtonE) {
-            onButtonPressed("E");
-        } else if (i == R.id.direcButtonW) {
-            onButtonPressed("W");
-        }
+        interactionListener = null;
     }
 }

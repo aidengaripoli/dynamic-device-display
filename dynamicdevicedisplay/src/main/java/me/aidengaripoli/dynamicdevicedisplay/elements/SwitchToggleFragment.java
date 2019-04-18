@@ -1,12 +1,13 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,14 +23,14 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link SwitchToggleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SwitchToggleFragment extends Fragment {
+public class SwitchToggleFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
     public static final String SWITCH_TOGGLE = "switchtoggle";
 
     private static final String ARG_LABEL = "label";
 
     private String label;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener interactionListener;
 
     public SwitchToggleFragment() {
         // Required empty public constructor
@@ -69,20 +70,18 @@ public class SwitchToggleFragment extends Fragment {
 
         TextView labelView = view.findViewById(R.id.switch_toggle_label);
         labelView.setText(label);
-        return view;
-    }
 
-    public void onButtonPressed(String s) {
-        if (mListener != null) {
-            mListener.onFragmentMessage(s);
-        }
+        Switch switchView = view.findViewById(R.id.switch_toggle_switch);
+        switchView.setOnCheckedChangeListener(this);
+
+        return view;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            interactionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -92,6 +91,13 @@ public class SwitchToggleFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interactionListener = null;
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (interactionListener != null) {
+            interactionListener.onFragmentMessage(String.valueOf(isChecked));
+        }
     }
 }
