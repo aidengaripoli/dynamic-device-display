@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import me.aidengaripoli.dynamicdevicedisplay.OnFragmentInteractionListener;
 import me.aidengaripoli.dynamicdevicedisplay.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ButtonToggleFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link ButtonToggleFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -95,7 +97,7 @@ public class ButtonToggleFragment extends Fragment implements View.OnClickListen
 
     public void onButtonPressed() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(mLabel, mState);
+            mListener.onFragmentMessage(mState ? mPosLabel : mNegLabel);
         }
     }
 
@@ -121,20 +123,5 @@ public class ButtonToggleFragment extends Fragment implements View.OnClickListen
         mState = !mState;
         toggleButton.setText(mState ? mPosLabel : mNegLabel);
         onButtonPressed();
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(String label, boolean state);
     }
 }

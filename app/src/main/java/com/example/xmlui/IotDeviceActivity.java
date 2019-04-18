@@ -1,43 +1,19 @@
 package com.example.xmlui;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+import me.aidengaripoli.dynamicdevicedisplay.OnFragmentInteractionListener;
 import me.aidengaripoli.dynamicdevicedisplay.UiGenerator;
-import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonToggleFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalButtonsFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.PasswordFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.RangeInputFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.SchedulerFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.StatusFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.SwitchToggleFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.TextInputFragment;
 
-public class IotDeviceActivity extends FragmentActivity implements
-        ButtonToggleFragment.OnFragmentInteractionListener,
-        ProgressFragment.OnFragmentInteractionListener,
-        SelectionFragment.OnFragmentInteractionListener,
-        RangeInputFragment.OnFragmentInteractionListener,
-        PlusMinusFragment.OnFragmentInteractionListener,
-        DirectionalButtonsFragment.OnFragmentInteractionListener,
-        SwitchToggleFragment.OnFragmentInteractionListener,
-        StatusFragment.OnFragmentInteractionListener,
-        TextInputFragment.OnFragmentInteractionListener,
-        ButtonGroupFragment.OnFragmentInteractionListener,
-        PasswordFragment.OnFragmentInteractionListener,
-        SchedulerFragment.OnFragmentInteractionListener {
-
+public class IotDeviceActivity extends FragmentActivity implements OnFragmentInteractionListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,27 +44,7 @@ public class IotDeviceActivity extends FragmentActivity implements
     }
 
     @Override
-    public void onFragmentInteraction(String buttonPressed) {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(String label, int value) {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(String label, String value) {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(String label, boolean state) {
-
+    public void onFragmentMessage(String data) {
+        Log.e("PRESSED", data);
     }
 }
