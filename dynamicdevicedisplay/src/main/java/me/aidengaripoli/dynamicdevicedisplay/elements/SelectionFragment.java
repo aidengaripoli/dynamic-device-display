@@ -1,6 +1,5 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -25,16 +24,12 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link SelectionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SelectionFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class SelectionFragment extends DynamicFragment implements AdapterView.OnItemSelectedListener {
     public static final String SELECTION = "selection";
 
-    private static final String ARG_LABEL = "label";
     private static final String ARG_ITEMS = "items";
 
-    private String label;
     private String[] items;
-
-    private OnFragmentInteractionListener interactionListener;
 
     public SelectionFragment() {
         // Required empty public constructor
@@ -71,8 +66,7 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_selection, container, false);
 
@@ -93,33 +87,18 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            interactionListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        interactionListener = null;
-    }
-
-    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String value = (String) parent.getItemAtPosition(position);
-
-        if (interactionListener != null) {
-            interactionListener.onFragmentMessage(getTag(), value);
-        }
+        sendMessage(value);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void updateFragmentData(String data) {
 
     }
 }

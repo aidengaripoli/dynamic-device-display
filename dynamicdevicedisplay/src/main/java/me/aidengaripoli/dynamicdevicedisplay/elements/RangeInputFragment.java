@@ -1,6 +1,5 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,10 +24,9 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link RangeInputFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RangeInputFragment extends Fragment {
+public class RangeInputFragment extends DynamicFragment {
     public static final String RANGE_INPUT = "rangeinput";
 
-    private static final String ARG_LABEL = "label";
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";
@@ -37,7 +35,6 @@ public class RangeInputFragment extends Fragment {
     private static final int ARG_MIN_INDEX = 1;
     private static final int ARG_MAX_INDEX = 2;
 
-    private String label;
     private String buttonLabel;
     private int value;
     private int max;
@@ -46,8 +43,6 @@ public class RangeInputFragment extends Fragment {
 
     private EditText valueView;
     private SeekBar seekBarView;
-
-    private OnFragmentInteractionListener interactionListener;
 
     public RangeInputFragment() {
         // Required empty public constructor
@@ -89,8 +84,7 @@ public class RangeInputFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_range_input, container, false);
 
         TextView labelView = view.findViewById(R.id.slider_label);
@@ -98,7 +92,7 @@ public class RangeInputFragment extends Fragment {
 
         Button buttonView = view.findViewById(R.id.slider_button);
         buttonView.setText(buttonLabel);
-        buttonView.setOnClickListener(v -> onButtonPressed(String.valueOf(valueView.getText())));
+        buttonView.setOnClickListener(v -> sendMessage(String.valueOf(valueView.getText())));
 
         valueView = view.findViewById(R.id.slider_value);
         seekBarView = view.findViewById(R.id.slider);
@@ -154,26 +148,8 @@ public class RangeInputFragment extends Fragment {
         return view;
     }
 
-    public void onButtonPressed(String data) {
-        if (interactionListener != null) {
-            interactionListener.onFragmentMessage(getTag(), data);
-        }
-    }
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            interactionListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+    public void updateFragmentData(String data) {
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        interactionListener = null;
     }
 }

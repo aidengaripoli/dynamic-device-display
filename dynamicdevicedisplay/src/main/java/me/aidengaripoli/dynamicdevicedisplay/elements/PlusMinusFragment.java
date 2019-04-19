@@ -1,6 +1,5 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,10 +21,9 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link PlusMinusFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlusMinusFragment extends Fragment {
+public class PlusMinusFragment extends DynamicFragment {
     public static final String PLUS_MINUS = "plusminus";
 
-    private static final String ARG_LABEL = "label";
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";
 
@@ -34,12 +32,10 @@ public class PlusMinusFragment extends Fragment {
 
     private TextView value;
 
-    private String label;
     private int currentValue;
     private int max;
     private int min;
 
-    private OnFragmentInteractionListener interactionListener;
 
     public PlusMinusFragment() {
         // Required empty public constructor
@@ -76,8 +72,7 @@ public class PlusMinusFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_plus_minus, container, false);
 
@@ -106,29 +101,11 @@ public class PlusMinusFragment extends Fragment {
         }
         value.setText(String.valueOf(currentValue));
 
-        onButtonPressed(String.valueOf(currentValue));
-    }
-
-    public void onButtonPressed(String data) {
-        if (interactionListener != null) {
-            interactionListener.onFragmentMessage(getTag(), data);
-        }
+        sendMessage(String.valueOf(currentValue));
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            interactionListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+    public void updateFragmentData(String data) {
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        interactionListener = null;
     }
 }

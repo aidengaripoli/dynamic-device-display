@@ -1,6 +1,5 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -23,15 +22,10 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link ProgressFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProgressFragment extends Fragment {
+public class ProgressFragment extends DynamicFragment {
     public static final String PROGRESS = "progress";
 
-    private static final String ARG_LABEL = "label";
-
-    private String mLabel;
     private int mValue;
-
-    private OnFragmentInteractionListener interactionListener;
 
     public ProgressFragment() {
         // Required empty public constructor
@@ -58,19 +52,18 @@ public class ProgressFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mLabel = getArguments().getString(ARG_LABEL);
+            label = getArguments().getString(ARG_LABEL);
             mValue = 0;
         }
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
-        TextView label = view.findViewById(R.id.progress_label);
-        label.setText(mLabel);
+        TextView labelView = view.findViewById(R.id.progress_label);
+        labelView.setText(label);
 
         ProgressBar progressValue = view.findViewById(R.id.progress_value);
         progressValue.setProgress(mValue);
@@ -78,26 +71,8 @@ public class ProgressFragment extends Fragment {
         return view;
     }
 
-    public void onProgressChanged() {
-        if (interactionListener != null) {
-            interactionListener.onFragmentMessage(getTag(), mLabel);
-        }
-    }
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            interactionListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+    public void updateFragmentData(String data) {
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        interactionListener = null;
     }
 }

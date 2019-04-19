@@ -1,7 +1,6 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -28,21 +27,15 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link SchedulerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SchedulerFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class SchedulerFragment extends DynamicFragment implements AdapterView.OnItemSelectedListener {
     public static final String SCHEDULER = "scheduler";
 
-    private static final String ARG_LABEL = "label";
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
     private static final String ARG_ITEMS = "items";
 
     private static final int ARG_BUTTON_LABEL_INDEX = 0;
 
-    private String label;
     private String[] spinnerItems;
-
-    private Spinner selection;
-
-    private OnFragmentInteractionListener interactionListener;
 
     private int hr;
     private int min;
@@ -106,7 +99,7 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
         timeButton = view.findViewById(R.id.SchedulerButtonTime);
         timeButton.setOnClickListener(v -> new TimePickerDialog(getActivity(), timePickerListener, hr, min, false).show());
 
-        selection = view.findViewById(R.id.SchedulerSpinner);
+        Spinner selection = view.findViewById(R.id.SchedulerSpinner);
         selection.setOnItemSelectedListener(this);
         selection.setAdapter(new ArrayAdapter<>(
                 getActivity(),
@@ -121,23 +114,6 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
         button.setOnClickListener(v -> interactionListener.onFragmentMessage(getTag(), spinnerItems[currentPosition] + "," + time));
 
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            interactionListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        interactionListener = null;
     }
 
     private void updateTime(int hours, int mins) {
@@ -164,13 +140,16 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         currentPosition = position;
-        if (interactionListener != null) {
-            interactionListener.onFragmentMessage(getTag(), spinnerItems[currentPosition]);
-        }
+        sendMessage(spinnerItems[currentPosition]);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void updateFragmentData(String data) {
 
     }
 }

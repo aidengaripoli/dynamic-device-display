@@ -1,6 +1,5 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,14 +22,8 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link SwitchToggleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SwitchToggleFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
+public class SwitchToggleFragment extends DynamicFragment implements CompoundButton.OnCheckedChangeListener {
     public static final String SWITCH_TOGGLE = "switchtoggle";
-
-    private static final String ARG_LABEL = "label";
-
-    private String label;
-
-    private OnFragmentInteractionListener interactionListener;
 
     public SwitchToggleFragment() {
         // Required empty public constructor
@@ -78,26 +71,12 @@ public class SwitchToggleFragment extends Fragment implements CompoundButton.OnC
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            interactionListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        interactionListener = null;
-    }
-
-    @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (interactionListener != null) {
-            interactionListener.onFragmentMessage(getTag(), String.valueOf(isChecked));
-        }
+        sendMessage(String.valueOf(isChecked));
+    }
+
+    @Override
+    public void updateFragmentData(String data) {
+
     }
 }

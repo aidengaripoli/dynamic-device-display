@@ -1,6 +1,5 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,12 +21,9 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link DirectionalButtonsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DirectionalButtonsFragment extends Fragment {
+public class DirectionalButtonsFragment extends DynamicFragment {
     public static final String DIRECTIONAL_BUTTONS = "directionalbuttons";
 
-    private OnFragmentInteractionListener interactionListener;
-
-    private static final String ARG_LABEL = "label";
     private static final String ARG_TOP = "top";
     private static final String ARG_RIGHT = "right";
     private static final String ARG_BOTTOM = "bottom";
@@ -71,8 +67,7 @@ public class DirectionalButtonsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_directional_buttons, container, false);
 
@@ -92,35 +87,17 @@ public class DirectionalButtonsFragment extends Fragment {
             sButton.setText(getArguments().getString(ARG_BOTTOM));
             wButton.setText(getArguments().getString(ARG_LEFT));
 
-            nButton.setOnClickListener(v -> onButtonPressed(getArguments().getString(ARG_TOP)));
-            eButton.setOnClickListener(v -> onButtonPressed(getArguments().getString(ARG_RIGHT)));
-            sButton.setOnClickListener(v -> onButtonPressed(getArguments().getString(ARG_BOTTOM)));
-            wButton.setOnClickListener(v -> onButtonPressed(getArguments().getString(ARG_LEFT)));
+            nButton.setOnClickListener(v -> sendMessage(getArguments().getString(ARG_TOP)));
+            eButton.setOnClickListener(v -> sendMessage(getArguments().getString(ARG_RIGHT)));
+            sButton.setOnClickListener(v -> sendMessage(getArguments().getString(ARG_BOTTOM)));
+            wButton.setOnClickListener(v -> sendMessage(getArguments().getString(ARG_LEFT)));
         }
 
         return view;
     }
 
-    public void onButtonPressed(String buttonPressed) {
-        if (interactionListener != null) {
-            interactionListener.onFragmentMessage(getTag(), buttonPressed);
-        }
-    }
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            interactionListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+    public void updateFragmentData(String data) {
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        interactionListener = null;
     }
 }

@@ -1,6 +1,5 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,18 +22,14 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Use the {@link TextInputFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PasswordFragment extends Fragment {
+public class PasswordFragment extends DynamicFragment {
     public static final String PASSWORD = "password";
-
-    private static final String ARG_LABEL = "label";
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
 
     private static final int ARG_BUTTON_LABEL_INDEX = 0;
 
     private String label;
     private String buttonLabel;
-
-    private OnFragmentInteractionListener interactionListener;
 
     public PasswordFragment() {
         // Required empty public constructor
@@ -68,8 +63,7 @@ public class PasswordFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_password, container, false);
 
@@ -79,32 +73,14 @@ public class PasswordFragment extends Fragment {
         EditText passwordView = view.findViewById(R.id.password_value);
 
         Button button = view.findViewById(R.id.password_button);
-        button.setOnClickListener(v -> onButtonPressed(passwordView.getText().toString()));
+        button.setOnClickListener(v -> sendMessage(passwordView.getText().toString()));
         button.setText(buttonLabel);
 
         return view;
     }
 
-    public void onButtonPressed(String data) {
-        if (interactionListener != null) {
-            interactionListener.onFragmentMessage(getTag(), data);
-        }
-    }
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            interactionListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+    public void updateFragmentData(String data) {
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        interactionListener = null;
     }
 }
