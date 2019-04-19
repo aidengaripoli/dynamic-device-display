@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <device>
-    <group id="1" permission="RR">
+    <group id="0" permission="RR">
         <name>Element Samples</name>
         <room>Outside</room>
     </group>
@@ -16,7 +16,7 @@
     </group>
 
     <!--ButtonToggle-->
-    <group id="1" permisison="WR">
+    <group id="2" permisison="WR">
         <gui_element id="1">
             <type>buttontoggle</type>
             <label>Open/Close</label>
@@ -27,7 +27,7 @@
     </group>
 
     <!--PlusMinus-->
-    <group id="1" permisison="WR">
+    <group id="3" permisison="WR">
         <gui_element id="1">
             <type>plusminus</type>
             <label>Number</label>
@@ -38,7 +38,7 @@
     </group>
 
     <!--RangeInput-->
-    <group id="1" permisison="WR">
+    <group id="4" permisison="WR">
         <gui_element id="1">
             <type>rangeinput</type>
             <label>Volume</label>
@@ -49,7 +49,7 @@
     </group>
 
     <!--DirectionalButtons-->
-    <group id="1" permisison="WR">
+    <group id="5" permisison="WR">
         <gui_element id="1">
             <type>directionalbuttons</type>
             <label>Direction</label>
@@ -60,7 +60,7 @@
     </group>
 
     <!--Selection-->
-    <group id="1" permisison="WN">
+    <group id="6" permisison="WN">
         <gui_element id="1">
             <type>selection</type>
             <label>Move Door</label>
@@ -71,7 +71,7 @@
     </group>
 
     <!--Status-->
-    <group id="1" permisison="WR">
+    <group id="7" permisison="WR">
         <gui_element id="1">
             <type>status</type>
             <label>Voltage</label>
@@ -81,7 +81,7 @@
     </group>
 
     <!--TextInput-->
-    <group id="1" permisison="WR">
+    <group id="8" permisison="WR">
         <gui_element id="1">
             <type>textinput</type>
             <label>Name</label>
@@ -92,7 +92,7 @@
     </group>
 
     <!--Progress-->
-    <group id="1" permission="WR">
+    <group id="9" permission="WR">
         <gui_element id="1">
             <type>progress</type>
             <label>Loading...</label>
@@ -102,7 +102,7 @@
     </group>
 
     <!--ButtonGroup-->
-    <group id="1" permisison="WR">
+    <group id="10" permisison="WR">
         <gui_element id="1">
             <type>buttongroup</type>
             <label>Numpad</label>
@@ -113,7 +113,7 @@
     </group>
 
     <!--Scheduler-->
-    <group id="1" permisison="WR">
+    <group id="11" permisison="WR">
         <gui_element id="1">
             <type>scheduler</type>
             <label>Schedule an event</label>
@@ -124,7 +124,7 @@
     </group>
 
     <!--Password-->
-    <group id="1" permisison="WR">
+    <group id="12" permisison="WR">
         <gui_element id="1">
             <type>password</type>
             <label>Password</label>
