@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <device>
-    <group id="1" permission="RR">
+    <group id="0" permission="RR">
         <name>TV</name>
         <room>Living Room</room>
     </group>
@@ -11,7 +11,7 @@
             <status_location>1</status_location>
             <comment>Turn TV On or Off</comment>
         </gui_element>
-        <gui_element id="1">
+        <gui_element id="2">
             <type>selection</type>
             <label>Source</label>
             <disp_settings>HDMI1,HDMI2,HDMI3,HDMI4,AV</disp_settings>
@@ -19,7 +19,7 @@
             <comment>Input Source</comment>
         </gui_element>
     </group>
-    <group id="4" permission="WR">
+    <group id="2" permission="WR">
         <gui_element id="1">
             <type>buttontoggle</type>
             <label>Record</label>
@@ -35,7 +35,7 @@
             <comment>Mute</comment>
         </gui_element>
     </group>
-    <group id="2" permission="WR">
+    <group id="3" permission="WR">
         <gui_element id="1">
             <type>plusminus</type>
             <label>Channel</label>
@@ -44,7 +44,7 @@
             <comment>Channel selection</comment>
         </gui_element>
     </group>
-    <group id="3" permission="WR">
+    <group id="4" permission="WR">
         <gui_element id="1">
             <type>plusminus</type>
             <label>Volume</label>
@@ -53,7 +53,7 @@
             <comment>Volume selection</comment>
         </gui_element>
     </group>
-    <group id="4" permission="WR">
+    <group id="5" permission="WR">
         <gui_element id="1">
             <type>directionalbuttons</type>
             <disp_settings>↑,→,↓,←</disp_settings>
@@ -61,7 +61,7 @@
             <comment>Directional Arrows</comment>
         </gui_element>
     </group>
-    <group id="5" permission="WR">
+    <group id="6" permission="WR">
         <gui_element id="1">
             <type>buttongroup</type>
             <disp_settings>1,2,3</disp_settings>
@@ -69,7 +69,7 @@
             <comment>Numpad</comment>
         </gui_element>
     </group>
-    <group id="5" permission="WR">
+    <group id="7" permission="WR">
         <gui_element id="1">
             <type>buttongroup</type>
             <disp_settings>4,5,6</disp_settings>
@@ -77,7 +77,7 @@
             <comment>Numpad</comment>
         </gui_element>
     </group>
-    <group id="5" permission="WR">
+    <group id="8" permission="WR">
         <gui_element id="1">
             <type>buttongroup</type>
             <disp_settings>7,8,9</disp_settings>
@@ -85,7 +85,7 @@
             <comment>Numpad</comment>
         </gui_element>
     </group>
-    <group id="5" permission="WR">
+    <group id="9" permission="WR">
         <gui_element id="1">
             <type>buttongroup</type>
             <disp_settings>Back,0,Info</disp_settings>

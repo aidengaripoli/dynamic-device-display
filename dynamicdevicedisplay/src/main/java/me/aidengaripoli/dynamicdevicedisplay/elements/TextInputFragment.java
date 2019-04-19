@@ -85,9 +85,9 @@ public class TextInputFragment extends Fragment {
         return view;
     }
 
-    public void onButtonPressed(String uri) {
+    public void onButtonPressed(String data) {
         if (interactionListener != null) {
-            interactionListener.onFragmentMessage(uri);
+            interactionListener.onFragmentMessage(getTag(), data);
         }
     }
 

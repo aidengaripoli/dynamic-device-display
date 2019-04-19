@@ -12,45 +12,47 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 public class UiGenerator {
     private static final String TAG = "UiGenerator";
     private FragmentManager fragmentManager;
+    private XmlParser xmlParser;
+    private Context context;
 
-    public UiGenerator(FragmentManager fragmentManager) {
+    public UiGenerator(FragmentManager fragmentManager, Context context) {
         this.fragmentManager = fragmentManager;
+        this.context = context;
+        xmlParser = new XmlParser();
     }
 
-    public LinearLayout generateUi(Context context, InputStream inputStream) {
+    public LinearLayout generateUi(InputStream inputStream) {
         LinearLayout rootLayout = new LinearLayout(context);
         rootLayout.setOrientation(LinearLayout.VERTICAL);
         rootLayout.setId(View.generateViewId());
         rootLayout.setGravity(Gravity.CENTER);
 
         try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            NodeList groupNodeList = xmlParser.getGroups(inputStream);
 
-            // get all of the <group> elements
-            NodeList groupNodeList = builder.parse(inputStream).getElementsByTagName("group");
+            if(groupNodeList == null)
+                return rootLayout;
 
-            addTitle((Element) groupNodeList.item(0), rootLayout, context);
+            addTitle(groupNodeList, rootLayout);
 
             // iterate through all the <group> elements
             for (int i = 1; i < groupNodeList.getLength(); i++) {
                 Element element = (Element) groupNodeList.item(i);
-                NodeList guiNodeList = element.getElementsByTagName("gui_element");
+
+                String groupId = xmlParser.getId(element);
+                NodeList guiNodeList = xmlParser.getGuiElementsInGroup(element);
 
                 if (guiNodeList.getLength() == 1) {
-                    addElementToLayout((Element) guiNodeList.item(0), rootLayout);
+                    addElementToLayout((Element) guiNodeList.item(0), rootLayout, groupId);
                 } else {
-                    createGroupOfElements(rootLayout, guiNodeList, context);
+                    createGroupOfElements(rootLayout, guiNodeList, groupId);
                 }
             }
 
@@ -61,47 +63,50 @@ public class UiGenerator {
         return rootLayout;
     }
 
-    private void addTitle(Element element,LinearLayout rootLayout, Context context){
-        XmlParser xmlParser = new XmlParser();
-        String name = xmlParser.getName(element);
+    private void addTitle(NodeList groupNodeList, LinearLayout rootLayout) {
+        Element groupElement = (Element) groupNodeList.item(0);
+
+        String name = xmlParser.getName(groupElement);
 
         TextView title = new TextView(context);
-        title.setTextSize(TypedValue.COMPLEX_UNIT_SP,36);
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
         title.setText(name);
 
-        LinearLayout groupLayout = createLinearLayout(context);
+        LinearLayout groupLayout = createLinearLayout();
         groupLayout.addView(title);
         rootLayout.addView(groupLayout);
     }
 
-    private void createGroupOfElements(LinearLayout layout, NodeList guiNodeList, Context context) {
+    private void createGroupOfElements(LinearLayout layout, NodeList guiNodeList, String groupId) {
         // Generate a horizontal Linear layout and add the elements to that.
-        LinearLayout groupLayout = createLinearLayout(context);
+        LinearLayout groupLayout = createLinearLayout();
 
         // iterate through all the <gui_element> elements in the group
         for (int i = 0; i < guiNodeList.getLength(); i++) {
             Element element = (Element) guiNodeList.item(i);
-            addElementToLayout(element, groupLayout);
+            addElementToLayout(element, groupLayout, groupId);
         }
 
         // add new horizontal layout to root layout
         layout.addView(groupLayout);
     }
 
-    private void addElementToLayout(Element element, LinearLayout layout) {
+    private void addElementToLayout(Element element, LinearLayout layout, String groupId) {
         // generate a view (widget) for each gui_element
         Fragment fragment = ElementsFactory.getElement(element);
+
+        String fragmentTag = groupId + "-" + xmlParser.getId(element);
 
         // add the view to the groups layout
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            fragmentTransaction.add(layout.getId(), fragment);
+            fragmentTransaction.add(layout.getId(), fragment, fragmentTag);
             fragmentTransaction.commit();
         }
     }
 
-    private LinearLayout createLinearLayout(Context context) {
+    private LinearLayout createLinearLayout() {
         LinearLayout layout = new LinearLayout(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

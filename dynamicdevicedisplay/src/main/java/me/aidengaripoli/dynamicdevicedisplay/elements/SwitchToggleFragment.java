@@ -97,7 +97,7 @@ public class SwitchToggleFragment extends Fragment implements CompoundButton.OnC
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (interactionListener != null) {
-            interactionListener.onFragmentMessage(String.valueOf(isChecked));
+            interactionListener.onFragmentMessage(getTag(), String.valueOf(isChecked));
         }
     }
 }

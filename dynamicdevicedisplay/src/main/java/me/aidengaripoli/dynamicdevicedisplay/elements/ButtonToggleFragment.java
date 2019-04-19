@@ -96,7 +96,7 @@ public class ButtonToggleFragment extends Fragment implements View.OnClickListen
 
     public void onButtonPressed() {
         if (interactionListener != null) {
-            interactionListener.onFragmentMessage(mState ? buttonPosLabel : buttonNegLabel);
+            interactionListener.onFragmentMessage(getTag(), mState ? buttonPosLabel : buttonNegLabel);
         }
     }
 

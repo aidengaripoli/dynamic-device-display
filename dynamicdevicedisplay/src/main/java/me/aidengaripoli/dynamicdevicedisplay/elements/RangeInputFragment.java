@@ -156,7 +156,7 @@ public class RangeInputFragment extends Fragment {
 
     public void onButtonPressed(String data) {
         if (interactionListener != null) {
-            interactionListener.onFragmentMessage(data);
+            interactionListener.onFragmentMessage(getTag(), data);
         }
     }
 

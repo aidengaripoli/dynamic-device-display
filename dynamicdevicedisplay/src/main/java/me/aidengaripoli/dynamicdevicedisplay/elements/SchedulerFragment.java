@@ -118,7 +118,7 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
         if (getArguments() != null) {
             button.setText(getArguments().getString(ARG_BUTTON_LABEL));
         }
-        button.setOnClickListener(v -> interactionListener.onFragmentMessage(spinnerItems[currentPosition] + "," + time));
+        button.setOnClickListener(v -> interactionListener.onFragmentMessage(getTag(), spinnerItems[currentPosition] + "," + time));
 
         return view;
     }
@@ -165,7 +165,7 @@ public class SchedulerFragment extends Fragment implements AdapterView.OnItemSel
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         currentPosition = position;
         if (interactionListener != null) {
-            interactionListener.onFragmentMessage(spinnerItems[currentPosition]);
+            interactionListener.onFragmentMessage(getTag(), spinnerItems[currentPosition]);
         }
     }
 

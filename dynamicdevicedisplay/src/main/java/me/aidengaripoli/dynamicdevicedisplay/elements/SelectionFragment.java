@@ -114,7 +114,7 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
         String value = (String) parent.getItemAtPosition(position);
 
         if (interactionListener != null) {
-            interactionListener.onFragmentMessage(value);
+            interactionListener.onFragmentMessage(getTag(), value);
         }
     }
 

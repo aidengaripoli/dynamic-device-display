@@ -80,7 +80,7 @@ public class ProgressFragment extends Fragment {
 
     public void onProgressChanged() {
         if (interactionListener != null) {
-            interactionListener.onFragmentMessage(mLabel);
+            interactionListener.onFragmentMessage(getTag(), mLabel);
         }
     }
 

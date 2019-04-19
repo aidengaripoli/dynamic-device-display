@@ -103,7 +103,7 @@ public class DirectionalButtonsFragment extends Fragment {
 
     public void onButtonPressed(String buttonPressed) {
         if (interactionListener != null) {
-            interactionListener.onFragmentMessage(buttonPressed);
+            interactionListener.onFragmentMessage(getTag(), buttonPressed);
         }
     }
 

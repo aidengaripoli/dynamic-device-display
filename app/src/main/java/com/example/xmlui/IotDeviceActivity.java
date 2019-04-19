@@ -20,7 +20,6 @@ public class IotDeviceActivity extends FragmentActivity implements OnFragmentInt
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         ScrollView scrollView = new ScrollView(this);
-        UiGenerator uiGenerator = new UiGenerator(fragmentManager);
         Bundle extras = getIntent().getExtras();
 
         String file;
@@ -30,21 +29,25 @@ public class IotDeviceActivity extends FragmentActivity implements OnFragmentInt
             return;
         }
 
+        InputStream inputStream = null;
         try {
             assert file != null;
-            InputStream inputStream = getAssets().open(file);
-            LinearLayout rootLayout = uiGenerator.generateUi(this, inputStream);
-            scrollView.addView(rootLayout);
+            inputStream = getAssets().open(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        assert inputStream != null;
+        UiGenerator uiGenerator = new UiGenerator(fragmentManager, this);
+        LinearLayout rootLayout = uiGenerator.generateUi(inputStream);
+        scrollView.addView(rootLayout);
 
         // add the root layout to the content view
         setContentView(scrollView);
     }
 
     @Override
-    public void onFragmentMessage(String data) {
-        Log.i("Fragment Message", data);
+    public void onFragmentMessage(String tag, String data) {
+        Log.i("Fragment Message", tag + ": " + data);
     }
 }
