@@ -10,7 +10,7 @@ import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonToggleFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalButtonsFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.PasswordFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.StepperFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.RangeInputFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SchedulerFragment;
@@ -43,8 +43,8 @@ class ElementsFactory {
                 return RangeInputFragment.newInstance(label, displaySettings);
             }
 
-            case PlusMinusFragment.PLUS_MINUS: {
-                return PlusMinusFragment.newInstance(label, displaySettings);
+            case StepperFragment.STEPPER: {
+                return StepperFragment.newInstance(label, displaySettings);
             }
 
             case DirectionalButtonsFragment.DIRECTIONAL_BUTTONS: {

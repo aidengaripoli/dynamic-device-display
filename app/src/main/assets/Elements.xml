@@ -26,10 +26,10 @@
         </gui_element>
     </group>
 
-    <!--PlusMinus-->
+    <!--Stepper-->
     <group id="3" permisison="WR">
         <gui_element id="1">
-            <type>plusminus</type>
+            <type>stepper</type>
             <label>Number</label>
             <disp_settings>0,10</disp_settings>
             <status_location>1</status_location>
