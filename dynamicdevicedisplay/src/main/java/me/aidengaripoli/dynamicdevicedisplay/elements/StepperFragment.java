@@ -18,11 +18,11 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  * Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PlusMinusFragment#newInstance} factory method to
+ * Use the {@link StepperFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlusMinusFragment extends DynamicFragment {
-    public static final String PLUS_MINUS = "plusminus";
+public class StepperFragment extends DynamicFragment {
+    public static final String STEPPER = "stepper";
 
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";
@@ -37,7 +37,7 @@ public class PlusMinusFragment extends DynamicFragment {
     private int min;
 
 
-    public PlusMinusFragment() {
+    public StepperFragment() {
         // Required empty public constructor
     }
 
@@ -47,10 +47,10 @@ public class PlusMinusFragment extends DynamicFragment {
      *
      * @param label           Parameter 1.
      * @param displaySettings Parameter 2.
-     * @return A new instance of fragment PlusMinusFragment.
+     * @return A new instance of fragment StepperFragment.
      */
-    public static PlusMinusFragment newInstance(String label, ArrayList<String> displaySettings) {
-        PlusMinusFragment fragment = new PlusMinusFragment();
+    public static StepperFragment newInstance(String label, ArrayList<String> displaySettings) {
+        StepperFragment fragment = new StepperFragment();
 
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, label);
@@ -74,7 +74,7 @@ public class PlusMinusFragment extends DynamicFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_plus_minus, container, false);
+        View view = inflater.inflate(R.layout.fragment_stepper, container, false);
 
         value = view.findViewById(R.id.plusMinusValue);
         Button plusButton = view.findViewById(R.id.plus);
