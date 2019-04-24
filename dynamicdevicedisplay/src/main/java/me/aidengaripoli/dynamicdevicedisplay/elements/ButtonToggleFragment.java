@@ -29,8 +29,8 @@ public class ButtonToggleFragment extends DynamicFragment implements View.OnClic
     private static final String ARG_POS_LABEL = "pos_label";
     private static final String ARG_NEG_LABEL = "neg_label";
 
-    private static final int ARG_POS_LABEL_INDEX = 0;
-    private static final int ARG_NEG_LABEL_INDEX = 1;
+    private static final int ARG_POS_LABEL_INDEX = 1;
+    private static final int ARG_NEG_LABEL_INDEX = 2;
 
     private String buttonPosLabel;
     private String buttonNegLabel;
@@ -46,15 +46,14 @@ public class ButtonToggleFragment extends DynamicFragment implements View.OnClic
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label           Parameter 1.
-     * @param displaySettings Parameter 2.
+     * @param displaySettings Parameter 1.
      * @return A new instance of fragment ButtonToggleFragment.
      */
-    public static ButtonToggleFragment newInstance(String label, ArrayList<String> displaySettings) {
+    public static ButtonToggleFragment newInstance(ArrayList<String> displaySettings) {
         ButtonToggleFragment fragment = new ButtonToggleFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
+        args.putString(ARG_LABEL,  displaySettings.get(ARG_LABEL_INDEX));
         args.putString(ARG_POS_LABEL, displaySettings.get(ARG_POS_LABEL_INDEX));
         args.putString(ARG_NEG_LABEL, displaySettings.get(ARG_NEG_LABEL_INDEX));
 
@@ -98,6 +97,6 @@ public class ButtonToggleFragment extends DynamicFragment implements View.OnClic
 
     @Override
     public void updateFragmentData(String data) {
-
+        buttonPosLabel = data;
     }
 }

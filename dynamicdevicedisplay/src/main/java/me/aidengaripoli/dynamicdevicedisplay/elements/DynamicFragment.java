@@ -7,6 +7,8 @@ import me.aidengaripoli.dynamicdevicedisplay.OnFragmentInteractionListener;
 
 public abstract class DynamicFragment extends Fragment {
     static final String ARG_LABEL = "label";
+    static final int ARG_LABEL_INDEX = 0;
+
     String label;
 
     OnFragmentInteractionListener interactionListener;

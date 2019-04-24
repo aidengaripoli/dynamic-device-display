@@ -26,7 +26,7 @@ public class PasswordFragment extends DynamicFragment {
     public static final String PASSWORD = "password";
     private static final String ARG_BUTTON_LABEL = "buttonLabel";
 
-    private static final int ARG_BUTTON_LABEL_INDEX = 0;
+    private static final int ARG_BUTTON_LABEL_INDEX = 1;
 
     private String label;
     private String buttonLabel;
@@ -39,15 +39,14 @@ public class PasswordFragment extends DynamicFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label           Parameter 1.
-     * @param displaySettings Parameter 2.
+     * @param displaySettings Parameter 1.
      * @return A new instance of fragment PasswordFragment.
      */
-    public static PasswordFragment newInstance(String label, ArrayList<String> displaySettings) {
+    public static PasswordFragment newInstance(ArrayList<String> displaySettings) {
         PasswordFragment fragment = new PasswordFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
         args.putString(ARG_BUTTON_LABEL, displaySettings.get(ARG_BUTTON_LABEL_INDEX));
         fragment.setArguments(args);
         return fragment;

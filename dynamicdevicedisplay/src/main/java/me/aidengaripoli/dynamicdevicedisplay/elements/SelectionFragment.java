@@ -39,15 +39,15 @@ public class SelectionFragment extends DynamicFragment implements AdapterView.On
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label           Parameter 1.
-     * @param displaySettings Parameter 2.
+     * @param displaySettings Parameter 1.
      * @return A new instance of fragment SelectionFragment.
      */
-    public static SelectionFragment newInstance(String label, ArrayList<String> displaySettings) {
+    public static SelectionFragment newInstance(ArrayList<String> displaySettings) {
         SelectionFragment fragment = new SelectionFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
+        displaySettings.remove(ARG_LABEL_INDEX);
 
         String[] values = displaySettings.toArray(new String[0]);
         args.putStringArray(ARG_ITEMS, values);

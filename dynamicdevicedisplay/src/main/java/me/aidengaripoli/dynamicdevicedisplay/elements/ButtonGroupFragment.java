@@ -36,18 +36,20 @@ public class ButtonGroupFragment extends DynamicFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label           Parameter 1.
-     * @param displaySettings Parameter 2.
+     * @param displaySettings Parameter 1.
      * @return A new instance of fragment ButtonGroupFragment.
      */
-    public static ButtonGroupFragment newInstance(String label, ArrayList<String> displaySettings) {
+    public static ButtonGroupFragment newInstance(ArrayList<String> displaySettings) {
         ButtonGroupFragment fragment = new ButtonGroupFragment();
 
         Bundle args = new Bundle();
 
+        String label = displaySettings.get(ARG_LABEL_INDEX);
+        args.putString(ARG_LABEL, label);
+        displaySettings.remove(ARG_LABEL_INDEX);
+
         String[] buttonLabels = displaySettings.toArray(new String[0]);
         args.putStringArray(ARG_BUTTON_LABELS, buttonLabels);
-        args.putString(ARG_LABEL, label);
 
         fragment.setArguments(args);
         return fragment;

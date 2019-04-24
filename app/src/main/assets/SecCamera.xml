@@ -7,14 +7,13 @@
     <group id="1" permission="WR">
         <gui_element id="1">
             <type>switchtoggle</type>
-            <label>On/Off</label>
+            <disp_settings>On/Off</disp_settings>
             <status_location>1</status_location>
             <comment>Turn TV On or Off</comment>
         </gui_element>
         <gui_element id="1">
             <type>selection</type>
-            <label>Source</label>
-            <disp_settings>Cam1,Cam2,Cam3,Cam4</disp_settings>
+            <disp_settings>Source,Cam1,Cam2,Cam3,Cam4</disp_settings>
             <status_location>4</status_location>
             <comment>Camera source</comment>
         </gui_element>
@@ -22,8 +21,7 @@
     <group id="4" permission="WR">
         <gui_element id="1">
             <type>buttontoggle</type>
-            <label>Record</label>
-            <disp_settings>Recording,Not Recording</disp_settings>
+            <disp_settings>Record,Recording,Not Recording</disp_settings>
             <status_location>5</status_location>
             <comment>Recording</comment>
         </gui_element>
@@ -31,8 +29,7 @@
     <group id="4" permission="WR">
         <gui_element id="1">
             <type>directionalbuttons</type>
-            <label>Camera Movement</label>
-            <disp_settings>↑,→,↓,←</disp_settings>
+            <disp_settings>Camera Movement,↑,→,↓,←</disp_settings>
             <status_location>3</status_location>
             <comment>Directional Arrows</comment>
         </gui_element>
@@ -40,7 +37,7 @@
     <group id="4" permission="WR">
         <gui_element id="1">
             <type>buttongroup</type>
-            <disp_settings>Stream</disp_settings>
+            <disp_settings> ,Stream</disp_settings>
             <status_location>3</status_location>
             <comment>Stream camera</comment>
         </gui_element>

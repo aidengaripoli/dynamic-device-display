@@ -31,9 +31,9 @@ public class RangeInputFragment extends DynamicFragment {
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";
 
-    private static final int ARG_BUTTON_LABEL_INDEX = 0;
-    private static final int ARG_MIN_INDEX = 1;
-    private static final int ARG_MAX_INDEX = 2;
+    private static final int ARG_BUTTON_LABEL_INDEX = 1;
+    private static final int ARG_MIN_INDEX = 2;
+    private static final int ARG_MAX_INDEX = 3;
 
     private String buttonLabel;
     private int value;
@@ -52,15 +52,14 @@ public class RangeInputFragment extends DynamicFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label           Parameter 1.
-     * @param displaySettings Parameter 2.
+     * @param displaySettings Parameter 1.
      * @return A new instance of fragment RangeInputFragment.
      */
-    public static RangeInputFragment newInstance(String label, ArrayList<String> displaySettings) {
+    public static RangeInputFragment newInstance(ArrayList<String> displaySettings) {
         RangeInputFragment fragment = new RangeInputFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
         args.putString(ARG_BUTTON_LABEL, displaySettings.get(ARG_BUTTON_LABEL_INDEX));
         args.putInt(ARG_MIN, Integer.parseInt(displaySettings.get(ARG_MIN_INDEX)));
         args.putInt(ARG_MAX, Integer.parseInt(displaySettings.get(ARG_MAX_INDEX)));

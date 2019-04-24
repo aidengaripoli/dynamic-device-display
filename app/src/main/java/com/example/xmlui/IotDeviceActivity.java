@@ -12,13 +12,15 @@ import java.io.InputStream;
 
 import me.aidengaripoli.dynamicdevicedisplay.OnFragmentInteractionListener;
 import me.aidengaripoli.dynamicdevicedisplay.UiGenerator;
+import me.aidengaripoli.dynamicdevicedisplay.elements.DynamicFragment;
 
 public class IotDeviceActivity extends FragmentActivity implements OnFragmentInteractionListener {
+    FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         ScrollView scrollView = new ScrollView(this);
         Bundle extras = getIntent().getExtras();
 
@@ -49,5 +51,9 @@ public class IotDeviceActivity extends FragmentActivity implements OnFragmentInt
     @Override
     public void onFragmentMessage(String tag, String data) {
         Log.i("Fragment Message", tag + ": " + data);
+
+        DynamicFragment dynamicFragment = (DynamicFragment) fragmentManager.findFragmentByTag(tag);
+        assert dynamicFragment != null;
+        dynamicFragment.updateFragmentData("test");
     }
 }

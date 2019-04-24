@@ -23,56 +23,55 @@ class ElementsFactory {
     static Fragment getElement(Element element) {
         XmlParser xmlParser = new XmlParser();
         ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
-        String label = xmlParser.getLabel(element);
         String type = xmlParser.getElementType(element);
 
         switch (type) {
             case ButtonToggleFragment.BUTTON_TOGGLE: {
-                return ButtonToggleFragment.newInstance(label, displaySettings);
+                return ButtonToggleFragment.newInstance(displaySettings);
             }
 
             case ProgressFragment.PROGRESS: {
-                return ProgressFragment.newInstance(label, displaySettings);
+                return ProgressFragment.newInstance(displaySettings);
             }
 
             case SelectionFragment.SELECTION: {
-                return SelectionFragment.newInstance(label, displaySettings);
+                return SelectionFragment.newInstance(displaySettings);
             }
 
             case RangeInputFragment.RANGE_INPUT: {
-                return RangeInputFragment.newInstance(label, displaySettings);
+                return RangeInputFragment.newInstance(displaySettings);
             }
 
             case StepperFragment.STEPPER: {
-                return StepperFragment.newInstance(label, displaySettings);
+                return StepperFragment.newInstance(displaySettings);
             }
 
             case DirectionalButtonsFragment.DIRECTIONAL_BUTTONS: {
-                return DirectionalButtonsFragment.newInstance(label, displaySettings);
+                return DirectionalButtonsFragment.newInstance(displaySettings);
             }
 
             case SwitchToggleFragment.SWITCH_TOGGLE: {
-                return SwitchToggleFragment.newInstance(label, displaySettings);
+                return SwitchToggleFragment.newInstance(displaySettings);
             }
 
             case StatusFragment.STATUS: {
-                return StatusFragment.newInstance(label, displaySettings);
+                return StatusFragment.newInstance(displaySettings);
             }
 
             case TextInputFragment.TEXT_INPUT: {
-                return TextInputFragment.newInstance(label, displaySettings);
+                return TextInputFragment.newInstance(displaySettings);
             }
 
             case ButtonGroupFragment.BUTTON_GROUP: {
-                return ButtonGroupFragment.newInstance(label, displaySettings);
+                return ButtonGroupFragment.newInstance(displaySettings);
             }
 
             case PasswordFragment.PASSWORD: {
-                return PasswordFragment.newInstance(label, displaySettings);
+                return PasswordFragment.newInstance(displaySettings);
             }
 
             case SchedulerFragment.SCHEDULER: {
-                return SchedulerFragment.newInstance(label, displaySettings);
+                return SchedulerFragment.newInstance(displaySettings);
             }
 
             default: {

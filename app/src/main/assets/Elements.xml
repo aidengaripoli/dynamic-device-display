@@ -9,7 +9,7 @@
     <group id="1" permisison="WR">
         <gui_element id="1">
             <type>switchtoggle</type>
-            <label>On/Off</label>
+            <disp_settings>On/Off</disp_settings>
             <status_location>1</status_location>
             <comment>Light Switch</comment>
         </gui_element>
@@ -19,8 +19,7 @@
     <group id="2" permisison="WR">
         <gui_element id="1">
             <type>buttontoggle</type>
-            <label>Open/Close</label>
-            <disp_settings>Open,Close</disp_settings>
+            <disp_settings>Open/Close,Open,Close</disp_settings>
             <status_location>1</status_location>
             <comment>Light Switch</comment>
         </gui_element>
@@ -30,8 +29,7 @@
     <group id="3" permisison="WR">
         <gui_element id="1">
             <type>stepper</type>
-            <label>Number</label>
-            <disp_settings>0,10</disp_settings>
+            <disp_settings>Number,0,10</disp_settings>
             <status_location>1</status_location>
             <comment>Number Counter</comment>
         </gui_element>
@@ -41,8 +39,7 @@
     <group id="4" permisison="WR">
         <gui_element id="1">
             <type>rangeinput</type>
-            <label>Volume</label>
-            <disp_settings>Set,1000,3000</disp_settings>
+            <disp_settings>Volume,Set,1000,3000</disp_settings>
             <status_location>1</status_location>
             <comment>Volume Slider</comment>
         </gui_element>
@@ -52,8 +49,7 @@
     <group id="5" permisison="WR">
         <gui_element id="1">
             <type>directionalbuttons</type>
-            <label>Direction</label>
-            <disp_settings>N,E,S,W</disp_settings>
+            <disp_settings>Direction,N,E,S,W</disp_settings>
             <status_location>1</status_location>
             <comment>Directional movement</comment>
         </gui_element>
@@ -63,8 +59,7 @@
     <group id="6" permisison="WN">
         <gui_element id="1">
             <type>selection</type>
-            <label>Move Door</label>
-            <disp_settings>one,two,three,four,five,six</disp_settings>
+            <disp_settings>Move Door,one,two,three,four,five,six</disp_settings>
             <status_location>1</status_location>
             <comment>Door positions</comment>
         </gui_element>
@@ -74,7 +69,7 @@
     <group id="7" permisison="WR">
         <gui_element id="1">
             <type>status</type>
-            <label>Voltage</label>
+            <disp_settings>Voltage</disp_settings>
             <status_location>1</status_location>
             <comment>Voltage level</comment>
         </gui_element>
@@ -84,8 +79,7 @@
     <group id="8" permisison="WR">
         <gui_element id="1">
             <type>textinput</type>
-            <label>Name</label>
-            <disp_settings>Submit</disp_settings>
+            <disp_settings>Name,Submit</disp_settings>
             <status_location>1</status_location>
             <comment>Name</comment>
         </gui_element>
@@ -95,7 +89,7 @@
     <group id="9" permission="WR">
         <gui_element id="1">
             <type>progress</type>
-            <label>Loading...</label>
+            <disp_settings>Loading...</disp_settings>
             <status_location>1</status_location>
             <comment>Loading progression</comment>
         </gui_element>
@@ -105,8 +99,7 @@
     <group id="10" permisison="WR">
         <gui_element id="1">
             <type>buttongroup</type>
-            <label>Numpad</label>
-            <disp_settings>1,2,3,4</disp_settings>
+            <disp_settings>Numpad,1,2,3,4</disp_settings>
             <status_location>1</status_location>
             <comment>Numpad</comment>
         </gui_element>
@@ -116,8 +109,7 @@
     <group id="11" permisison="WR">
         <gui_element id="1">
             <type>scheduler</type>
-            <label>Schedule an event</label>
-            <disp_settings>Submit,Mon,Tue,Wed,Thur,Fri</disp_settings>
+            <disp_settings>Schedule an event,Submit,Mon,Tue,Wed,Thur,Fri</disp_settings>
             <status_location>1</status_location>
             <comment>Event scheduler</comment>
         </gui_element>
@@ -127,8 +119,7 @@
     <group id="12" permisison="WR">
         <gui_element id="1">
             <type>password</type>
-            <label>Password</label>
-            <disp_settings>Submit</disp_settings>
+            <disp_settings>Password,Submit</disp_settings>
             <status_location>1</status_location>
             <comment>Enter your password</comment>
         </gui_element>

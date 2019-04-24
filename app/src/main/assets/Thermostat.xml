@@ -7,7 +7,7 @@
     <group id="2" permission="WR">
         <gui_element id="3">
             <type>status</type>
-            <label>Current Temp:</label>
+            <disp_settings>Current Temp:</disp_settings>
             <status_location>4</status_location>
             <comment>current temperature</comment>
         </gui_element>
@@ -15,7 +15,7 @@
     <group id="2" permission="WR">
         <gui_element id="3">
             <type>status</type>
-            <label>Target Temp:</label>
+            <disp_settings>Target Temp:</disp_settings>
             <status_location>4</status_location>
             <comment>Target temperature</comment>
         </gui_element>
@@ -23,8 +23,7 @@
     <group id="2" permission="WR">
         <gui_element id="3">
             <type>plusminus</type>
-            <label>Temperature</label>
-            <disp_settings>0,80</disp_settings>
+            <disp_settings>Temperature,0,80</disp_settings>
             <status_location>4</status_location>
             <comment>Current Temperature</comment>
         </gui_element>
@@ -32,7 +31,7 @@
     <group id="2" permission="WR">
         <gui_element id="3">
             <type>status</type>
-            <label>Fan speed:</label>
+            <disp_settings>Fan speed:</disp_settings>
             <status_location>4</status_location>
             <comment>Current Fan speed</comment>
         </gui_element>
@@ -40,8 +39,7 @@
     <group id="2" permission="WR">
         <gui_element id="3">
             <type>plusminus</type>
-            <label>Fan Speed</label>
-            <disp_settings>0,10</disp_settings>
+            <disp_settings>Fan Speed,0,10</disp_settings>
             <status_location>4</status_location>
             <comment>Fan speed</comment>
         </gui_element>
@@ -49,8 +47,7 @@
     <group id="2" permission="WR">
         <gui_element id="3">
             <type>scheduler</type>
-            <label>Schedule an action</label>
-            <disp_settings>Submit,Heat,Cool,Shutdown,Startup</disp_settings>
+            <disp_settings>Schedule an action,Submit,Heat,Cool,Shutdown,Startup</disp_settings>
             <status_location>4</status_location>
             <comment>Select and action and schedule a time</comment>
         </gui_element>

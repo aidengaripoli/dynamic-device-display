@@ -29,10 +29,10 @@ public class DirectionalButtonsFragment extends DynamicFragment {
     private static final String ARG_BOTTOM = "bottom";
     private static final String ARG_LEFT = "left";
 
-    private static final int ARG_TOP_INDEX = 0;
-    private static final int ARG_RIGHT_INDEX = 1;
-    private static final int ARG_BOTTOM_INDEX = 2;
-    private static final int ARG_LEFT_INDEX = 3;
+    private static final int ARG_TOP_INDEX = 1;
+    private static final int ARG_RIGHT_INDEX = 2;
+    private static final int ARG_BOTTOM_INDEX = 3;
+    private static final int ARG_LEFT_INDEX = 4;
 
     public DirectionalButtonsFragment() {
         // Required empty public constructor
@@ -42,15 +42,14 @@ public class DirectionalButtonsFragment extends DynamicFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label           Parameter 1.
-     * @param displaySettings Parameter 2.
+     * @param displaySettings Parameter 1.
      * @return A new instance of fragment DirectionalButtonsFragment.
      */
-    public static DirectionalButtonsFragment newInstance(String label, ArrayList<String> displaySettings) {
+    public static DirectionalButtonsFragment newInstance(ArrayList<String> displaySettings) {
         DirectionalButtonsFragment fragment = new DirectionalButtonsFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
         args.putString(ARG_TOP, displaySettings.get(ARG_TOP_INDEX));
         args.putString(ARG_RIGHT, displaySettings.get(ARG_RIGHT_INDEX));
         args.putString(ARG_BOTTOM, displaySettings.get(ARG_BOTTOM_INDEX));

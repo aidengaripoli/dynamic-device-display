@@ -27,8 +27,8 @@ public class StepperFragment extends DynamicFragment {
     private static final String ARG_MIN = "min";
     private static final String ARG_MAX = "max";
 
-    private static final int ARG_MIN_INDEX = 0;
-    private static final int ARG_MAX_INDEX = 1;
+    private static final int ARG_MIN_INDEX = 1;
+    private static final int ARG_MAX_INDEX = 2;
 
     private TextView value;
 
@@ -45,15 +45,14 @@ public class StepperFragment extends DynamicFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label           Parameter 1.
-     * @param displaySettings Parameter 2.
+     * @param displaySettings Parameter 1.
      * @return A new instance of fragment StepperFragment.
      */
-    public static StepperFragment newInstance(String label, ArrayList<String> displaySettings) {
+    public static StepperFragment newInstance(ArrayList<String> displaySettings) {
         StepperFragment fragment = new StepperFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
         args.putInt(ARG_MIN, Integer.parseInt(displaySettings.get(ARG_MIN_INDEX)));
         args.putInt(ARG_MAX, Integer.parseInt(displaySettings.get(ARG_MAX_INDEX)));
 

@@ -31,15 +31,14 @@ public class StatusFragment extends DynamicFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param label           Parameter 1.
-     * @param displaySettings Parameter 2.
+     * @param displaySettings Parameter 1.
      * @return A new instance of fragment StatusFragment.
      */
-    public static StatusFragment newInstance(String label, ArrayList<String> displaySettings) {
+    public static StatusFragment newInstance(ArrayList<String> displaySettings) {
         StatusFragment fragment = new StatusFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
+        args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
 
         fragment.setArguments(args);
         return fragment;
