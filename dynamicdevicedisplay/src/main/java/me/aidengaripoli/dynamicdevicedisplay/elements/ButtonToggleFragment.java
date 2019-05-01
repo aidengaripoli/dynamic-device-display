@@ -78,8 +78,8 @@ public class ButtonToggleFragment extends DynamicFragment implements View.OnClic
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_button_toggle, container, false);
 
-        TextView label = view.findViewById(R.id.toggle_label);
-        label.setText(this.label);
+        labelView = view.findViewById(R.id.toggle_label);
+        addLabel();
 
         toggleButton = view.findViewById(R.id.toggle_button);
         toggleButton.setText(mState ? buttonPosLabel : buttonNegLabel);

@@ -66,8 +66,8 @@ public class PasswordFragment extends DynamicFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_password, container, false);
 
-        TextView labelView = view.findViewById(R.id.password_label);
-        labelView.setText(label);
+        labelView = view.findViewById(R.id.password_label);
+        addLabel();
 
         EditText passwordView = view.findViewById(R.id.password_value);
 

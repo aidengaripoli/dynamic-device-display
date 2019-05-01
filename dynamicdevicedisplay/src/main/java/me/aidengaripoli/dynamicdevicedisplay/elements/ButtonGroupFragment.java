@@ -60,6 +60,7 @@ public class ButtonGroupFragment extends DynamicFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             buttonLabels = getArguments().getStringArray(ARG_BUTTON_LABELS);
+            label = getArguments().getString(ARG_LABEL);
         }
     }
 
@@ -68,11 +69,9 @@ public class ButtonGroupFragment extends DynamicFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_button_group, container, false);
 
-        TextView labelView = view.findViewById(R.id.buttonGroupLabel);
-        if (getArguments() != null) {
-            String label = getArguments().getString(ARG_LABEL);
-            labelView.setText(label);
-        }
+        labelView = view.findViewById(R.id.buttonGroupLabel);
+
+        addLabel();
 
         LinearLayout buttonLayout = view.findViewById(R.id.buttonGroup_layout);
 

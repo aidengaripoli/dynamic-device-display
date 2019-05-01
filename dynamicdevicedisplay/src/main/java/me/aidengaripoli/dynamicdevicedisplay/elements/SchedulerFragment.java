@@ -92,8 +92,8 @@ public class SchedulerFragment extends DynamicFragment implements AdapterView.On
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scheduler, container, false);
 
-        TextView labelView = view.findViewById(R.id.SchedulerLabel);
-        labelView.setText(label);
+        labelView = view.findViewById(R.id.SchedulerLabel);
+        addLabel();
 
         timeButton = view.findViewById(R.id.SchedulerButtonTime);
         timeButton.setOnClickListener(v -> new TimePickerDialog(getActivity(), timePickerListener, hr, min, false).show());

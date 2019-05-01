@@ -63,6 +63,9 @@ public class DirectionalButtonsFragment extends DynamicFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            label = getArguments().getString(ARG_LABEL);
+        }
     }
 
     @Override
@@ -70,17 +73,15 @@ public class DirectionalButtonsFragment extends DynamicFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_directional_buttons, container, false);
 
-        TextView labelView = view.findViewById(R.id.direcButtonLabel);
+        labelView = view.findViewById(R.id.direcButtonLabel);
         Button nButton = view.findViewById(R.id.direcButtonN);
         Button eButton = view.findViewById(R.id.direcButtonE);
         Button sButton = view.findViewById(R.id.direcButtonS);
         Button wButton = view.findViewById(R.id.direcButtonW);
 
-        if (getArguments() != null) {
-            String label = getArguments().getString(ARG_LABEL);
-            if (label != null) //label is and optional field
-                labelView.setText(getArguments().getString(ARG_LABEL));
+        addLabel();
 
+        if (getArguments() != null) {
             nButton.setText(getArguments().getString(ARG_TOP));
             eButton.setText(getArguments().getString(ARG_RIGHT));
             sButton.setText(getArguments().getString(ARG_BOTTOM));

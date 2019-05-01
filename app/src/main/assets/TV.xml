@@ -51,7 +51,7 @@
     <group id="5" permission="WR">
         <gui_element id="1">
             <type>directionalbuttons</type>
-            <disp_settings> ,↑,→,↓,←</disp_settings>
+            <disp_settings>~,↑,→,↓,←</disp_settings>
             <status_location>3</status_location>
             <comment>Directional Arrows</comment>
         </gui_element>
@@ -59,25 +59,25 @@
     <group id="6" permission="WR" frame="true" orientation="vertical">
         <gui_element id="1">
             <type>buttongroup</type>
-            <disp_settings> ,1,2,3</disp_settings>
+            <disp_settings>~,1,2,3</disp_settings>
             <status_location>6</status_location>
             <comment>Numpad</comment>
         </gui_element>
         <gui_element id="2">
             <type>buttongroup</type>
-            <disp_settings> ,4,5,6</disp_settings>
+            <disp_settings>~,4,5,6</disp_settings>
             <status_location>6</status_location>
             <comment>Numpad</comment>
         </gui_element>
         <gui_element id="3">
             <type>buttongroup</type>
-            <disp_settings> ,7,8,9</disp_settings>
+            <disp_settings>~,7,8,9</disp_settings>
             <status_location>6</status_location>
             <comment>Numpad</comment>
         </gui_element>
         <gui_element id="4">
             <type>buttongroup</type>
-            <disp_settings> ,Back,0,Info</disp_settings>
+            <disp_settings>~,Back,0,Info</disp_settings>
             <status_location>6</status_location>
             <comment>Numpad</comment>
         </gui_element>

@@ -57,8 +57,8 @@ public class StatusFragment extends DynamicFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_status, container, false);
 
-        TextView statusLabel = view.findViewById(R.id.status_labels);
-        statusLabel.setText(label);
+        labelView = view.findViewById(R.id.status_labels);
+        addLabel();
 
         return view;
     }

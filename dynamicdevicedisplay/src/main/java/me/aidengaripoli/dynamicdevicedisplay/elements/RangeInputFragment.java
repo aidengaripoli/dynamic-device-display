@@ -86,8 +86,8 @@ public class RangeInputFragment extends DynamicFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_range_input, container, false);
 
-        TextView labelView = view.findViewById(R.id.slider_label);
-        labelView.setText(label);
+        labelView = view.findViewById(R.id.slider_label);
+        addLabel();
 
         Button buttonView = view.findViewById(R.id.slider_button);
         buttonView.setText(buttonLabel);

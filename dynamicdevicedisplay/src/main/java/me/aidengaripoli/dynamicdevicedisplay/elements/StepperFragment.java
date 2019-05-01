@@ -78,10 +78,10 @@ public class StepperFragment extends DynamicFragment {
         value = view.findViewById(R.id.plusMinusValue);
         Button plusButton = view.findViewById(R.id.plus);
         Button minusButton = view.findViewById(R.id.minus);
-        TextView labelView = view.findViewById(R.id.plusMinusLabel);
+        labelView = view.findViewById(R.id.plusMinusLabel);
+        addLabel();
 
         value.setText(String.valueOf(currentValue));
-        labelView.setText(label);
 
         plusButton.setOnClickListener(v -> changeValue(true));
         minusButton.setOnClickListener(v -> changeValue(false));

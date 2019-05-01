@@ -60,8 +60,8 @@ public class SwitchToggleFragment extends DynamicFragment implements CompoundBut
 
         View view = inflater.inflate(R.layout.fragment_switch_toggle, container, false);
 
-        TextView labelView = view.findViewById(R.id.switch_toggle_label);
-        labelView.setText(label);
+        labelView = view.findViewById(R.id.switch_toggle_label);
+        addLabel();
 
         Switch switchView = view.findViewById(R.id.switch_toggle_switch);
         switchView.setOnCheckedChangeListener(this);
