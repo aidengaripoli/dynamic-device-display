@@ -1,6 +1,5 @@
 package me.aidengaripoli.dynamicdevicedisplay.elements;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -12,37 +11,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 
+import me.aidengaripoli.dynamicdevicedisplay.OnFragmentInteractionListener;
 import me.aidengaripoli.dynamicdevicedisplay.R;
-import me.aidengaripoli.dynamicdevicedisplay.XmlParser;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SelectionFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link SelectionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SelectionFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    private static final String ARG_LABEL = "label";
-    private static final String ARG_VALUE = "value";
+public class SelectionFragment extends DynamicFragment implements AdapterView.OnItemSelectedListener {
+    public static final String SELECTION = "selection";
+
     private static final String ARG_ITEMS = "items";
 
-    private static final int ARG_LABEL_INDEX = 0;
-    private static final int ARG_VALUE_INDEX = 1;
-
-    private String mLabel;
-    private String mValue;
-    private String[] mItems;
-
-    private Spinner selection;
-    private TextView label;
-
-    private OnFragmentInteractionListener mListener;
+    private String[] items;
 
     public SelectionFragment() {
         // Required empty public constructor
@@ -52,19 +39,13 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param element Parameter 1.
+     * @param displaySettings Parameter 1.
      * @return A new instance of fragment SelectionFragment.
      */
-    public static SelectionFragment newInstance(Element element) {
+    public static SelectionFragment newInstance(ArrayList<String> displaySettings) {
         SelectionFragment fragment = new SelectionFragment();
 
-        XmlParser xmlParser = new XmlParser();
-
-        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
-
         Bundle args = new Bundle();
-        args.putString(ARG_VALUE, displaySettings.get(ARG_VALUE_INDEX));
-        displaySettings.remove(ARG_VALUE_INDEX);
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
         displaySettings.remove(ARG_LABEL_INDEX);
 
@@ -79,68 +60,36 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mLabel = getArguments().getString(ARG_LABEL);
-            mValue = getArguments().getString(ARG_VALUE);
-            mItems = getArguments().getStringArray(ARG_ITEMS);
+            label = getArguments().getString(ARG_LABEL);
+            items = getArguments().getStringArray(ARG_ITEMS);
         }
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_selection, container, false);
 
-        label = view.findViewById(R.id.selection_label);
-        label.setText(mLabel);
+        TextView label = view.findViewById(R.id.selection_label);
+        label.setText(this.label);
 
-        selection = view.findViewById(R.id.selection_value);
+        Spinner selection = view.findViewById(R.id.selection_value);
         selection.setOnItemSelectedListener(this);
         selection.setAdapter(new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_dropdown_item_1line,
-                mItems
+                items
         ));
 
-        //ensure default value is not out of bounds.
-        int defaultSelection = Integer.parseInt(mValue);
-        defaultSelection = defaultSelection > mItems.length - 1 ? mItems.length - 1 : (defaultSelection < 0 ? 0 : defaultSelection);
-
-
-        selection.setSelection(defaultSelection);
+        selection.setSelection(0);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onItemSelected() {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(mLabel, mValue);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        mValue = (String) parent.getItemAtPosition(position);
-
-        onItemSelected();
+        String value = (String) parent.getItemAtPosition(position);
+        sendMessage(value);
     }
 
     @Override
@@ -148,17 +97,8 @@ public class SelectionFragment extends Fragment implements AdapterView.OnItemSel
 
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(String label, String value);
+    @Override
+    public void updateFragmentData(String data) {
+
     }
 }

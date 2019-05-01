@@ -3,11 +3,26 @@ package me.aidengaripoli.dynamicdevicedisplay;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 public class XmlParser {
+    private final String TYPE = "type";
+    private final String DISPLAY_SETTINGS = "disp_settings";
+    private final String LABEL = "label";
+    private final String NAME = "name";
+    private final String ID = "id";
+    private final String GROUP = "group";
+    private final String GUI_ELEMENT = "gui_element";
+    private final String DELIM = ",";
 
     /**
      * Used to retrieve the string found inside the <Type/> tag.
@@ -17,7 +32,7 @@ public class XmlParser {
      * @return A string with the type of element.
      */
     String getElementType(Element element) {
-        String value = getTagData(element, "type");
+        String value = getTagData(element, TYPE);
         return value.toLowerCase().trim();
     }
 
@@ -27,12 +42,14 @@ public class XmlParser {
      * @param element Parameter 1.
      * @return An Arraylist of the comma separated data found in the display settings tag.
      */
-    public ArrayList<String> getDisplaySettings(Element element) {
+    ArrayList<String> getDisplaySettings(Element element) {
         ArrayList<String> displaySettings = new ArrayList<>();
+        String value = getTagData(element, DISPLAY_SETTINGS);
 
-        String value = getTagData(element, "disp_settings");
+        if (value == null)
+            return displaySettings; //No display settings found for this element
 
-        StringTokenizer st = new StringTokenizer(value, ",");
+        StringTokenizer st = new StringTokenizer(value, DELIM);
         while (st.hasMoreTokens()) {
             displaySettings.add(st.nextToken());
         }
@@ -41,7 +58,37 @@ public class XmlParser {
     }
 
     /**
-     * Used to retrieve the string found inside the a specific tag.
+     * Used to retrieve the value in the <label/> tag.
+     *
+     * @param element Parameter 1.
+     * @return A String with the value in the label tag.
+     */
+    String getLabel(Element element) {
+        return getTagData(element, LABEL);
+    }
+
+    /**
+     * Used to retrieve the value in the <name/> tag.
+     *
+     * @param element Parameter 1.
+     * @return A String with the value in the name tag.
+     */
+    String getName(Element element) {
+        return getTagData(element, NAME);
+    }
+
+    /**
+     * Used to retrieve the value in the id attribute.
+     *
+     * @param element Parameter 1.
+     * @return A String with the value in the id attribute.
+     */
+    String getId(Element element) {
+        return element.getAttribute(ID);
+    }
+
+    /**
+     * Used to retrieve the string found inside a specific tag.
      *
      * @param element Parameter 1.
      * @param tag     Parameter 2.
@@ -63,5 +110,44 @@ public class XmlParser {
             return null;
 
         return typeNode.getNodeValue();
+    }
+
+    /**
+     * Used to get all the group nodes in an xml file from and Inputstream.
+     *
+     * @param inputStream Parameter 1.
+     * @return A Nodelist of each group node.
+     */
+    NodeList getGroups(InputStream inputStream) {
+        DocumentBuilder builder = null;
+        try {
+            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+
+        // get all of the <group> elements
+        NodeList groupNodeList = null;
+        try {
+            if (builder != null) {
+                groupNodeList = builder.parse(inputStream).getElementsByTagName(GROUP);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+
+        return groupNodeList;
+    }
+
+    /**
+     * Used to retrieve all the guiElements in a group element.
+     *
+     * @param element Parameter 1.
+     * @return A Nodelist of each node called gui_element.
+     */
+    NodeList getGuiElementsInGroup(Element element) {
+        return element.getElementsByTagName(GUI_ELEMENT);
     }
 }

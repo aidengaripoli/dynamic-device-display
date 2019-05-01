@@ -1,90 +1,59 @@
 package com.example.xmlui;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+import me.aidengaripoli.dynamicdevicedisplay.OnFragmentInteractionListener;
 import me.aidengaripoli.dynamicdevicedisplay.UiGenerator;
-import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalArrowsFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.InputFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.SliderFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.StatusFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.SwitchToggleFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.DynamicFragment;
 
-public class IotDeviceActivity extends FragmentActivity implements
-        ToggleFragment.OnFragmentInteractionListener,
-        ProgressFragment.OnFragmentInteractionListener,
-        SelectionFragment.OnFragmentInteractionListener,
-        SliderFragment.OnFragmentInteractionListener,
-        PlusMinusFragment.OnFragmentInteractionListener,
-        DirectionalArrowsFragment.OnFragmentInteractionListener,
-        SwitchToggleFragment.OnFragmentInteractionListener,
-        StatusFragment.OnFragmentInteractionListener,
-        InputFragment.OnFragmentInteractionListener,
-        ButtonGroupFragment.OnFragmentInteractionListener {
-
+public class IotDeviceActivity extends FragmentActivity implements OnFragmentInteractionListener {
+    FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         ScrollView scrollView = new ScrollView(this);
-        UiGenerator uiGenerator = new UiGenerator(fragmentManager);
         Bundle extras = getIntent().getExtras();
 
         String file;
         if (extras != null) {
             file = extras.getString("xmlFile");
-        }else{
+        } else {
             return;
         }
 
+        InputStream inputStream = null;
         try {
             assert file != null;
-            InputStream inputStream = getAssets().open(file);
-            LinearLayout rootLayout = uiGenerator.generateUi(this, inputStream);
-            scrollView.addView(rootLayout);
+            inputStream = getAssets().open(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        assert inputStream != null;
+        UiGenerator uiGenerator = new UiGenerator(fragmentManager, this);
+        LinearLayout rootLayout = uiGenerator.generateUi(inputStream);
+        scrollView.addView(rootLayout);
 
         // add the root layout to the content view
         setContentView(scrollView);
     }
 
     @Override
-    public void onFragmentInteraction(String buttonPressed) {
+    public void onFragmentMessage(String tag, String data) {
+        Log.i("Fragment Message", tag + ": " + data);
 
-    }
-
-    @Override
-    public void onFragmentInteraction(String label, int value) {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(String label, String value) {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(String label, boolean state) {
-
+        DynamicFragment dynamicFragment = (DynamicFragment) fragmentManager.findFragmentByTag(tag);
+        assert dynamicFragment != null;
+        dynamicFragment.updateFragmentData("test");
     }
 }

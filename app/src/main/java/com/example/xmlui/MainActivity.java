@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.Map;
+
+import me.aidengaripoli.dynamicdevicedisplay.IotNetworkDiscovery;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -15,15 +19,16 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        String devices[] = {"oven.xml", "TV.xml", "SecCamera.xml", "Thermostat.xml"};
+        IotNetworkDiscovery iotNetworkDiscovery = new IotNetworkDiscovery();
+        Map<String,String> devices = iotNetworkDiscovery.findDevices();
 
-        for (String device : devices) {
+        for (Map.Entry<String, String> device : devices.entrySet()) {
             Button button = new Button(this);
-            button.setText(device);
+            button.setText(device.getValue());
             linearLayout.addView(button);
             button.setOnClickListener(v -> {
                 Intent intent = new Intent(this, IotDeviceActivity.class);
-                intent.putExtra("xmlFile", device);
+                intent.putExtra("xmlFile", device.getKey());
                 startActivity(intent);
             });
         }

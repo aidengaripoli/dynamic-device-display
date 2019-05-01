@@ -4,69 +4,74 @@ import android.support.v4.app.Fragment;
 
 import org.w3c.dom.Element;
 
+import java.util.ArrayList;
+
 import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalArrowsFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.InputFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.PlusMinusFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonToggleFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalButtonsFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.PasswordFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.StepperFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.RangeInputFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.SchedulerFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SelectionFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.SliderFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.StatusFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.SwitchToggleFragment;
-import me.aidengaripoli.dynamicdevicedisplay.elements.ToggleFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.TextInputFragment;
 
-public class ElementsFactory {
-    private static final String TOGGLE = "toggle";
-    private static final String PROGRESS = "progress";
-    private static final String SELECTION = "selection";
-    private static final String SLIDER = "slider";
-    private static final String PLUS_MINUS = "plusminus";
-    private static final String DIRECTIONAL_ARROWS = "directionalarrows";
-    private static final String SWITCH_TOGGLE = "switchtoggle";
-    private static final String STATUS = "status";
-    private static final String INPUT = "input";
-    private static final String BUTTON_GROUP = "buttongroup";
+class ElementsFactory {
+    static Fragment getElement(Element element) {
+        XmlParser xmlParser = new XmlParser();
+        ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
+        String type = xmlParser.getElementType(element);
 
-    public static Fragment getElement(String type, Element element) {
         switch (type) {
-            case TOGGLE: {
-                return ToggleFragment.newInstance(element);
+            case ButtonToggleFragment.BUTTON_TOGGLE: {
+                return ButtonToggleFragment.newInstance(displaySettings);
             }
 
-            case PROGRESS: {
-                return ProgressFragment.newInstance(element);
+            case ProgressFragment.PROGRESS: {
+                return ProgressFragment.newInstance(displaySettings);
             }
 
-            case SELECTION: {
-                return SelectionFragment.newInstance(element);
+            case SelectionFragment.SELECTION: {
+                return SelectionFragment.newInstance(displaySettings);
             }
 
-            case SLIDER: {
-                return SliderFragment.newInstance(element);
+            case RangeInputFragment.RANGE_INPUT: {
+                return RangeInputFragment.newInstance(displaySettings);
             }
 
-            case PLUS_MINUS: {
-                return PlusMinusFragment.newInstance(element);
+            case StepperFragment.STEPPER: {
+                return StepperFragment.newInstance(displaySettings);
             }
 
-            case DIRECTIONAL_ARROWS: {
-                return DirectionalArrowsFragment.newInstance(element);
+            case DirectionalButtonsFragment.DIRECTIONAL_BUTTONS: {
+                return DirectionalButtonsFragment.newInstance(displaySettings);
             }
 
-            case SWITCH_TOGGLE: {
-                return SwitchToggleFragment.newInstance(element);
+            case SwitchToggleFragment.SWITCH_TOGGLE: {
+                return SwitchToggleFragment.newInstance(displaySettings);
             }
 
-            case STATUS: {
-                return StatusFragment.newInstance(element);
+            case StatusFragment.STATUS: {
+                return StatusFragment.newInstance(displaySettings);
             }
 
-            case INPUT: {
-                return InputFragment.newInstance(element);
+            case TextInputFragment.TEXT_INPUT: {
+                return TextInputFragment.newInstance(displaySettings);
             }
 
-            case BUTTON_GROUP: {
-                return ButtonGroupFragment.newInstance(element);
+            case ButtonGroupFragment.BUTTON_GROUP: {
+                return ButtonGroupFragment.newInstance(displaySettings);
+            }
+
+            case PasswordFragment.PASSWORD: {
+                return PasswordFragment.newInstance(displaySettings);
+            }
+
+            case SchedulerFragment.SCHEDULER: {
+                return SchedulerFragment.newInstance(displaySettings);
             }
 
             default: {
