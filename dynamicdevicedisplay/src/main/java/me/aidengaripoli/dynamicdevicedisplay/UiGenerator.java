@@ -49,11 +49,19 @@ public class UiGenerator {
                 String groupId = xmlParser.getId(element);
                 NodeList guiNodeList = xmlParser.getGuiElementsInGroup(element);
 
+                LinearLayout groupLayout = createLinearLayout(xmlParser.getGroupLayoutOrientation(element));
+
                 if (guiNodeList.getLength() == 1) {
-                    addElementToLayout((Element) guiNodeList.item(0), rootLayout, groupId);
+                    addElementToLayout((Element) guiNodeList.item(0), groupLayout, groupId);
                 } else {
-                    createGroupOfElements(rootLayout, guiNodeList, groupId);
+                    createGroupOfElements(groupLayout, guiNodeList, groupId);
                 }
+
+                if(xmlParser.doesGroupHaveBorderAttribute(element)){
+                    groupLayout.setBackground(context.getDrawable(R.drawable.border));
+                }
+
+                rootLayout.addView(groupLayout);
             }
 
         } catch (Exception e) {
@@ -72,23 +80,17 @@ public class UiGenerator {
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
         title.setText(name);
 
-        LinearLayout groupLayout = createLinearLayout();
+        LinearLayout groupLayout = createLinearLayout(true);
         groupLayout.addView(title);
         rootLayout.addView(groupLayout);
     }
 
-    private void createGroupOfElements(LinearLayout layout, NodeList guiNodeList, String groupId) {
-        // Generate a horizontal Linear layout and add the elements to that.
-        LinearLayout groupLayout = createLinearLayout();
-
+    private void createGroupOfElements(LinearLayout groupLayout, NodeList guiNodeList, String groupId) {
         // iterate through all the <gui_element> elements in the group
         for (int i = 0; i < guiNodeList.getLength(); i++) {
             Element element = (Element) guiNodeList.item(i);
             addElementToLayout(element, groupLayout, groupId);
         }
-
-        // add new horizontal layout to root layout
-        layout.addView(groupLayout);
     }
 
     private void addElementToLayout(Element element, LinearLayout layout, String groupId) {
@@ -106,14 +108,15 @@ public class UiGenerator {
         }
     }
 
-    private LinearLayout createLinearLayout() {
+    private LinearLayout createLinearLayout(boolean horizontalLayout) {
         LinearLayout layout = new LinearLayout(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setOrientation(horizontalLayout ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
         layout.setLayoutParams(layoutParams);
+        layout.setGravity(Gravity.CENTER);
         layout.setId(View.generateViewId());
 
         return layout;

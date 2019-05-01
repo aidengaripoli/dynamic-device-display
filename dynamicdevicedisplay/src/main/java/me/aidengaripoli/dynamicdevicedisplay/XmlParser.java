@@ -150,4 +150,24 @@ public class XmlParser {
     NodeList getGuiElementsInGroup(Element element) {
         return element.getElementsByTagName(GUI_ELEMENT);
     }
+
+    boolean doesGroupHaveBorderAttribute(Element element){
+        String value = element.getAttribute("frame");
+
+        if(value == null){
+            return false;
+        }else {
+            return value.equals("true");
+        }
+    }
+
+    boolean getGroupLayoutOrientation(Element element){
+        String value = element.getAttribute("orientation");
+
+        if(value == null){
+            return false;
+        }else {
+            return value.equals("horizontal");
+        }
+    }
 }
