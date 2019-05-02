@@ -87,7 +87,7 @@ public class ButtonGroupFragment extends DynamicFragment {
     }
 
     @Override
-    public void updateFragmentData(String data) {
+    public void updateFragmentData(ArrayList<String> updateData) {
 
     }
 }

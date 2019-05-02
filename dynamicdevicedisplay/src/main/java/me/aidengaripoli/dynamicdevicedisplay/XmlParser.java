@@ -150,4 +150,33 @@ public class XmlParser {
     NodeList getGuiElementsInGroup(Element element) {
         return element.getElementsByTagName(GUI_ELEMENT);
     }
+
+    /**
+     * Used to get the widget tag in a status update command.
+     *
+     * @param command Parameter 1.
+     * @return An string of the widgets tag.
+     */
+    String getCommandTag(String command) {
+        StringTokenizer st = new StringTokenizer(command, DELIM);
+        return st.nextToken();
+    }
+
+    /**
+     * Used to get the status data in a status update command.
+     *
+     * @param command Parameter 1.
+     * @return An arrayList of the comma separated status data.
+     */
+    ArrayList<String> getCommandData(String command) {
+        ArrayList<String> statusData = new ArrayList<>();
+
+        StringTokenizer st = new StringTokenizer(command, DELIM);
+        st.nextToken();
+        while (st.hasMoreTokens()) {
+            statusData.add(st.nextToken());
+        }
+
+        return statusData;
+    }
 }

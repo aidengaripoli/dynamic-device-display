@@ -1,7 +1,5 @@
 package me.aidengaripoli.dynamicdevicedisplay;
 
-import android.support.v4.app.Fragment;
-
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
@@ -9,6 +7,7 @@ import java.util.ArrayList;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonGroupFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ButtonToggleFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.DirectionalButtonsFragment;
+import me.aidengaripoli.dynamicdevicedisplay.elements.DynamicFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.PasswordFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.StepperFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.ProgressFragment;
@@ -20,7 +19,7 @@ import me.aidengaripoli.dynamicdevicedisplay.elements.SwitchToggleFragment;
 import me.aidengaripoli.dynamicdevicedisplay.elements.TextInputFragment;
 
 class ElementsFactory {
-    static Fragment getElement(Element element) {
+    static DynamicFragment getElement(Element element) {
         XmlParser xmlParser = new XmlParser();
         ArrayList<String> displaySettings = xmlParser.getDisplaySettings(element);
         String type = xmlParser.getElementType(element);

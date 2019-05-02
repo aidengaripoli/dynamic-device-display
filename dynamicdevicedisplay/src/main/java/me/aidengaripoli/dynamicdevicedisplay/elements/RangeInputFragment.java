@@ -76,7 +76,6 @@ public class RangeInputFragment extends DynamicFragment {
             buttonLabel = getArguments().getString(ARG_BUTTON_LABEL);
             min = getArguments().getInt(ARG_MIN);
             max = getArguments().getInt(ARG_MAX);
-            value = 0;
 
             range = max - min;
         }
@@ -148,7 +147,12 @@ public class RangeInputFragment extends DynamicFragment {
     }
 
     @Override
-    public void updateFragmentData(String data) {
+    public void updateFragmentData(ArrayList<String> updateData) {
+        if(updateData.isEmpty()){
+            return;
+        }
 
+        String val = updateData.get(0);
+        value = Integer.parseInt(val);
     }
 }

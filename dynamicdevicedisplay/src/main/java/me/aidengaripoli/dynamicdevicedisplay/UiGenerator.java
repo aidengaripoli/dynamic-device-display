@@ -14,7 +14,13 @@ import android.widget.TextView;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import me.aidengaripoli.dynamicdevicedisplay.elements.DynamicFragment;
 
 public class UiGenerator {
     private static final String TAG = "UiGenerator";
@@ -22,20 +28,24 @@ public class UiGenerator {
     private XmlParser xmlParser;
     private Context context;
 
+    private HashMap<String, DynamicFragment> dynamicFragments;
+
     public UiGenerator(FragmentManager fragmentManager, Context context) {
         this.fragmentManager = fragmentManager;
         this.context = context;
         xmlParser = new XmlParser();
+
+        dynamicFragments = new HashMap<>();
     }
 
-    public LinearLayout generateUi(InputStream inputStream) {
+    public LinearLayout generateUi(IoTDevice device) {
         LinearLayout rootLayout = new LinearLayout(context);
         rootLayout.setOrientation(LinearLayout.VERTICAL);
         rootLayout.setId(View.generateViewId());
         rootLayout.setGravity(Gravity.CENTER);
 
         try {
-            NodeList groupNodeList = xmlParser.getGroups(inputStream);
+            NodeList groupNodeList = xmlParser.getGroups(device.getDisplayStream());
 
             if(groupNodeList == null)
                 return rootLayout;
@@ -58,6 +68,22 @@ public class UiGenerator {
 
         } catch (Exception e) {
             Log.e(TAG, "ERROR WHILST GENERATING UI: " + e.getMessage());
+        }
+
+
+        IotNetworkDiscovery iotNetworkDiscovery = new IotNetworkDiscovery();
+        ArrayList<String> updateCommands = iotNetworkDiscovery.getDeviceInformation(device);
+
+        for (String command: updateCommands) {
+            String tag = xmlParser.getCommandTag(command);
+            ArrayList<String> data = xmlParser.getCommandData(command);
+
+            DynamicFragment dynamicFragment = dynamicFragments.get(tag);
+            if(dynamicFragment != null){
+                dynamicFragment.updateFragmentData(data);
+            }else{
+                Log.e(TAG, "generateUi: No widget with found with tag: " + tag);
+            }
         }
 
         return rootLayout;
@@ -93,7 +119,7 @@ public class UiGenerator {
 
     private void addElementToLayout(Element element, LinearLayout layout, String groupId) {
         // generate a view (widget) for each gui_element
-        Fragment fragment = ElementsFactory.getElement(element);
+        DynamicFragment fragment = ElementsFactory.getElement(element);
 
         String fragmentTag = groupId + "-" + xmlParser.getId(element);
 
@@ -103,6 +129,8 @@ public class UiGenerator {
 
             fragmentTransaction.add(layout.getId(), fragment, fragmentTag);
             fragmentTransaction.commit();
+
+            dynamicFragments.put(fragmentTag, fragment);
         }
     }
 
