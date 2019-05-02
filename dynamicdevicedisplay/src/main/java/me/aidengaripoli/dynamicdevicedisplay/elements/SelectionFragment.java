@@ -30,6 +30,8 @@ public class SelectionFragment extends DynamicFragment implements AdapterView.On
     private static final String ARG_ITEMS = "items";
 
     private String[] items;
+    private Spinner selection;
+    private int position;
 
     public SelectionFragment() {
         // Required empty public constructor
@@ -73,7 +75,7 @@ public class SelectionFragment extends DynamicFragment implements AdapterView.On
         TextView label = view.findViewById(R.id.selection_label);
         label.setText(this.label);
 
-        Spinner selection = view.findViewById(R.id.selection_value);
+        selection = view.findViewById(R.id.selection_value);
         selection.setOnItemSelectedListener(this);
         selection.setAdapter(new ArrayAdapter<>(
                 getActivity(),
@@ -81,7 +83,7 @@ public class SelectionFragment extends DynamicFragment implements AdapterView.On
                 items
         ));
 
-        selection.setSelection(0);
+        selection.setSelection(position);
 
         return view;
     }
@@ -98,7 +100,12 @@ public class SelectionFragment extends DynamicFragment implements AdapterView.On
     }
 
     @Override
-    public void updateFragmentData(String data) {
+    public void updateFragmentData(ArrayList<String> updateData) {
+        if(updateData.isEmpty()){
+            return;
+        }
 
+        String val = updateData.get(0);
+        position = Integer.parseInt(val);
     }
 }

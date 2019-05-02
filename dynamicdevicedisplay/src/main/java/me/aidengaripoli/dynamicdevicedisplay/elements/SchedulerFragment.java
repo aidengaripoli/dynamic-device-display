@@ -44,6 +44,9 @@ public class SchedulerFragment extends DynamicFragment implements AdapterView.On
 
     private int currentPosition;
 
+    private Spinner selection;
+//    private Button timeButton;
+
     private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
@@ -97,20 +100,22 @@ public class SchedulerFragment extends DynamicFragment implements AdapterView.On
 
         timeButton = view.findViewById(R.id.SchedulerButtonTime);
         timeButton.setOnClickListener(v -> new TimePickerDialog(getActivity(), timePickerListener, hr, min, false).show());
+        timeButton.setText(time);
 
-        Spinner selection = view.findViewById(R.id.SchedulerSpinner);
+        selection = view.findViewById(R.id.SchedulerSpinner);
         selection.setOnItemSelectedListener(this);
         selection.setAdapter(new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_dropdown_item_1line,
                 spinnerItems
         ));
+        selection.setSelection(currentPosition);
 
-        Button button = view.findViewById(R.id.SchedulerButtonSubmit);
+        Button submitButton = view.findViewById(R.id.SchedulerButtonSubmit);
         if (getArguments() != null) {
-            button.setText(getArguments().getString(ARG_BUTTON_LABEL));
+            submitButton.setText(getArguments().getString(ARG_BUTTON_LABEL));
         }
-        button.setOnClickListener(v -> interactionListener.onFragmentMessage(getTag(), spinnerItems[currentPosition] + "," + time));
+        submitButton.setOnClickListener(v -> interactionListener.onFragmentMessage(getTag(), spinnerItems[currentPosition] + "," + time));
 
         return view;
     }
@@ -148,7 +153,12 @@ public class SchedulerFragment extends DynamicFragment implements AdapterView.On
     }
 
     @Override
-    public void updateFragmentData(String data) {
+    public void updateFragmentData(ArrayList<String> updateData) {
+        if(updateData.size() < 2){
+            return;
+        }
 
+        currentPosition = Integer.parseInt(updateData.get(0));
+        time = updateData.get(1);
     }
 }

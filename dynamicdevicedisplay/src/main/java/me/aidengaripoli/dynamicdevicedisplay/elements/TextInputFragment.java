@@ -29,6 +29,9 @@ public class TextInputFragment extends DynamicFragment {
 
     private static final int ARG_BUTTON_LABEL_INDEX = 1;
 
+    private EditText textInput;
+    private String textInputValue;
+
     private String buttonLabel;
 
     public TextInputFragment() {
@@ -69,7 +72,8 @@ public class TextInputFragment extends DynamicFragment {
         TextView labelView = view.findViewById(R.id.input_label);
         labelView.setText(label);
 
-        EditText textInput = view.findViewById(R.id.input_value);
+        textInput = view.findViewById(R.id.input_value);
+        textInput.setText(textInputValue);
 
         Button button = view.findViewById(R.id.input_button);
         button.setText(buttonLabel);
@@ -79,7 +83,11 @@ public class TextInputFragment extends DynamicFragment {
     }
 
     @Override
-    public void updateFragmentData(String data) {
+    public void updateFragmentData(ArrayList<String> updateData) {
+        if(updateData.isEmpty()){
+            return;
+        }
 
+        textInputValue = updateData.get(0);
     }
 }

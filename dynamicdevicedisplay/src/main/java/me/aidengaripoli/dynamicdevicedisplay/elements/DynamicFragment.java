@@ -3,6 +3,8 @@ package me.aidengaripoli.dynamicdevicedisplay.elements;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import java.util.ArrayList;
+
 import me.aidengaripoli.dynamicdevicedisplay.OnFragmentInteractionListener;
 
 public abstract class DynamicFragment extends Fragment {
@@ -13,7 +15,7 @@ public abstract class DynamicFragment extends Fragment {
 
     OnFragmentInteractionListener interactionListener;
 
-    public abstract void updateFragmentData(String data);
+    public abstract void updateFragmentData(ArrayList<String> updateData);
 
     @Override
     public void onAttach(Context context) {

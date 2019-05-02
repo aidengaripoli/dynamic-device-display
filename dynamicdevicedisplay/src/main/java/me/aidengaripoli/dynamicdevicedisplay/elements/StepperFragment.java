@@ -104,7 +104,12 @@ public class StepperFragment extends DynamicFragment {
     }
 
     @Override
-    public void updateFragmentData(String data) {
+    public void updateFragmentData(ArrayList<String> updateData) {
+        if(updateData.isEmpty()){
+            return;
+        }
 
+        String val = updateData.get(0);
+        currentValue = Integer.parseInt(val);
     }
 }

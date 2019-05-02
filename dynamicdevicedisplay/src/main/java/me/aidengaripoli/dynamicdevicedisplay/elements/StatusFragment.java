@@ -22,6 +22,8 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
  */
 public class StatusFragment extends DynamicFragment {
     public static final String STATUS = "status";
+    private TextView statusLabel;
+    private String statusValue;
 
     public StatusFragment() {
         // Required empty public constructor
@@ -57,14 +59,20 @@ public class StatusFragment extends DynamicFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_status, container, false);
 
-        TextView statusLabel = view.findViewById(R.id.status_labels);
+        statusLabel = view.findViewById(R.id.status_labels);
         statusLabel.setText(label);
 
+        TextView statusValueView = view.findViewById(R.id.status_value);
+        statusValueView.setText(statusValue);
         return view;
     }
 
     @Override
-    public void updateFragmentData(String data) {
+    public void updateFragmentData(ArrayList<String> updateData) {
+        if(updateData.isEmpty()){
+            return;
+        }
 
+        statusValue = updateData.get(0);
     }
 }

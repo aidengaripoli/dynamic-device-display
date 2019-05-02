@@ -25,7 +25,9 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
 public class ProgressFragment extends DynamicFragment {
     public static final String PROGRESS = "progress";
 
-    private int mValue;
+    private int value;
+
+    private ProgressBar progressValue;
 
     public ProgressFragment() {
         // Required empty public constructor
@@ -52,7 +54,6 @@ public class ProgressFragment extends DynamicFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             label = getArguments().getString(ARG_LABEL);
-            mValue = 0;
         }
     }
 
@@ -64,14 +65,18 @@ public class ProgressFragment extends DynamicFragment {
         TextView labelView = view.findViewById(R.id.progress_label);
         labelView.setText(label);
 
-        ProgressBar progressValue = view.findViewById(R.id.progress_value);
-        progressValue.setProgress(mValue);
+        progressValue = view.findViewById(R.id.progress_value);
+        progressValue.setProgress(value);
 
         return view;
     }
 
     @Override
-    public void updateFragmentData(String data) {
+    public void updateFragmentData(ArrayList<String> updateData) {
+        if(updateData.isEmpty()){
+            return;
+        }
 
+        value = Integer.parseInt(updateData.get(0));
     }
 }

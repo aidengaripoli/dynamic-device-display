@@ -9,7 +9,10 @@ import android.widget.ScrollView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
+import me.aidengaripoli.dynamicdevicedisplay.IoTDevice;
+import me.aidengaripoli.dynamicdevicedisplay.IotNetworkDiscovery;
 import me.aidengaripoli.dynamicdevicedisplay.OnFragmentInteractionListener;
 import me.aidengaripoli.dynamicdevicedisplay.UiGenerator;
 import me.aidengaripoli.dynamicdevicedisplay.elements.DynamicFragment;
@@ -23,14 +26,13 @@ public class IotDeviceActivity extends FragmentActivity implements OnFragmentInt
         fragmentManager = getSupportFragmentManager();
         ScrollView scrollView = new ScrollView(this);
         Bundle extras = getIntent().getExtras();
+        IotNetworkDiscovery iotNetworkDiscovery = new IotNetworkDiscovery();
 
-        String file;
-        if (extras != null) {
-            file = extras.getString("xmlFile");
-        } else {
-            return;
-        }
+        String deviceName = extras != null ? extras.getString("deviceName") : null;
+        IoTDevice device = iotNetworkDiscovery.connectToDevice(deviceName);
+        String file = device.displayXml;
 
+        // TODO: The file should be retrieved over the network and converted to an inputStream.
         InputStream inputStream = null;
         try {
             assert file != null;
@@ -38,10 +40,10 @@ public class IotDeviceActivity extends FragmentActivity implements OnFragmentInt
         } catch (IOException e) {
             e.printStackTrace();
         }
+        device.setDisplayStream(inputStream);
 
-        assert inputStream != null;
         UiGenerator uiGenerator = new UiGenerator(fragmentManager, this);
-        LinearLayout rootLayout = uiGenerator.generateUi(inputStream);
+        LinearLayout rootLayout = uiGenerator.generateUi(device);
         scrollView.addView(rootLayout);
 
         // add the root layout to the content view
@@ -51,9 +53,5 @@ public class IotDeviceActivity extends FragmentActivity implements OnFragmentInt
     @Override
     public void onFragmentMessage(String tag, String data) {
         Log.i("Fragment Message", tag + ": " + data);
-
-        DynamicFragment dynamicFragment = (DynamicFragment) fragmentManager.findFragmentByTag(tag);
-        assert dynamicFragment != null;
-        dynamicFragment.updateFragmentData("test");
     }
 }

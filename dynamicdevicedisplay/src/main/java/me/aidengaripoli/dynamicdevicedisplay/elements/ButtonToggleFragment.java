@@ -34,7 +34,7 @@ public class ButtonToggleFragment extends DynamicFragment implements View.OnClic
 
     private String buttonPosLabel;
     private String buttonNegLabel;
-    private boolean mState;
+    private boolean state;
 
     private Button toggleButton;
 
@@ -66,7 +66,6 @@ public class ButtonToggleFragment extends DynamicFragment implements View.OnClic
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             label = getArguments().getString(ARG_LABEL);
-            mState = true;
             buttonPosLabel = getArguments().getString(ARG_POS_LABEL);
             buttonNegLabel = getArguments().getString(ARG_NEG_LABEL);
         }
@@ -82,7 +81,7 @@ public class ButtonToggleFragment extends DynamicFragment implements View.OnClic
         label.setText(this.label);
 
         toggleButton = view.findViewById(R.id.toggle_button);
-        toggleButton.setText(mState ? buttonPosLabel : buttonNegLabel);
+        toggleButton.setText(state ? buttonPosLabel : buttonNegLabel);
         toggleButton.setOnClickListener(this);
 
         return view;
@@ -90,13 +89,22 @@ public class ButtonToggleFragment extends DynamicFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        mState = !mState;
-        toggleButton.setText(mState ? buttonPosLabel : buttonNegLabel);
-        sendMessage(mState ? buttonPosLabel : buttonNegLabel);
+        state = !state;
+        toggleButton.setText(state ? buttonPosLabel : buttonNegLabel);
+        sendMessage(state ? buttonPosLabel : buttonNegLabel);
     }
 
     @Override
-    public void updateFragmentData(String data) {
-        buttonPosLabel = data;
+    public void updateFragmentData(ArrayList<String> updateData) {
+        if(updateData.isEmpty()){
+            return;
+        }
+
+        String state = updateData.get(0);
+        if(state.equals("true")){
+            this.state = true;
+        }else if(state.equals("false")){
+            this.state = false;
+        }
     }
 }

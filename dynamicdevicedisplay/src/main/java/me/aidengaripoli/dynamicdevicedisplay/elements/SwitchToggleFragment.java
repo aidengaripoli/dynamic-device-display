@@ -25,6 +25,9 @@ import me.aidengaripoli.dynamicdevicedisplay.R;
 public class SwitchToggleFragment extends DynamicFragment implements CompoundButton.OnCheckedChangeListener {
     public static final String SWITCH_TOGGLE = "switchtoggle";
 
+    private Switch switchView;
+    private boolean isChecked;
+
     public SwitchToggleFragment() {
         // Required empty public constructor
     }
@@ -63,19 +66,30 @@ public class SwitchToggleFragment extends DynamicFragment implements CompoundBut
         TextView labelView = view.findViewById(R.id.switch_toggle_label);
         labelView.setText(label);
 
-        Switch switchView = view.findViewById(R.id.switch_toggle_switch);
+        switchView = view.findViewById(R.id.switch_toggle_switch);
         switchView.setOnCheckedChangeListener(this);
+        switchView.setChecked(isChecked);
 
         return view;
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        this.isChecked = isChecked;
         sendMessage(String.valueOf(isChecked));
     }
 
     @Override
-    public void updateFragmentData(String data) {
+    public void updateFragmentData(ArrayList<String> updateData) {
+        String checked = updateData.get(0);
+        if(checked == null){
+            return;
+        }
 
+        if(checked.equals("true")){
+            isChecked = true;
+        }else if(checked.equals("false")){
+            isChecked = false;
+        }
     }
 }
