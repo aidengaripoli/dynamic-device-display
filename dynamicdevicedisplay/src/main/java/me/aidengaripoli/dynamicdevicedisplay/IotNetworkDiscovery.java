@@ -1,18 +1,19 @@
 package me.aidengaripoli.dynamicdevicedisplay;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IotNetworkDiscovery {
 
-    public Map<String,String> findDevices(){
-        Map<String,String> devices = new HashMap<>();
+    public List<IoTDevice> findDevices(){
 
-        devices.put("Kettle.xml", "Kettle");
-        devices.put("TV.xml", "TV");
-        devices.put("SecCamera.xml", "Security Camera");
-        devices.put("Thermostat.xml", "Thermostat");
-        devices.put("Elements.xml", "Elements");
+        List<IoTDevice> devices = new ArrayList<>();
+
+        devices.add(new IoTDevice("Kettle.xml", "Kettle"));
+        devices.add(new IoTDevice("TV.xml", "TV"));
+        devices.add(new IoTDevice("SecCamera.xml", "Security Camera"));
+        devices.add(new IoTDevice("Thermostat.xml", "Thermostat"));
+        devices.add(new IoTDevice("Elements.xml", "Elements"));
 
         return devices;
     }
