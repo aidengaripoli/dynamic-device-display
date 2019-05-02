@@ -43,7 +43,8 @@ public abstract class DynamicFragment extends Fragment {
     }
 
     void addLabel(){
-        assert label != null;
+        if(label == null)
+            return;
 
         if(label.equals(NO_LABEL)){
             labelView.setVisibility(View.GONE);
