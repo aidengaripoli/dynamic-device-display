@@ -151,32 +151,23 @@ public class XmlParser {
         return element.getElementsByTagName(GUI_ELEMENT);
     }
 
-    /**
-     * Used to get the widget tag in a status update command.
-     *
-     * @param command Parameter 1.
-     * @return An string of the widgets tag.
-     */
-    String getCommandTag(String command) {
-        StringTokenizer st = new StringTokenizer(command, DELIM);
-        return st.nextToken();
+    boolean doesGroupHaveBorderAttribute(Element element){
+        String value = element.getAttribute("frame");
+
+        if(value == null){
+            return false;
+        }else {
+            return value.equals("true");
+        }
     }
 
-    /**
-     * Used to get the status data in a status update command.
-     *
-     * @param command Parameter 1.
-     * @return An arrayList of the comma separated status data.
-     */
-    ArrayList<String> getCommandData(String command) {
-        ArrayList<String> statusData = new ArrayList<>();
+    boolean getGroupLayoutOrientation(Element element){
+        String value = element.getAttribute("orientation");
 
-        StringTokenizer st = new StringTokenizer(command, DELIM);
-        st.nextToken();
-        while (st.hasMoreTokens()) {
-            statusData.add(st.nextToken());
+        if(value == null){
+            return false;
+        }else {
+            return value.equals("horizontal");
         }
-
-        return statusData;
     }
 }

@@ -72,8 +72,8 @@ public class SelectionFragment extends DynamicFragment implements AdapterView.On
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_selection, container, false);
 
-        TextView label = view.findViewById(R.id.selection_label);
-        label.setText(this.label);
+        labelView = view.findViewById(R.id.selection_label);
+        addLabel();
 
         selection = view.findViewById(R.id.selection_value);
         selection.setOnItemSelectedListener(this);
