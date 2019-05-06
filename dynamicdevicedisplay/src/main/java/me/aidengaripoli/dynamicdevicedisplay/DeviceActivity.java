@@ -1,23 +1,16 @@
-package com.example.xmlui;
+package me.aidengaripoli.dynamicdevicedisplay;
 
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
-import me.aidengaripoli.dynamicdevicedisplay.IoTDevice;
-import me.aidengaripoli.dynamicdevicedisplay.IotNetworkDiscovery;
-import me.aidengaripoli.dynamicdevicedisplay.OnFragmentInteractionListener;
-import me.aidengaripoli.dynamicdevicedisplay.UiGenerator;
-import me.aidengaripoli.dynamicdevicedisplay.elements.DynamicFragment;
-
-public class IotDeviceActivity extends FragmentActivity implements OnFragmentInteractionListener {
+public class DeviceActivity extends AppCompatActivity implements OnFragmentInteractionListener{
     FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
