@@ -24,6 +24,7 @@ public class XmlParser {
     private final String GUI_ELEMENT = "gui_element";
     private final String DELIM = ",";
 
+
     /**
      * Used to retrieve the string found inside the <Type/> tag.
      * Will return the string in the first <Type/> tag if multiple are specified.
@@ -75,6 +76,21 @@ public class XmlParser {
      */
     String getName(Element element) {
         return getTagData(element, NAME);
+    }
+
+    /**
+     * Used to retrieve the name of an element from an input stream of an xml file.
+     *
+     * @param file Parameter 1.
+     * @return A String with the value in the name tag.
+     */
+    public String getDeviceName(InputStream file) {
+        NodeList groupsList = getGroups(file);
+
+        if(groupsList != null){
+            return getName((Element) groupsList.item(0));
+        }
+        return "";
     }
 
     /**

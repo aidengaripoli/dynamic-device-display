@@ -1,7 +1,9 @@
 package me.aidengaripoli.dynamicdevicedisplay;
 
+import android.content.res.AssetManager;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +11,19 @@ public class IotNetworkDiscovery {
     private static final String TAG = "IotNetworkDiscovery";
     private List<IoTDevice> devices;
 
-    public IotNetworkDiscovery(){
+    public IotNetworkDiscovery(AssetManager assets){
         devices = new ArrayList<>();
-        devices.add(new IoTDevice("Kettle.xml", "Kettle"));
-        devices.add(new IoTDevice("TV.xml", "TV"));
-        devices.add(new IoTDevice("SecCamera.xml", "Security Camera"));
-        devices.add(new IoTDevice("Thermostat.xml", "Thermostat"));
-        devices.add(new IoTDevice("Elements.xml", "Elements"));
+        try {
+            String [] list = assets.list("");
+            XmlParser xmlParser = new XmlParser();
+            for (String file : list) {
+                if(file.contains(".xml")){
+                    devices.add(new IoTDevice(file, xmlParser.getDeviceName(assets.open(file))));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<IoTDevice> findDevices(){
@@ -35,7 +43,7 @@ public class IotNetworkDiscovery {
         return null;
     }
 
-    public ArrayList<String> getDeviceInformation(IoTDevice device){
+     static ArrayList<String> getDeviceInformation(IoTDevice device){
         // TODO: Retrieve the current status of each widget in the devices xml.
         ArrayList<String> commands = new ArrayList<>();
         switch (device.deviceName){

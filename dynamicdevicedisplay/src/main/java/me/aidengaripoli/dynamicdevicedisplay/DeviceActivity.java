@@ -19,7 +19,7 @@ public class DeviceActivity extends AppCompatActivity implements OnFragmentInter
         fragmentManager = getSupportFragmentManager();
         ScrollView scrollView = new ScrollView(this);
         Bundle extras = getIntent().getExtras();
-        IotNetworkDiscovery iotNetworkDiscovery = new IotNetworkDiscovery();
+        IotNetworkDiscovery iotNetworkDiscovery = new IotNetworkDiscovery(getAssets());
 
         String deviceName = extras != null ? extras.getString("deviceName") : null;
         IoTDevice device = iotNetworkDiscovery.connectToDevice(deviceName);
