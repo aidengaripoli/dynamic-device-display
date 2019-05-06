@@ -18,7 +18,7 @@ public class DeviceDiscoveryActivity extends AppCompatActivity {
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        iotNetworkDiscovery = new IotNetworkDiscovery();
+        iotNetworkDiscovery = new IotNetworkDiscovery(getAssets());
         List<IoTDevice> devices = iotNetworkDiscovery.findDevices();
 
         for (IoTDevice device : devices) {

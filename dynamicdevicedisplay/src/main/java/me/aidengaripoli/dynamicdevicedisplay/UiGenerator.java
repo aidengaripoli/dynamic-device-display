@@ -1,7 +1,6 @@
 package me.aidengaripoli.dynamicdevicedisplay;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -14,9 +13,6 @@ import android.widget.TextView;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -79,8 +75,7 @@ public class UiGenerator {
         }
 
 
-        IotNetworkDiscovery iotNetworkDiscovery = new IotNetworkDiscovery();
-        ArrayList<String> updateCommands = iotNetworkDiscovery.getDeviceInformation(device);
+        ArrayList<String> updateCommands = IotNetworkDiscovery.getDeviceInformation(device);
 
         for (String command: updateCommands) {
             String tag = xmlParser.getCommandTag(command);
