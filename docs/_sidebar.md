@@ -5,6 +5,8 @@
 
 * Usage
 
+  * [Device Examples](examples)
+
 * Customization
 
 * Reference
