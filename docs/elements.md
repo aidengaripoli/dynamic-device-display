@@ -128,7 +128,7 @@
 #### Example
 
 ```xml
-<group id="1" permisison="WN">
+<group id="1" permisison="WR">
     <gui_element id="1">
         <type>selection</type>
         <disp_settings>Move Door,one,two,three,four,five,six</disp_settings>
