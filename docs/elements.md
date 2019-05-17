@@ -246,7 +246,7 @@
 <group id="1" permisison="WR">
     <gui_element id="1">
         <type>scheduler</type>
-        <disp_settings>Schedule an event,Submit,Change,Time,Mon,Tue,Wed,Thu,Fri</disp_settings>
+        <disp_settings>Schedule an event,Submit,Mon,Tue,Wed,Thu,Fri</disp_settings>
         <status_location>1</status_location>
         <comment>Event scheduler</comment>
     </gui_element>
