@@ -39,13 +39,12 @@ public class SchedulerFragment extends DynamicFragment implements AdapterView.On
 
     private int hr;
     private int min;
-    private String time;
+    private String time = "NA";
     private Button timeButton;
 
     private int currentPosition;
 
     private Spinner selection;
-//    private Button timeButton;
 
     private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
@@ -73,7 +72,10 @@ public class SchedulerFragment extends DynamicFragment implements AdapterView.On
         Bundle args = new Bundle();
         args.putString(ARG_LABEL, displaySettings.get(ARG_LABEL_INDEX));
         args.putString(ARG_BUTTON_LABEL, displaySettings.get(ARG_BUTTON_LABEL_INDEX));
-        displaySettings.remove(ARG_BUTTON_LABEL_INDEX);
+
+        //remove the first two elements. Label and Button Label.
+        displaySettings.remove(0);
+        displaySettings.remove(0);
 
         String[] values = displaySettings.toArray(new String[0]);
         args.putStringArray(ARG_ITEMS, values);

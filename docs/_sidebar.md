@@ -5,6 +5,10 @@
 
 * Usage
 
+  * [Device Examples](examples)
+
 * Customization
 
-* Elements
+* Reference
+
+  * [Elements](elements)
