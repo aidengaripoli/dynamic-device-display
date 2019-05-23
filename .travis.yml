@@ -6,7 +6,13 @@ env:
     - ANDROID_BUILD_TOOLS_VERSION=28.0.3
 android:
   components:
+    # Latest revision of Android SDK Tools
     - tools
     - platform-tools
+    # BuildTools version used by the project
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    # Android SDK used to compile the project
     - android-$ANDROID_API_LEVEL
+    # Additional components
+    - extra-google-m2repository
+    - extra-android-m2repository
