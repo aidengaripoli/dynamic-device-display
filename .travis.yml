@@ -1,6 +1,15 @@
 language: android
 jdk: oraclejdk8
 
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
+
 env:
   global:
     - ANDROID_API_LEVEL=28
@@ -19,7 +28,8 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
-before_script: - chmod +x gradlew
+before_script:
+  - chmod +x gradlew
 
 script:
   - ./gradlew build check # Runs lint and unit tests
