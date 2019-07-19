@@ -67,7 +67,7 @@ public class IotNetworkDiscovery {
                 commands.add("2-1,15");
                 commands.add("3-1,18");
                 commands.add("5-1,5");
-                commands.add("7-1,1,4:20 PM");
+                commands.add("7-1,1,5:23 PM");
                 break;
             case "Elements":
                 commands.add("1-1,true");
