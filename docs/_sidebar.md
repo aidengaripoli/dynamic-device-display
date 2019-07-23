@@ -5,9 +5,8 @@
 
 * Usage
 
+  * [API Usage](api)
   * [Device Examples](examples)
-
-* Customization
 
 * Reference
 

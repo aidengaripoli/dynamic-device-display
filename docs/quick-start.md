@@ -74,7 +74,7 @@ Now right click on your root project folder, and click **New > Folder > Assets F
 
 Create an xml file in the assets folder by right clicking the assets folder and click **New > File**
 
-Call the file `exmaple.xml` and copy the following:
+Call the file `example.xml` and copy the following:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -95,4 +95,3 @@ Call the file `exmaple.xml` and copy the following:
 ```
 
 Now run the application.
-
