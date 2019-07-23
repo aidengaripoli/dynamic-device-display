@@ -13,6 +13,9 @@ public class IotNetworkDiscovery {
 
     public IotNetworkDiscovery(AssetManager assets){
         devices = new ArrayList<>();
+
+        //Currently gets xml files from the Assets folder.
+        //In the future, XML files would be retrieved from IoT devices over the local network.
         try {
             String [] list = assets.list("");
             XmlParser xmlParser = new XmlParser();
@@ -32,7 +35,7 @@ public class IotNetworkDiscovery {
     }
 
     public IoTDevice connectToDevice(String deviceName){
-        //TODO: Find the device on the network and get its xml file.
+        //TODO: Discover the device on the network and get its xml file.
         for (IoTDevice device: devices) {
             if(device.deviceName.equals(deviceName)){
                 return device;
@@ -44,7 +47,8 @@ public class IotNetworkDiscovery {
     }
 
      static ArrayList<String> getDeviceInformation(IoTDevice device){
-        // TODO: Retrieve the current status of each widget in the devices xml.
+        // TODO: Retrieve the current status of an IoT device over the network.
+        // These are placeholder status update messages.
         ArrayList<String> commands = new ArrayList<>();
         switch (device.deviceName){
             case "Kettle":
